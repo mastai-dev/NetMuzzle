@@ -72,19 +72,47 @@ jobs:
           name: "NetMuzzle v1.0.0 (Official Release)"
           body: |
             ## 🛡️ NetMuzzle v1.0.0
-            
-            Ultra-lightweight, zero-CPU, no-root Android firewall.
-            
-            ### 📦 Pobierz / Download:
-            - **[NetMuzzle-v1.0.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.0.0/NetMuzzle-v1.0.0.apk)** (~1 MB) — gotowa do bezpośredniej instalacji na smartfonie z Androidem (Android 8.0+ / Oreo do Android 14+).
-            
-            ### ✨ Kluczowe funkcje / Key Features:
-            - 🔒 **Blokada aplikacji:** Odcina dostęp do internetu dla wybranych aplikacji (reklamy, telemetria, gry).
-            - ⚡ **0% obciążenia CPU:** Ruch dozwolonych aplikacji omija silnik na poziomie jądra systemu Linux (kernel bypass).
-            - 🔋 **Zero drenażu baterii:** Brak analizowania pakietów, brak deszyfrowania TLS/SSL, brak procesów w tle.
-            - 🛡️ **Zero wycieków DNS:** Pętla blackhole sink pochłania zapytania DNS zablokowanych aplikacji.
-            - 🌍 **Język polski i angielski:** Automatyczna lokalizacja.
-            - 💎 **100% Free & Open Source:** Na licencji MIT.
+
+            Ultra-lightweight, zero-CPU, no-root Android firewall application.  
+            *Super-lekki firewall na Androida bez roota i bez drenowania baterii.*
+
+            ---
+
+            ### 🇬🇧 English
+
+            #### 📦 Download
+            - **[NetMuzzle-v1.0.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.0.0/NetMuzzle-v1.0.0.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
+            - **NetMuzzle-v1.0.0.aab** — Google Play production App Bundle.
+
+            #### ✨ Key Features
+            - 🔒 **Selective Blackholing:** Cut off internet access for chosen apps (intrusive games, telemetry, ad-trackers).
+            - ⚡ **0% CPU Overhead:** Allowed apps bypass the VPN engine directly at the Linux kernel level (`addAllowedApplication`).
+            - 🔋 **Zero Battery Drain:** No packet inspection loop, no TLS decryption, no heavy background processing.
+            - 🛡️ **Zero DNS Leaks:** Dead loopback sink (IPv4 & IPv6) rejects DNS queries from blocked apps on-device.
+            - 🌍 **Bilingual Support:** Automatically switches between English and Polish based on your device language.
+            - 💎 **100% Free & Open Source:** Licensed under the MIT License by Marcin Stankiewicz.
+
+            🌐 **Website / Landing Page:** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
+            🛡️ **Privacy Policy:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
+
+            ---
+
+            ### 🇵🇱 Polski
+
+            #### 📦 Pobierz
+            - **[NetMuzzle-v1.0.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.0.0/NetMuzzle-v1.0.0.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
+            - **NetMuzzle-v1.0.0.aab** — Oficjalna paczka produkcyjna dla Google Play.
+
+            #### ✨ Najważniejsze funkcje
+            - 🔒 **Blokada internetu dla aplikacji:** Odcina łączność sieciową tylko dla wybranych przez Ciebie programów.
+            - ⚡ **0% obciążenia procesora:** Dopuszczony ruch (99%) omija aplikację bezpośrednio na poziomie jądra systemu Linux.
+            - 🔋 **Zero drenażu baterii:** Brak analizowania pakietów, brak deszyfrowania TLS i brak ciężkich procesów w tle.
+            - 🛡️ **Zero wycieków DNS:** Pętla blackhole sink pochłania zapytania DNS zablokowanych apek natychmiast na telefonie.
+            - 🌍 **W pełni po polsku:** Automatyczne wykrywanie języka polskiego w telefonie.
+            - 💎 **100% Darmowy & Open Source:** Na otwartej licencji MIT (autor: Marcin Stankiewicz).
+
+            🌐 **Strona projektu (Landing Page):** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
+            🛡️ **Polityka Prywatności:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
           files: |
             release-assets/NetMuzzle-v1.0.0.apk
             release-assets/NetMuzzle-v1.0.0.aab
