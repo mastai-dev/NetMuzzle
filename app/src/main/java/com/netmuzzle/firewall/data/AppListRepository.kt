@@ -31,7 +31,7 @@ class AppListRepository(private val context: Context) {
             val appInfo = pkgInfo.applicationInfo ?: continue
             val pkgName = pkgInfo.packageName
 
-            // Nie pokazujemy samej aplikacji LightVPN na liście
+            // Nie pokazujemy samej aplikacji NetMuzzle na liście
             if (pkgName == myPackageName) continue
 
             val isSystem = (appInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0

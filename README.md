@@ -43,8 +43,8 @@ NetMuzzle/
 ├── app/
 │   ├── src/main/
 │   │   ├── AndroidManifest.xml          # Deklaracje uprawnień, VpnService, Tile i Receiverów
-│   │   ├── java/com/lightvpn/firewall/
-│   │   │   ├── LightVpnApp.kt           # Klasa Application i kanały powiadomień
+│   │   ├── java/com/netmuzzle/firewall/
+│   │   │   ├── NetMuzzleApp.kt          # Klasa Application i kanały powiadomień
 │   │   │   ├── model/
 │   │   │   │   ├── AppInfo.kt           # Model aplikacji (nazwa, ikona, package, status)
 │   │   │   │   └── FirewallState.kt     # Stany (DISABLED, STANDBY, ACTIVE)

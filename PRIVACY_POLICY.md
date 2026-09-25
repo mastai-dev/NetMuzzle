@@ -31,4 +31,4 @@ Uprawnienie to jest wykorzystywane wyłącznie w celu wyświetlenia użytkowniko
 Konfiguracja blokad jest zapisywana lokalnie w pamięci urządzenia za pomocą komponentu Android Jetpack DataStore. Odinstalowanie aplikacji bezpowrotnie usuwa wszystkie zapisane reguły.
 
 ---
-*Repozytorium kodu i angielska wersja polityki prywatności: [NetMuzzle na GitHubie](https://github.com/mastai-dev/LightVPN)*
+*Repozytorium kodu i angielska wersja polityki prywatności: [NetMuzzle na GitHubie](https://github.com/mastai-dev/NetMuzzle)*

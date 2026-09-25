@@ -1,4 +1,4 @@
-# Proguard rules for LightVPN
+# Proguard rules for NetMuzzle
 
 # Keep data models
 -keep class com.netmuzzle.firewall.model.** { *; }

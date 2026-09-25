@@ -30,7 +30,7 @@ Kompletny podręcznik krok po kroku, jak opublikować aplikację **NetMuzzle** w
 Google Play **bezwzględnie wymaga** działającego linku URL do polityki prywatności. Przygotowałem dla Ciebie gotowy plik HTML w folderze `docs/index.html`.
 
 ### Jak włączyć stronę w 30 sekund:
-1. Wejdź w swoje repozytorium na GitHubie: **`https://github.com/mastai-dev/LightVPN`**.
+1. Wejdź w swoje repozytorium na GitHubie: **`https://github.com/mastai-dev/NetMuzzle`**.
 2. Kliknij **Settings** (Ustawienia repozytorium na górze).
 3. W menu po lewej stronie kliknij **Pages**.
 4. W sekcji **Build and deployment**:
@@ -38,7 +38,7 @@ Google Play **bezwzględnie wymaga** działającego linku URL do polityki prywat
    * **Branch:** wybierz `main` oraz folder **`/docs`**.
    * Kliknij **Save**.
 5. Po minucie Twoja polityka prywatności będzie aktywna pod adresem:
-   👉 **`https://mastai-dev.github.io/LightVPN/`**
+   👉 **`https://mastai-dev.github.io/NetMuzzle/`**
    *(Ten link wkleisz w konsoli Google Play).*
 
 ---
