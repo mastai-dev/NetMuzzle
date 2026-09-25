@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LightVPN</string>
+    <string name="quick_settings_tile_label">LightVPN Firewall</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Stan Firewall VPN</string>
+    <string name="notification_channel_desc">Powiadomienia o statusie ochrony w tle</string>
+    <string name="notification_active_title">Firewall aktywny</string>
+    <string name="notification_standby_title">Firewall w trybie czuwania</string>
+    <string name="notification_active_text">Zablokowano ruch dla %1$d aplikacji</string>
+    <string name="notification_standby_text">Brak aplikacji na czarnej liście (ruch odblokowany)</string>
+    <string name="notification_action_stop">Wyłącz</string>
+
+    <!-- UI Strings -->
+    <string name="firewall_status_active">OCHRONA AKTYWNA</string>
+    <string name="firewall_status_standby">TRYB CZUWANIA</string>
+    <string name="firewall_status_disabled">WYŁĄCZONY</string>
+    <string name="search_placeholder">Szukaj aplikacji…</string>
+    <string name="filter_all">Wszystkie</string>
+    <string name="filter_blocked">Zablokowane (%1$d)</string>
+    <string name="filter_system_apps">Aplikacje systemowe</string>
+    <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
+    <string name="setting_battery_opt">Optymalizacja baterii</string>
+    <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
+    <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał firewalla w tle po uśpieniu ekranu, zaleca się dodanie LightVPN do wyjątków oszczędzania energii.</string>
+    <string name="battery_opt_action">Otwórz ustawienia</string>
+    <string name="dialog_cancel">Anuluj</string>
+    <string name="no_apps_found">Nie znaleziono pasujących aplikacji</string>
+</resources>
