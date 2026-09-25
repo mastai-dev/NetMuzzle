@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NetMuzzle</string>
+    <string name="quick_settings_tile_label">NetMuzzle</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Stan NetMuzzle</string>
+    <string name="notification_channel_desc">Powiadomienia o statusie blokowania w tle</string>
+    <string name="notification_active_title">NetMuzzle aktywny</string>
+    <string name="notification_standby_title">NetMuzzle w trybie czuwania</string>
+    <string name="notification_active_text">Zablokowano ruch dla %1$d aplikacji</string>
+    <string name="notification_standby_text">Brak aplikacji na czarnej liście (ruch odblokowany)</string>
+    <string name="notification_action_stop">Wyłącz</string>
+
+    <!-- UI Strings -->
+    <string name="firewall_status_active">BLOKADA AKTYWNA</string>
+    <string name="firewall_status_standby">TRYB CZUWANIA</string>
+    <string name="firewall_status_disabled">WYŁĄCZONY</string>
+    <string name="firewall_status_disabled_desc">Ruch sieciowy nie jest blokowany</string>
+    <string name="search_placeholder">Szukaj aplikacji…</string>
+    <string name="filter_all">Wszystkie</string>
+    <string name="filter_blocked">Zablokowane (%1$d)</string>
+    <string name="filter_system_apps">Aplikacje systemowe</string>
+    <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
+    <string name="setting_battery_opt">Optymalizacja baterii</string>
+    <string name="menu_about">O aplikacji</string>
+    <string name="about_title">NetMuzzle</string>
+    <string name="about_desc">Wersja 1.0.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall odcinający ruch sieciowy wybranym aplikacjom bez uprawnień roota i z zerowym narzutem na baterię.</string>
+    <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
+    <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał NetMuzzle w tle po uśpieniu ekranu, zaleca się dodanie aplikacji do wyjątków oszczędzania energii.</string>
+    <string name="battery_opt_action">Otwórz ustawienia</string>
+    <string name="dialog_cancel">Anuluj</string>
+    <string name="dialog_ok">OK</string>
+    <string name="cd_clear">Wyczyść</string>
+    <string name="cd_menu">Menu</string>
+    <string name="badge_system">SYS</string>
+    <string name="no_apps_found">Nie znaleziono pasujących aplikacji</string>
+</resources>

@@ -140,7 +140,7 @@ fun FirewallScreen(
                     IconButton(onClick = { showMenu = true }) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
-                            contentDescription = "Menu",
+                            contentDescription = stringResource(R.string.cd_menu),
                             tint = TextSecondary
                         )
                     }
@@ -261,7 +261,7 @@ fun FirewallScreen(
                         IconButton(onClick = { viewModel.onSearchQueryChanged("") }) {
                             Icon(
                                 imageVector = Icons.Default.Close,
-                                contentDescription = "Wyczyść",
+                                contentDescription = stringResource(R.string.cd_clear),
                                 tint = TextSecondary
                             )
                         }
@@ -427,7 +427,7 @@ fun FirewallScreen(
             },
             confirmButton = {
                 TextButton(onClick = { showAboutDialog = false }) {
-                    Text("OK", color = NeonCyan)
+                    Text(stringResource(R.string.dialog_ok), color = NeonCyan)
                 }
             },
             containerColor = DarkSurface
@@ -460,7 +460,7 @@ fun StatusBanner(
             borderColor = DarkBorder,
             iconColor = StatusDisabledRed,
             title = stringResource(R.string.firewall_status_disabled),
-            subtitle = "Ruch sieciowy nie jest blokowany"
+            subtitle = stringResource(R.string.firewall_status_disabled_desc)
         )
     }
 
@@ -560,7 +560,7 @@ fun AppListItem(
                                 .padding(horizontal = 6.dp, vertical = 2.dp)
                         ) {
                             Text(
-                                text = "SYS",
+                                text = stringResource(R.string.badge_system),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = TextMuted
                             )
