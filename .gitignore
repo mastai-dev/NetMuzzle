@@ -12,6 +12,3 @@ app/build/
 *.apk
 *.aab
 
-# Local landing page (STRICTLY PRIVATE - NEVER COMMIT TO GITHUB)
-landing-page/
-landing/

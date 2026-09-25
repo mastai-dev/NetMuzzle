@@ -27,7 +27,7 @@ Kompletny podręcznik krok po kroku, jak opublikować aplikację **NetMuzzle** w
 
 ## 2. Hosting Polityki Prywatności (GitHub Pages)
 
-Google Play **bezwzględnie wymaga** działającego linku URL do polityki prywatności. Przygotowałem dla Ciebie gotowy plik HTML w folderze `docs/index.html`.
+Google Play **bezwzględnie wymaga** działającego linku URL do polityki prywatności. W folderze `docs/` znajduje się zarówno strona główna (Landing Page), jak i dedykowana Polityka Prywatności (`privacy.html`).
 
 ### Jak włączyć stronę w 30 sekund:
 1. Wejdź w swoje repozytorium na GitHubie: **`https://github.com/mastai-dev/NetMuzzle`**.
@@ -37,9 +37,10 @@ Google Play **bezwzględnie wymaga** działającego linku URL do polityki prywat
    * **Source:** wybierz *Deploy from a branch*.
    * **Branch:** wybierz `main` oraz folder **`/docs`**.
    * Kliknij **Save**.
-5. Po minucie Twoja polityka prywatności będzie aktywna pod adresem:
-   👉 **`https://mastai-dev.github.io/NetMuzzle/`**
-   *(Ten link wkleisz w konsoli Google Play).*
+5. Po minucie Twoje strony będą aktywne pod adresami:
+   * 🌐 **Strona główna (Landing Page):** `https://mastai-dev.github.io/NetMuzzle/`
+   * 🛡️ **Polityka Prywatności (do wklejenia w Google Play):**
+     👉 **`https://mastai-dev.github.io/NetMuzzle/privacy.html`**
 
 ---
 
