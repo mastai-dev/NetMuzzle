@@ -70,15 +70,32 @@ LightVPN/
 
 ---
 
-## 🛠️ Wymagania i Kompilacja
+## 🛠️ Opcje Kompilacji
 
-* **Android Studio:** Hedgehog (2023.1.1) lub nowsze (np. Iguana, Jellyfish, Koala).
-* **JDK:** Wersja 17 lub nowsza.
-* **Min SDK:** 26 (Android 8.0 Oreo).
-* **Target SDK:** 34 (Android 14).
+### Opcja A: Automatyczne budowanie w chmurze (GitHub Actions) – Bez instalowania Android Studio
+Projekt posiada gotowy workflow `.github/workflows/build.yml`.
+1. Utwórz nowe repozytorium na [github.com/new](https://github.com/new) (np. `LightVPN`).
+2. Wyślij kod:
+   ```bash
+   git remote add origin https://github.com/TWÓJ_LOGIN/LightVPN.git
+   git push -u origin main
+   ```
+3. W zakładce **Actions** na GitHubie zobaczysz uruchomione zadanie *Build LightVPN APK*.
+4. Po ~2 minutach w szczegółach zadania (sekcja *Artifacts*) pobierzesz gotowy plik **`LightVPN-Debug-APK.zip`** zawierający plik `.apk` do instalacji na telefonie.
 
-Aby otworzyć projekt:
+---
+
+### Opcja B: Uruchomienie w Android Studio
 1. Uruchom Android Studio.
 2. Wybierz **File -> Open** i wskaż katalog `c:\antigravity\LightVPN`.
 3. Poczekaj na automatyczną synchronizację Gradle (*Sync Project with Gradle Files*).
 4. Podłącz telefon z włączonym debugowaniem USB lub uruchom emulator i kliknij **Run** (Zielony trójkąt).
+
+---
+
+### Opcja C: Budowanie lokalne z terminala
+Mając zainstalowaną Javę 17:
+```powershell
+.\gradlew.bat assembleDebug
+```
+Gotowy plik APK znajdzie się w katalogu: `app/build/outputs/apk/debug/app-debug.apk`.
