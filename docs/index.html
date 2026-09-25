@@ -64,29 +64,35 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🛡️ NetMuzzle - Privacy Policy</h1>
-        <p><em>Last updated: September 25, 2026</em></p>
+        <p><em>Last updated: September 25, 2026</em><br>
+        <em>Author & Copyright Owner:</em> <strong>Marcin Stankiewicz</strong></p>
 
         <div class="highlight-box">
-            <strong style="color: var(--accent);">Summary:</strong> NetMuzzle is designed with absolute privacy in mind. We do not collect, store, sell, or transmit any personal data, usage data, or network traffic. Everything operates strictly on your local device.
+            <strong style="color: var(--accent);">Summary & Open Source Transparency:</strong> NetMuzzle is an open-source, free software project licensed under the MIT License. The entire source code is publicly auditable on GitHub. We do not collect, store, sell, or transmit any personal data, usage data, or network traffic.
         </div>
 
-        <h2>1. Overview</h2>
-        <p>NetMuzzle ("the App", "we", "us") is an ultra-lightweight, no-root firewall application designed to block internet access for user-selected applications. Your privacy is our core priority.</p>
+        <h2>1. Overview and Open Source Philosophy</h2>
+        <p>NetMuzzle ("the App") was developed by <strong>Marcin Stankiewicz</strong>. To demonstrate complete transparency and prove that no hidden telemetry or backdoor tracking exists, the project is 100% open source.</p>
 
-        <h2>2. Data Collection and Transmission</h2>
+        <h2>2. Pricing and Future Advertising Disclosure</h2>
+        <p>NetMuzzle is provided as a free application. In the current version, the App is completely ad-free. In future releases, non-intrusive advertisements may be introduced to support ongoing maintenance and development. Any future advertising integration will comply strictly with Google Play policies and will <strong>never</strong> compromise the local firewall blackhole or inspect your network activity.</p>
+
+        <h2>3. Data Collection and Transmission</h2>
         <ul>
             <li><strong>No Personal Data:</strong> We do not collect names, email addresses, phone numbers, device IDs, or IP addresses.</li>
-            <li><strong>No Analytics or Tracking:</strong> The App does not integrate any analytics SDKs, advertising frameworks, crash-reporting third parties, or trackers.</li>
-            <li><strong>No External Servers:</strong> The App does not communicate with any external servers. All operations happen entirely offline on your device.</li>
+            <li><strong>No Analytics or Tracking:</strong> The App does not integrate any third-party analytics SDKs, trackers, or crash-reporting services.</li>
+            <li><strong>No External Servers:</strong> The App does not communicate with external servers. All operations happen entirely offline on your device.</li>
         </ul>
 
-        <h2>3. Use of VpnService</h2>
+        <h2>4. Use of VpnService</h2>
         <p>NetMuzzle uses Android's system <code>VpnService</code> API strictly as a <strong>local network blackhole (sink)</strong>:</p>
         <ul>
             <li>Only applications explicitly placed on the user's blocklist are routed into the local VPN interface.</li>
@@ -95,17 +101,17 @@
             <li>Unblocked applications bypass the VPN interface entirely at the Linux kernel level.</li>
         </ul>
 
-        <h2>4. Use of QUERY_ALL_PACKAGES Permission</h2>
+        <h2>5. Use of QUERY_ALL_PACKAGES Permission</h2>
         <p>The App requests the <code>QUERY_ALL_PACKAGES</code> permission solely to display the list of installed applications on your device, allowing you to select which applications you wish to mute/block. This list never leaves your device.</p>
 
-        <h2>5. Data Storage</h2>
-        <p>Your preferences (such as which applications are blocked and whether autostart is enabled) are stored locally on your device using Android's encrypted Jetpack DataStore. Uninstalling the app permanently deletes all stored data.</p>
+        <h2>6. Data Storage</h2>
+        <p>Your preferences are stored locally on your device using Android's encrypted Jetpack DataStore. Uninstalling the app permanently deletes all stored data.</p>
 
-        <h2>6. Contact Us</h2>
-        <p>If you have any questions or suggestions regarding this Privacy Policy, please open an issue on our GitHub repository: <a href="https://github.com/mastai-dev/LightVPN" style="color: var(--accent);">https://github.com/mastai-dev/LightVPN</a>.</p>
+        <h2>7. Contact and Source Code</h2>
+        <p>Source code repository and issue tracker: <a href="https://github.com/mastai-dev/LightVPN" style="color: var(--accent);">https://github.com/mastai-dev/LightVPN</a>.</p>
 
         <div class="footer">
-            &copy; 2026 NetMuzzle. All rights reserved.
+            &copy; 2026 Marcin Stankiewicz. Released under the MIT License.
         </div>
     </div>
 </body>

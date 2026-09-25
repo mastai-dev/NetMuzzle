@@ -82,3 +82,12 @@ Mając zainstalowaną Javę 17 (Microsoft OpenJDK 17):
 .\gradlew.bat assembleRelease
 ```
 Gotowy plik APK znajdzie się w katalogu: `app/build/outputs/apk/release/app-release.apk`.
+
+---
+
+## 👤 Autor i Prawa Autorskie
+
+* **Autor i twórca:** Marcin Stankiewicz
+* **Licencja:** [MIT License](LICENSE) (Projekt Open Source)
+* **Model dystrybucji:** Aplikacja w 100% darmowa. W przyszłości mogą pojawić się nienachalne reklamy wspierające rozwój, jednak podstawowa funkcja blokady oraz pełna prywatność zawsze pozostaną bezpłatne i nienaruszone.
+* **Przejrzystość (Open Source):** Cały kod źródłowy jest publicznie dostępny, co gwarantuje pełne bezpieczeństwo – każdy może sprawdzić, że aplikacja nie posiada żadnych ukrytych mechanizmów telemetrycznych ani serwerów śledzących.

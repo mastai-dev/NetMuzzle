@@ -22,6 +22,9 @@
     <string name="filter_system_apps">Aplikacje systemowe</string>
     <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
     <string name="setting_battery_opt">Optymalizacja baterii</string>
+    <string name="menu_about">O aplikacji</string>
+    <string name="about_title">NetMuzzle</string>
+    <string name="about_desc">Wersja 1.0.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall odcinający ruch sieciowy wybranym aplikacjom bez uprawnień roota i z zerowym narzutem na baterię.</string>
     <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
     <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał NetMuzzle w tle po uśpieniu ekranu, zaleca się dodanie aplikacji do wyjątków oszczędzania energii.</string>
     <string name="battery_opt_action">Otwórz ustawienia</string>

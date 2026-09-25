@@ -102,6 +102,7 @@ fun FirewallScreen(
 
     var showMenu by remember { mutableStateOf(false) }
     var showBatteryDialog by remember { mutableStateOf(false) }
+    var showAboutDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -199,6 +200,19 @@ fun FirewallScreen(
                             onClick = {
                                 showMenu = false
                                 showBatteryDialog = true
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.menu_about),
+                                    color = TextPrimary,
+                                    fontSize = 14.sp
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                showAboutDialog = true
                             }
                         )
                     }
@@ -386,6 +400,34 @@ fun FirewallScreen(
             dismissButton = {
                 TextButton(onClick = { showBatteryDialog = false }) {
                     Text(stringResource(R.string.dialog_cancel), color = TextMuted)
+                }
+            },
+            containerColor = DarkSurface
+        )
+    }
+
+    // Dialog O aplikacji (Autor & Open Source)
+    if (showAboutDialog) {
+        AlertDialog(
+            onDismissRequest = { showAboutDialog = false },
+            title = {
+                Text(
+                    stringResource(R.string.about_title),
+                    color = TextPrimary,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(
+                    stringResource(R.string.about_desc),
+                    color = TextSecondary,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
+                )
+            },
+            confirmButton = {
+                TextButton(onClick = { showAboutDialog = false }) {
+                    Text("OK", color = NeonCyan)
                 }
             },
             containerColor = DarkSurface
