@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.ui.theme
+package com.netmuzzle.firewall.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

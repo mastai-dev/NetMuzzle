@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.ui
+package com.netmuzzle.firewall.ui
 
 import android.Manifest
 import android.app.Activity
@@ -10,9 +10,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import com.lightvpn.firewall.ui.screens.FirewallScreen
-import com.lightvpn.firewall.ui.theme.NetMuzzleTheme
-import com.lightvpn.firewall.ui.viewmodel.FirewallViewModel
+import com.netmuzzle.firewall.ui.screens.FirewallScreen
+import com.netmuzzle.firewall.ui.theme.NetMuzzleTheme
+import com.netmuzzle.firewall.ui.viewmodel.FirewallViewModel
 
 class MainActivity : ComponentActivity() {
 

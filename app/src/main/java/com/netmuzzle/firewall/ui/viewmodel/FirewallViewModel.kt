@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.ui.viewmodel
+package com.netmuzzle.firewall.ui.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -6,12 +6,12 @@ import android.content.Intent
 import android.net.VpnService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.lightvpn.firewall.data.AppListRepository
-import com.lightvpn.firewall.data.FirewallPreferences
-import com.lightvpn.firewall.model.AppInfo
-import com.lightvpn.firewall.model.FirewallUiState
-import com.lightvpn.firewall.model.VpnStatus
-import com.lightvpn.firewall.service.FirewallService
+import com.netmuzzle.firewall.data.AppListRepository
+import com.netmuzzle.firewall.data.FirewallPreferences
+import com.netmuzzle.firewall.model.AppInfo
+import com.netmuzzle.firewall.model.FirewallUiState
+import com.netmuzzle.firewall.model.VpnStatus
+import com.netmuzzle.firewall.service.FirewallService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow

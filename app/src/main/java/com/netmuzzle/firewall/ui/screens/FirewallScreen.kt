@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.ui.screens
+package com.netmuzzle.firewall.ui.screens
 
 import android.content.Context
 import android.content.Intent
@@ -73,23 +73,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.lightvpn.firewall.R
-import com.lightvpn.firewall.model.AppInfo
-import com.lightvpn.firewall.model.FirewallUiState
-import com.lightvpn.firewall.model.VpnStatus
-import com.lightvpn.firewall.ui.theme.DarkBorder
-import com.lightvpn.firewall.ui.theme.DarkCard
-import com.lightvpn.firewall.ui.theme.DarkSurface
-import com.lightvpn.firewall.ui.theme.NeonCyan
-import com.lightvpn.firewall.ui.theme.StatusActiveGreen
-import com.lightvpn.firewall.ui.theme.StatusActiveGreenContainer
-import com.lightvpn.firewall.ui.theme.StatusDisabledRed
-import com.lightvpn.firewall.ui.theme.StatusStandbyAmber
-import com.lightvpn.firewall.ui.theme.StatusStandbyAmberContainer
-import com.lightvpn.firewall.ui.theme.TextMuted
-import com.lightvpn.firewall.ui.theme.TextPrimary
-import com.lightvpn.firewall.ui.theme.TextSecondary
-import com.lightvpn.firewall.ui.viewmodel.FirewallViewModel
+import com.netmuzzle.firewall.R
+import com.netmuzzle.firewall.model.AppInfo
+import com.netmuzzle.firewall.model.FirewallUiState
+import com.netmuzzle.firewall.model.VpnStatus
+import com.netmuzzle.firewall.ui.theme.DarkBorder
+import com.netmuzzle.firewall.ui.theme.DarkCard
+import com.netmuzzle.firewall.ui.theme.DarkSurface
+import com.netmuzzle.firewall.ui.theme.NeonCyan
+import com.netmuzzle.firewall.ui.theme.StatusActiveGreen
+import com.netmuzzle.firewall.ui.theme.StatusActiveGreenContainer
+import com.netmuzzle.firewall.ui.theme.StatusDisabledRed
+import com.netmuzzle.firewall.ui.theme.StatusStandbyAmber
+import com.netmuzzle.firewall.ui.theme.StatusStandbyAmberContainer
+import com.netmuzzle.firewall.ui.theme.TextMuted
+import com.netmuzzle.firewall.ui.theme.TextPrimary
+import com.netmuzzle.firewall.ui.theme.TextSecondary
+import com.netmuzzle.firewall.ui.viewmodel.FirewallViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

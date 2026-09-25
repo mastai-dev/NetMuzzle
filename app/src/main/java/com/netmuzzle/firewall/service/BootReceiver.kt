@@ -1,11 +1,11 @@
-package com.lightvpn.firewall.service
+package com.netmuzzle.firewall.service
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.VpnService
 import android.util.Log
-import com.lightvpn.firewall.data.FirewallPreferences
+import com.netmuzzle.firewall.data.FirewallPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,15 +1,15 @@
-package com.lightvpn.firewall
+package com.netmuzzle.firewall
 
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
 
-class LightVpnApp : Application() {
+class NetMuzzleApp : Application() {
 
     companion object {
-        const val CHANNEL_ID = "lightvpn_status_channel"
-        lateinit var instance: LightVpnApp
+        const val CHANNEL_ID = "netmuzzle_status_channel"
+        lateinit var instance: NetMuzzleApp
             private set
     }
 

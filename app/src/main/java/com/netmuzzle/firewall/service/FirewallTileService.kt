@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.service
+package com.netmuzzle.firewall.service
 
 import android.content.Intent
 import android.net.VpnService
@@ -6,8 +6,8 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
-import com.lightvpn.firewall.data.FirewallPreferences
-import com.lightvpn.firewall.ui.MainActivity
+import com.netmuzzle.firewall.data.FirewallPreferences
+import com.netmuzzle.firewall.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.model
+package com.netmuzzle.firewall.model
 
 enum class VpnStatus {
     DISABLED, // Firewall jest wyłączony

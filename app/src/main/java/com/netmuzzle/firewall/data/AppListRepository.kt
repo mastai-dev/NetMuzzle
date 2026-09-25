@@ -1,10 +1,10 @@
-package com.lightvpn.firewall.data
+package com.netmuzzle.firewall.data
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import com.lightvpn.firewall.model.AppInfo
+import com.netmuzzle.firewall.model.AppInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

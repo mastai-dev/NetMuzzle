@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.lightvpn.firewall"
+    namespace = "com.netmuzzle.firewall"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.lightvpn.firewall"
+        applicationId = "com.netmuzzle.firewall"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

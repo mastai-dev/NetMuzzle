@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.service
+package com.netmuzzle.firewall.service
 
 import android.app.Notification
 import android.app.PendingIntent
@@ -10,11 +10,11 @@ import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.lightvpn.firewall.LightVpnApp
-import com.lightvpn.firewall.R
-import com.lightvpn.firewall.data.FirewallPreferences
-import com.lightvpn.firewall.model.VpnStatus
-import com.lightvpn.firewall.ui.MainActivity
+import com.netmuzzle.firewall.NetMuzzleApp
+import com.netmuzzle.firewall.R
+import com.netmuzzle.firewall.data.FirewallPreferences
+import com.netmuzzle.firewall.model.VpnStatus
+import com.netmuzzle.firewall.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -30,9 +30,9 @@ class FirewallService : VpnService() {
         private const val TAG = "FirewallService"
         private const val NOTIFICATION_ID = 1001
 
-        const val ACTION_START = "com.lightvpn.firewall.ACTION_START"
-        const val ACTION_STOP = "com.lightvpn.firewall.ACTION_STOP"
-        const val ACTION_RELOAD = "com.lightvpn.firewall.ACTION_RELOAD"
+        const val ACTION_START = "com.netmuzzle.firewall.ACTION_START"
+        const val ACTION_STOP = "com.netmuzzle.firewall.ACTION_STOP"
+        const val ACTION_RELOAD = "com.netmuzzle.firewall.ACTION_RELOAD"
 
         private val _vpnStatus = MutableStateFlow(VpnStatus.DISABLED)
         val vpnStatus: StateFlow<VpnStatus> = _vpnStatus.asStateFlow()
@@ -222,7 +222,7 @@ class FirewallService : VpnService() {
             getString(R.string.notification_active_text, blockedCount)
         }
 
-        return NotificationCompat.Builder(this, LightVpnApp.CHANNEL_ID)
+        return NotificationCompat.Builder(this, NetMuzzleApp.CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_shield)
             .setContentTitle(title)
             .setContentText(text)

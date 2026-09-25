@@ -1,4 +1,4 @@
-package com.lightvpn.firewall.data
+package com.netmuzzle.firewall.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetMuzzle - Privacy Policy</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #00e5ff;
+            --border: #334155;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        h2 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-top: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+        p, li {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .highlight-box {
+            background: rgba(0, 229, 255, 0.08);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ NetMuzzle - Privacy Policy</h1>
+        <p><em>Last updated: September 25, 2026</em></p>
+
+        <div class="highlight-box">
+            <strong style="color: var(--accent);">Summary:</strong> NetMuzzle is designed with absolute privacy in mind. We do not collect, store, sell, or transmit any personal data, usage data, or network traffic. Everything operates strictly on your local device.
+        </div>
+
+        <h2>1. Overview</h2>
+        <p>NetMuzzle ("the App", "we", "us") is an ultra-lightweight, no-root firewall application designed to block internet access for user-selected applications. Your privacy is our core priority.</p>
+
+        <h2>2. Data Collection and Transmission</h2>
+        <ul>
+            <li><strong>No Personal Data:</strong> We do not collect names, email addresses, phone numbers, device IDs, or IP addresses.</li>
+            <li><strong>No Analytics or Tracking:</strong> The App does not integrate any analytics SDKs, advertising frameworks, crash-reporting third parties, or trackers.</li>
+            <li><strong>No External Servers:</strong> The App does not communicate with any external servers. All operations happen entirely offline on your device.</li>
+        </ul>
+
+        <h2>3. Use of VpnService</h2>
+        <p>NetMuzzle uses Android's system <code>VpnService</code> API strictly as a <strong>local network blackhole (sink)</strong>:</p>
+        <ul>
+            <li>Only applications explicitly placed on the user's blocklist are routed into the local VPN interface.</li>
+            <li>Packets sent into the VPN interface are discarded immediately on the device.</li>
+            <li><strong>We do not inspect, log, analyze, or forward any network traffic or DNS queries.</strong></li>
+            <li>Unblocked applications bypass the VPN interface entirely at the Linux kernel level.</li>
+        </ul>
+
+        <h2>4. Use of QUERY_ALL_PACKAGES Permission</h2>
+        <p>The App requests the <code>QUERY_ALL_PACKAGES</code> permission solely to display the list of installed applications on your device, allowing you to select which applications you wish to mute/block. This list never leaves your device.</p>
+
+        <h2>5. Data Storage</h2>
+        <p>Your preferences (such as which applications are blocked and whether autostart is enabled) are stored locally on your device using Android's encrypted Jetpack DataStore. Uninstalling the app permanently deletes all stored data.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have any questions or suggestions regarding this Privacy Policy, please open an issue on our GitHub repository: <a href="https://github.com/mastai-dev/LightVPN" style="color: var(--accent);">https://github.com/mastai-dev/LightVPN</a>.</p>
+
+        <div class="footer">
+            &copy; 2026 NetMuzzle. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>
