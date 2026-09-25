@@ -31,11 +31,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Shield
+import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -110,7 +109,7 @@ fun FirewallScreen(
                 title = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
-                            imageVector = Icons.Default.Shield,
+                            painter = painterResource(R.drawable.ic_shield),
                             contentDescription = null,
                             tint = NeonCyan,
                             modifier = Modifier.size(28.dp)
@@ -247,7 +246,7 @@ fun FirewallScreen(
                     if (uiState.searchQuery.isNotEmpty()) {
                         IconButton(onClick = { viewModel.onSearchQueryChanged("") }) {
                             Icon(
-                                imageVector = Icons.Default.Clear,
+                                imageVector = Icons.Default.Close,
                                 contentDescription = "Wyczyść",
                                 tint = TextSecondary
                             )
@@ -444,7 +443,7 @@ fun StatusBanner(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.Security,
+                    painter = painterResource(R.drawable.ic_shield),
                     contentDescription = null,
                     tint = iconColor,
                     modifier = Modifier.size(26.dp)
@@ -576,7 +575,7 @@ fun AppIcon(drawable: Drawable?, modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            imageVector = Icons.Default.Shield,
+            painter = painterResource(R.drawable.ic_shield),
             contentDescription = null,
             tint = NeonCyan,
             modifier = Modifier.size(24.dp)

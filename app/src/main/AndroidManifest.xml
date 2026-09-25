@@ -30,12 +30,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LightVPN">
+        android:theme="@style/Theme.NetMuzzle">
 
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.LightVPN"
+            android:theme="@style/Theme.NetMuzzle"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
             </intent-filter>
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Firewall VPN service blocking unauthorized background connections." />
+                android:value="NetMuzzle firewall service blocking background connections." />
         </service>
 
         <!-- Odbiornik autostartu po restarcie -->

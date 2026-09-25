@@ -11,7 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.lightvpn.firewall.ui.screens.FirewallScreen
-import com.lightvpn.firewall.ui.theme.LightVPNTheme
+import com.lightvpn.firewall.ui.theme.NetMuzzleTheme
 import com.lightvpn.firewall.ui.viewmodel.FirewallViewModel
 
 class MainActivity : ComponentActivity() {
@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
         checkAndRequestNotificationPermission()
 
         setContent {
-            LightVPNTheme {
+            NetMuzzleTheme {
                 FirewallScreen(
                     viewModel = viewModel,
                     onRequireVpnPermission = { prepareIntent ->

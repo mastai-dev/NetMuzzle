@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LightVPN"
+rootProject.name = "NetMuzzle"
 include(":app")

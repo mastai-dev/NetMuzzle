@@ -1,46 +1,45 @@
-# LightVPN - Minimalistyczny Firewall Android (No-Root)
+# NetMuzzle 🛡️ - Minimalistyczny Firewall Android (No-Root)
 
-Ultra-lekki, energooszczędny firewall na system Android, blokujący ruch sieciowy wybranym aplikacjom bez uprawnień roota i z zerowym narzutem na procesor.
-
----
-
-## 🚀 Kluczowa Koncepcja Architektoniczna
-
-Większość tradycyjnych firewalli na Androida przechwytuje 100% ruchu urządzenia i analizuje każdy pakiet w przestrzeni użytkownika (*userspace*), powodując wysokie zużycie baterii i obciążenie procesora.
-
-**LightVPN stosuje podejście „Czarnej Dziury” (Blackhole Sink):**
-* Wykorzystujemy metodę `VpnService.Builder.addAllowedApplication(packageName)`.
-* Do interfejsu VPN trafiają **wyłącznie aplikacje dodane do czarnej listy**.
-* Cały pozostały ruch internetowy (99% normalnego użytkowania) omija naszą aplikację **na poziomie jądra systemu Linux**, co redukuje zużycie procesora przez LightVPN do **0%**.
-* Wewnątrz tunelu TUN pakiety nie są nigdzie przekazywane ani czytane – natychmiast giną.
+**NetMuzzle** to ultra-lekka, energooszczędna aplikacja na system Android, która nakłada bezkompromisowy „kaganiec” na wybrane aplikacje, całkowicie odcinając je od Internetu – bez uprawnień roota i z zerowym narzutem na baterię oraz procesor.
 
 ---
 
-## 🛡️ Rozwiązane Problemy i Szczelność Ochrony
+## 🚀 Kluczowa Koncepcja: Czarna Dziura (Blackhole Sink)
 
-1. **Szczelność DNS i brak wycieków (Zero DNS Leaks):**
-   * Do interfejsu przypisano fikcyjne serwery DNS (`10.0.0.1` dla IPv4 oraz `fd00::2` dla IPv6).
-   * Zablokowane aplikacje natychmiast otrzymują wyjątek `UnknownHostException` i nie marnują baterii na ponawianie prób połączenia TCP przez dziesiątki sekund.
-2. **Pancerna obsługa IPv6:**
-   * Poza trasą `::/0` przypisany jest unikalny adres lokalny ULA (`fd00::1/128`), co zapobiega crashom `IllegalArgumentException` i blokuje obejście firewalla przez IPv6.
+Tradycyjne firewalle na Androida przekierowują 100% ruchu urządzenia do przestrzeni użytkownika (*userspace*), analizując każdy pakiet w pętli `read/write`. Skutkuje to drenowaniem baterii i nagrzewaniem procesora.
+
+**NetMuzzle działa odwrotnie i bezkompromisowo:**
+* Wykorzystujemy systemową funkcję `VpnService.Builder.addAllowedApplication(packageName)`.
+* Do tunelu trafiają **wyłącznie aplikacje, na które nałożono blokadę**.
+* Cały pozostały ruch (99% normalnego działania telefonu) omija NetMuzzle **na poziomie jądra systemu Linux**, dzięki czemu zużycie procesora przez naszą aplikację wynosi dokładnie **0%**.
+* Wewnątrz tunelu pakiety zablokowanych aplikacji natychmiast giną w próżni.
+
+---
+
+## 🛡️ Szczelność Ochrony i Zastosowane Rozwiązania
+
+1. **Zero DNS Leaks (Natychmiastowe ucięcie połączenia):**
+   * Do tunelu przypisano lokalne, martwe serwery DNS (`10.0.0.1` oraz `fd00::2`).
+   * Zablokowane aplikacje natychmiast otrzymują błąd `UnknownHostException` i nie marnują baterii na ponawianie prób połączenia TCP przez kolejne minuty.
+2. **Pełne wsparcie dla IPv6:**
+   * Poza trasą `::/0` interfejs posiada unikalny adres lokalny IPv6 (`fd00::1/128`), co zapobiega crashom i zamyka furtkę ominięcia blokady przez IPv6.
 3. **Inteligentny Tryb Czuwania (Standby Mode):**
-   * Jeśli lista zablokowanych aplikacji jest pusta, tunel VPN **nie jest ustanawiany** (`vpnInterface = null`).
-   * Zapobiega to przypadkowemu odcięciu połączenia całemu telefonowi.
-4. **Bezszwowa aktualizacja reguł (Seamless Handover):**
-   * Dodawanie i usuwanie aplikacji w trakcie działania firewalla odbywa się atomowo – nowy deskryptor TUN jest powoływany przed zamknięciem starego, nie rozłączając pozostałych połączeń.
+   * Jeśli lista zablokowanych aplikacji jest pusta, tunel VPN nie jest powoływany. Chroni to przed przypadkowym odcięciem internetu w całym telefonie.
+4. **Bezszwowa podmiana reguł (Seamless Handover):**
+   * Zmiana stanu dowolnej aplikacji w trakcie działania ochrony podmienia konfigurację atomowo, bez rwania sesji pozostałych programów.
 5. **Autostart po restarcie telefonu (Boot on Load):**
-   * Opcjonalny autostart po restarcie (`RECEIVE_BOOT_COMPLETED`), weryfikujący czy usługa była aktywna przed wyłączeniem telefonu.
+   * Opcjonalny autostart po włączeniu telefonu (`RECEIVE_BOOT_COMPLETED`), sterowany z poziomu ustawień.
 6. **Kafel w Szybkich Ustawieniach (Quick Settings Tile):**
-   * Przełącznik ochrony bezpośrednio z górnej belki Androida (`FirewallTileService`).
-7. **Wykrywanie odinstalowania aplikacji (`PackageReceiver`):**
-   * Automatyczne oczyszczanie czarnej listy po odinstalowaniu zablokowanego programu.
+   * Szybkie włączanie i wyłączanie blokady prosto z górnej belki powiadomień.
+7. **Automatyczne czyszczenie odinstalowanych aplikacji:**
+   * Odbiornik `PackageReceiver` automatycznie usuwa odinstalowane aplikacje z konfiguracji.
 
 ---
 
 ## 📁 Struktura Projektu
 
 ```text
-LightVPN/
+NetMuzzle/
 ├── app/
 │   ├── src/main/
 │   │   ├── AndroidManifest.xml          # Deklaracje uprawnień, VpnService, Tile i Receiverów
@@ -48,54 +47,38 @@ LightVPN/
 │   │   │   ├── LightVpnApp.kt           # Klasa Application i kanały powiadomień
 │   │   │   ├── model/
 │   │   │   │   ├── AppInfo.kt           # Model aplikacji (nazwa, ikona, package, status)
-│   │   │   │   └── FirewallState.kt     # Stany VPN (DISABLED, STANDBY, ACTIVE)
+│   │   │   │   └── FirewallState.kt     # Stany (DISABLED, STANDBY, ACTIVE)
 │   │   │   ├── data/
 │   │   │   │   ├── FirewallPreferences.kt # Zarządzanie konfiguracją w Jetpack DataStore
 │   │   │   │   └── AppListRepository.kt   # Pobieranie i filtrowanie zainstalowanych apek
 │   │   │   ├── service/
-│   │   │   │   ├── FirewallService.kt   # Silnik VpnService czarnej dziury
+│   │   │   │   ├── FirewallService.kt   # Silnik Czarnej Dziury VpnService
 │   │   │   │   ├── BootReceiver.kt      # Autostart po restarcie telefonu
 │   │   │   │   ├── PackageReceiver.kt   # Reakcja na odinstalowanie pakietów
 │   │   │   │   └── FirewallTileService.kt # Kafel Szybkich Ustawień Androida
 │   │   │   └── ui/
-│   │   │       ├── MainActivity.kt      # Aktywność główna z launcherami zgody VPN
+│   │   │       ├── MainActivity.kt      # Aktywność główna z obsługą zgody systemowej
 │   │   │       ├── screens/FirewallScreen.kt # UI w Jetpack Compose Material 3
-│   │   │       ├── theme/               # Kolory, typografia, ciemny motyw
-│   │   │       └── viewmodel/FirewallViewModel.kt # Reaktywny ViewModel (Flow/StateFlow)
+│   │   │       ├── theme/               # Nowoczesna, ciemna stylistyka (Neon Cyan & Slate)
+│   │   │       └── viewmodel/FirewallViewModel.kt # Reaktywny ViewModel (StateFlow)
 │   │   └── res/                         # Zasoby (ikony wektorowe, kolory, teksty)
-│   └── build.gradle.kts                 # Konfiguracja modułu aplikacji
-├── build.gradle.kts                     # Konfiguracja główna Gradle
+│   └── build.gradle.kts                 # Konfiguracja modułu aplikacji z kompresją R8
+├── build.gradle.kts                     # Konfiguracja nadrzędna Gradle
 └── settings.gradle.kts                  # Rejestracja modułów
 ```
 
 ---
 
-## 🛠️ Opcje Kompilacji
+## 🛠️ Pobieranie i Kompilacja
 
-### Opcja A: Automatyczne budowanie w chmurze (GitHub Actions) – Bez instalowania Android Studio
-Projekt posiada gotowy workflow `.github/workflows/build.yml`.
-1. Utwórz nowe repozytorium na [github.com/new](https://github.com/new) (np. `LightVPN`).
-2. Wyślij kod:
-   ```bash
-   git remote add origin https://github.com/TWÓJ_LOGIN/LightVPN.git
-   git push -u origin main
-   ```
-3. W zakładce **Actions** na GitHubie zobaczysz uruchomione zadanie *Build LightVPN APK*.
-4. Po ~2 minutach w szczegółach zadania (sekcja *Artifacts*) pobierzesz gotowy plik **`LightVPN-Debug-APK.zip`** zawierający plik `.apk` do instalacji na telefonie.
+### Opcja A: Automatyczne budowanie w chmurze (GitHub Actions)
+Każdy `git push` na gałąź `main` automatycznie buduje zoptymalizowaną paczkę w zakładce **Actions**:
+* **`NetMuzzle-Release-APK`** (~2-3 MB) – maksymalnie odchudzona, skompresowana przez R8 wersja gotowa do instalacji.
+* **`NetMuzzle-Debug-APK`** – wersja deweloperska.
 
----
-
-### Opcja B: Uruchomienie w Android Studio
-1. Uruchom Android Studio.
-2. Wybierz **File -> Open** i wskaż katalog `c:\antigravity\LightVPN`.
-3. Poczekaj na automatyczną synchronizację Gradle (*Sync Project with Gradle Files*).
-4. Podłącz telefon z włączonym debugowaniem USB lub uruchom emulator i kliknij **Run** (Zielony trójkąt).
-
----
-
-### Opcja C: Budowanie lokalne z terminala
-Mając zainstalowaną Javę 17:
+### Opcja B: Kompilacja lokalna z terminala
+Mając zainstalowaną Javę 17 (Microsoft OpenJDK 17):
 ```powershell
-.\gradlew.bat assembleDebug
+.\gradlew.bat assembleRelease
 ```
-Gotowy plik APK znajdzie się w katalogu: `app/build/outputs/apk/debug/app-debug.apk`.
+Gotowy plik APK znajdzie się w katalogu: `app/build/outputs/apk/release/app-release.apk`.

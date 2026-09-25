@@ -21,7 +21,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun LightVPNTheme(
+fun NetMuzzleTheme(
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
