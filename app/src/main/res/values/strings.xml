@@ -15,14 +15,18 @@
     <!-- UI Strings -->
     <string name="firewall_status_active">PROTECTION ACTIVE</string>
     <string name="firewall_status_standby">STANDBY MODE</string>
-    <string name="firewall_status_disabled">DISABLED</string>
+    <string name="firewall_status_disabled">PROTECTION DISABLED</string>
     <string name="firewall_status_disabled_desc">Network traffic is not being filtered</string>
+    <string name="master_switch_label">Master Protection</string>
+    <string name="master_switch_on">ENABLED</string>
+    <string name="master_switch_off">DISABLED</string>
     <string name="search_placeholder">Search apps…</string>
     <string name="filter_all">All</string>
     <string name="filter_blocked">Protected (%1$d)</string>
     <string name="filter_system_apps">System apps</string>
     <string name="setting_start_on_boot">Start on device boot</string>
     <string name="setting_battery_opt">Battery optimization</string>
+    <string name="menu_help">Tutorial &amp; Help</string>
     <string name="menu_adblock_filters">Game AdBlock Filters</string>
     <string name="menu_about">About NetMuzzle</string>
     <string name="about_title">NetMuzzle</string>
@@ -31,9 +35,11 @@
     <string name="battery_opt_dialog_desc">To prevent Android from killing NetMuzzle in the background when the screen is locked, we recommend adding the app to battery optimization exemptions.</string>
     <string name="battery_opt_action">Open Settings</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_ok">Got It</string>
     <string name="cd_clear">Clear</string>
     <string name="cd_menu">Menu</string>
+    <string name="cd_help">Help</string>
+    <string name="cd_filters">Filters</string>
     <string name="badge_system">SYS</string>
     <string name="badge_game">GAME</string>
     <string name="no_apps_found">No matching apps found</string>
@@ -52,4 +58,18 @@
     <string name="mode_allow">Allow</string>
     <string name="mode_adblock">Block Ads</string>
     <string name="mode_fullblock">Muzzle</string>
+
+    <!-- Help & Tutorial Dialog -->
+    <string name="help_dialog_title">How NetMuzzle Works</string>
+    <string name="help_section_modes_title">Three modes in the app capsule:</string>
+    <string name="help_mode_allow_title">🌐 Allow (Bypass)</string>
+    <string name="help_mode_allow_desc">The app connects directly to the internet without any firewall intervention.</string>
+    <string name="help_mode_adblock_title">🛡️ Block Ads (Game Shield)</string>
+    <string name="help_mode_adblock_desc">Designed for games! Game data (multiplayer, login) flows directly with zero lag, while ad networks (Unity, AdMob, etc.) are filtered out.</string>
+    <string name="help_mode_fullblock_title">🚫 Muzzle (Blackhole)</string>
+    <string name="help_mode_fullblock_desc">Complete disconnection from the internet. Zero battery drain, uncompromising blocking.</string>
+    <string name="help_section_rewards_title">🎁 Video Rewards (Rewarded Ads):</string>
+    <string name="help_section_rewards_desc">Want in-game rewards for watching an ad? Tap the filter icon at the top and unblock the network (e.g. Unity Ads). Rewards will work while annoying pop-ups remain blocked!</string>
+    <string name="help_section_battery_title">⚡ Zero Battery Drain:</string>
+    <string name="help_section_battery_desc">Heavy game downloads bypass the VPN at the Linux kernel level. Our tunnel only checks tiny domain name queries (DNS).</string>
 </resources>

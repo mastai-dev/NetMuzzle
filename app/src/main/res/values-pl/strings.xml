@@ -5,34 +5,71 @@
 
     <!-- Notification Strings -->
     <string name="notification_channel_name">Stan NetMuzzle</string>
-    <string name="notification_channel_desc">Powiadomienia o statusie blokowania w tle</string>
+    <string name="notification_channel_desc">Powiadomienia o statusie ochrony w tle</string>
     <string name="notification_active_title">NetMuzzle aktywny</string>
     <string name="notification_standby_title">NetMuzzle w trybie czuwania</string>
-    <string name="notification_active_text">Zablokowano ruch dla %1$d aplikacji</string>
-    <string name="notification_standby_text">Brak aplikacji na czarnej liście (ruch odblokowany)</string>
+    <string name="notification_active_text">Ochrona aktywna dla %1$d aplikacji</string>
+    <string name="notification_standby_text">Brak aplikacji na liście (ruch odblokowany)</string>
     <string name="notification_action_stop">Wyłącz</string>
 
     <!-- UI Strings -->
-    <string name="firewall_status_active">BLOKADA AKTYWNA</string>
+    <string name="firewall_status_active">OCHRONA JEST AKTYWNA</string>
     <string name="firewall_status_standby">TRYB CZUWANIA</string>
-    <string name="firewall_status_disabled">WYŁĄCZONY</string>
-    <string name="firewall_status_disabled_desc">Ruch sieciowy nie jest blokowany</string>
+    <string name="firewall_status_disabled">OCHRONA JEST WYŁĄCZONA</string>
+    <string name="firewall_status_disabled_desc">Ruch sieciowy nie jest filtrowany</string>
+    <string name="master_switch_label">Główny włącznik</string>
+    <string name="master_switch_on">WŁĄCZONA</string>
+    <string name="master_switch_off">WYŁĄCZONA</string>
     <string name="search_placeholder">Szukaj aplikacji…</string>
     <string name="filter_all">Wszystkie</string>
-    <string name="filter_blocked">Zablokowane (%1$d)</string>
+    <string name="filter_blocked">Chronione (%1$d)</string>
     <string name="filter_system_apps">Aplikacje systemowe</string>
     <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
     <string name="setting_battery_opt">Optymalizacja baterii</string>
+    <string name="menu_help">Samouczek i pomoc</string>
+    <string name="menu_adblock_filters">Filtry reklam w grach</string>
     <string name="menu_about">O aplikacji</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Wersja 1.0.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall odcinający ruch sieciowy wybranym aplikacjom bez uprawnień roota i z zerowym narzutem na baterię.</string>
+    <string name="about_desc">Wersja 1.1.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
     <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
     <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał NetMuzzle w tle po uśpieniu ekranu, zaleca się dodanie aplikacji do wyjątków oszczędzania energii.</string>
     <string name="battery_opt_action">Otwórz ustawienia</string>
     <string name="dialog_cancel">Anuluj</string>
-    <string name="dialog_ok">OK</string>
+    <string name="dialog_ok">Rozumiem</string>
     <string name="cd_clear">Wyczyść</string>
     <string name="cd_menu">Menu</string>
+    <string name="cd_help">Pomoc</string>
+    <string name="cd_filters">Filtry</string>
     <string name="badge_system">SYS</string>
+    <string name="badge_game">GRA</string>
     <string name="no_apps_found">Nie znaleziono pasujących aplikacji</string>
+
+    <!-- AdBlock Management -->
+    <string name="adblock_manager_title">Filtry reklam w grach</string>
+    <string name="adblock_manager_desc">Zarządzaj sieciami reklamowymi blokowanymi w grach. Jeśli gra oferuje nagrody za wideo (np. darmowe monety), możesz odznaczyć wybraną sieć (np. Unity Ads), by nagrody działały!</string>
+    <string name="builtin_networks_header">Wbudowane sieci reklamowe</string>
+    <string name="custom_domains_header">Własne domeny reklamowe</string>
+    <string name="add_domain_button">+ Dodaj własną domenę</string>
+    <string name="add_domain_dialog_title">Dodaj domenę serwera reklam</string>
+    <string name="add_domain_dialog_desc">Wpisz adres domeny do zablokowania (np. ads.jakasgra.com):</string>
+    <string name="add_domain_hint">Domena (np. ads.game-network.com)</string>
+    <string name="add_domain_confirm">Dodaj</string>
+    <string name="no_custom_domains">Brak własnych domen reklamowych.</string>
+    <string name="mode_allow">Zezwalaj</string>
+    <string name="mode_adblock">Tylko Ads</string>
+    <string name="mode_fullblock">Kaganiec</string>
+
+    <!-- Help & Tutorial Dialog -->
+    <string name="help_dialog_title">Jak działa NetMuzzle?</string>
+    <string name="help_section_modes_title">Trzy tryby w kapsule aplikacji:</string>
+    <string name="help_mode_allow_title">🌐 Zezwalaj (Bypass)</string>
+    <string name="help_mode_allow_desc">Aplikacja łączy się bezpośrednio z internetem bez udziału ochrony.</string>
+    <string name="help_mode_adblock_title">🛡️ Tylko Ads (Game Shield)</string>
+    <string name="help_mode_adblock_desc">Tryb stworzony dla gier! Ruch gry (multiplayer, logowanie) leci bezpośrednio z zerowym opóźnieniem, a domeny reklamowe (Unity, AdMob itp.) są wycinane.</string>
+    <string name="help_mode_fullblock_title">🚫 Kaganiec (Blackhole)</string>
+    <string name="help_mode_fullblock_desc">Całkowite odcięcie aplikacji od internetu. 0% baterii, bezkompromisowa blokada.</string>
+    <string name="help_section_rewards_title">🎁 Reklamy z nagrodą (Rewarded Ads):</string>
+    <string name="help_section_rewards_desc">Chcesz dostać bonusowe monety za wideo? Kliknij ikonę filtrów na górze i odznacz sieć (np. Unity Ads). Nagrody zaczną działać, a inne wyskakujące reklamy pozostaną zablokowane!</string>
+    <string name="help_section_battery_title">⚡ Zero drenażu baterii:</string>
+    <string name="help_section_battery_desc">Gry pobierają gigabajty danych bezpośrednio przez Wi-Fi/LTE. Nasz tunel sprawdza tylko małe zapytania o adresy (DNS).</string>
 </resources>

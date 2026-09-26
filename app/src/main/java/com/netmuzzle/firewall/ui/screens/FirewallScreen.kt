@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -109,6 +110,7 @@ fun FirewallScreen(
     var showBatteryDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
     var showAdBlockManagerDialog by remember { mutableStateOf(false) }
+    var showHelpDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -130,28 +132,24 @@ fun FirewallScreen(
                     }
                 },
                 actions = {
-                    // Przycisk ustawień filtrów AdBlock w grach
-                    IconButton(onClick = { showAdBlockManagerDialog = true }) {
+                    // Przycisk Pomocy i Samouczka
+                    IconButton(onClick = { showHelpDialog = true }) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_tune),
-                            contentDescription = stringResource(R.string.adblock_manager_title),
+                            painter = painterResource(R.drawable.ic_help),
+                            contentDescription = stringResource(R.string.cd_help),
                             tint = NeonCyan
                         )
                     }
 
-                    // Master Switch na belce
-                    Switch(
-                        checked = uiState.isMasterEnabled,
-                        onCheckedChange = { isChecked ->
-                            viewModel.onMasterSwitchToggled(isChecked, context, onRequireVpnPermission)
-                        },
-                        colors = SwitchDefaults.colors(
-                            checkedThumbColor = NeonCyan,
-                            checkedTrackColor = NeonCyan.copy(alpha = 0.3f),
-                            uncheckedThumbColor = TextMuted,
-                            uncheckedTrackColor = DarkCard
+                    // Przycisk ustawień filtrów AdBlock w grach
+                    IconButton(onClick = { showAdBlockManagerDialog = true }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_tune),
+                            contentDescription = stringResource(R.string.cd_filters),
+                            tint = NeonCyan
                         )
-                    )
+                    }
+
                     IconButton(onClick = { showMenu = true }) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
@@ -164,6 +162,19 @@ fun FirewallScreen(
                         onDismissRequest = { showMenu = false },
                         modifier = Modifier.background(DarkSurface)
                     ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.menu_help),
+                                    color = TextPrimary,
+                                    fontSize = 14.sp
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                showHelpDialog = true
+                            }
+                        )
                         DropdownMenuItem(
                             text = {
                                 Text(
@@ -257,11 +268,15 @@ fun FirewallScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp)
         ) {
-            // Status Card
-            StatusBanner(
+            // Główny Włącznik Ochrony (Hero Master Switch Card)
+            MasterProtectionHeroCard(
+                isEnabled = uiState.isMasterEnabled,
                 status = uiState.status,
                 fullBlockedCount = uiState.fullBlockedCount,
-                adBlockedCount = uiState.adBlockedCount
+                adBlockedCount = uiState.adBlockedCount,
+                onToggle = { isChecked ->
+                    viewModel.onMasterSwitchToggled(isChecked, context, onRequireVpnPermission)
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -400,6 +415,11 @@ fun FirewallScreen(
         }
     }
 
+    // Dialog Samouczka i Pomocy
+    if (showHelpDialog) {
+        HelpGuideDialog(onDismiss = { showHelpDialog = false })
+    }
+
     // Dialog Zarządzania Filtrami AdBlock
     if (showAdBlockManagerDialog) {
         AdBlockManagerDialog(
@@ -485,50 +505,71 @@ fun FirewallScreen(
     }
 }
 
+/**
+ * Wyrazisty, nowoczesny Główny Włącznik Ochrony (Hero Master Switch)
+ */
 @Composable
-fun StatusBanner(
+fun MasterProtectionHeroCard(
+    isEnabled: Boolean,
     status: VpnStatus,
     fullBlockedCount: Int,
-    adBlockedCount: Int
+    adBlockedCount: Int,
+    onToggle: (Boolean) -> Unit
 ) {
-    val total = fullBlockedCount + adBlockedCount
+    val borderColorAnim by animateColorAsState(
+        targetValue = if (isEnabled) {
+            if (status == VpnStatus.STANDBY) StatusStandbyAmber else NeonCyan
+        } else {
+            DarkBorder
+        },
+        label = "heroBorderAnim"
+    )
 
-    val subtitle = when {
-        status != VpnStatus.ACTIVE -> ""
-        fullBlockedCount > 0 && adBlockedCount > 0 -> "Kaganiec: $fullBlockedCount • Blokada Ads: $adBlockedCount"
-        adBlockedCount > 0 -> "$adBlockedCount gier z blokadą reklam"
-        else -> "Kaganiec nałożony na $fullBlockedCount aplikacji"
+    val containerColorAnim by animateColorAsState(
+        targetValue = if (isEnabled) {
+            if (status == VpnStatus.STANDBY) Color(0xFF1E1912) else Color(0xFF0D1E28)
+        } else {
+            DarkCard
+        },
+        label = "heroContainerAnim"
+    )
+
+    val iconColorAnim by animateColorAsState(
+        targetValue = if (isEnabled) {
+            if (status == VpnStatus.STANDBY) StatusStandbyAmber else NeonCyan
+        } else {
+            TextMuted
+        },
+        label = "heroIconColorAnim"
+    )
+
+    val statusHeadline = if (isEnabled) {
+        if (status == VpnStatus.STANDBY) {
+            stringResource(R.string.firewall_status_standby)
+        } else {
+            stringResource(R.string.firewall_status_active)
+        }
+    } else {
+        stringResource(R.string.firewall_status_disabled)
     }
 
-    val (bgColor, borderColor, iconColor, statusTitle, statusSubtitle) = when (status) {
-        VpnStatus.ACTIVE -> StatusDetails(
-            bgColor = StatusActiveGreenContainer.copy(alpha = 0.4f),
-            borderColor = StatusActiveGreen,
-            iconColor = StatusActiveGreen,
-            title = stringResource(R.string.firewall_status_active),
-            subtitle = subtitle
-        )
-        VpnStatus.STANDBY -> StatusDetails(
-            bgColor = StatusStandbyAmberContainer.copy(alpha = 0.4f),
-            borderColor = StatusStandbyAmber,
-            iconColor = StatusStandbyAmber,
-            title = stringResource(R.string.firewall_status_standby),
-            subtitle = stringResource(R.string.notification_standby_text)
-        )
-        VpnStatus.DISABLED -> StatusDetails(
-            bgColor = DarkCard,
-            borderColor = DarkBorder,
-            iconColor = StatusDisabledRed,
-            title = stringResource(R.string.firewall_status_disabled),
-            subtitle = stringResource(R.string.firewall_status_disabled_desc)
-        )
+    val subtitle = if (isEnabled) {
+        when {
+            fullBlockedCount > 0 && adBlockedCount > 0 -> "Kaganiec: $fullBlockedCount • Blokada Ads: $adBlockedCount"
+            adBlockedCount > 0 -> "$adBlockedCount gier z blokadą reklam"
+            fullBlockedCount > 0 -> "Kaganiec nałożony na $fullBlockedCount aplikacji"
+            else -> stringResource(R.string.notification_standby_text)
+        }
+    } else {
+        stringResource(R.string.firewall_status_disabled_desc)
     }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, borderColor, RoundedCornerShape(16.dp)),
-        colors = CardDefaults.cardColors(containerColor = bgColor),
+            .border(1.5.dp, borderColorAnim, RoundedCornerShape(16.dp))
+            .clickable { onToggle(!isEnabled) },
+        colors = CardDefaults.cardColors(containerColor = containerColorAnim),
         shape = RoundedCornerShape(16.dp)
     ) {
         Row(
@@ -537,45 +578,69 @@ fun StatusBanner(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Ikona Tarczy
             Box(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(CircleShape)
-                    .background(iconColor.copy(alpha = 0.15f)),
+                    .background(iconColorAnim.copy(alpha = 0.15f))
+                    .border(1.dp, iconColorAnim.copy(alpha = 0.3f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_shield),
                     contentDescription = null,
-                    tint = iconColor,
+                    tint = iconColorAnim,
                     modifier = Modifier.size(26.dp)
                 )
             }
+
             Spacer(modifier = Modifier.width(14.dp))
-            Column {
+
+            Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = statusTitle,
-                    style = MaterialTheme.typography.titleMedium,
-                    color = iconColor,
-                    fontWeight = FontWeight.Bold
+                    text = stringResource(R.string.master_switch_label).uppercase(),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = iconColorAnim,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp,
+                    fontSize = 11.sp
                 )
                 Text(
-                    text = statusSubtitle,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = TextSecondary
+                    text = statusHeadline,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = TextPrimary,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TextSecondary,
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
+
+            Spacer(modifier = Modifier.width(10.dp))
+
+            // Główny Włącznik (Duży, wyrazisty)
+            Switch(
+                checked = isEnabled,
+                onCheckedChange = onToggle,
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = NeonCyan,
+                    checkedTrackColor = NeonCyan.copy(alpha = 0.35f),
+                    checkedBorderColor = NeonCyan,
+                    uncheckedThumbColor = TextMuted,
+                    uncheckedTrackColor = DarkSurface,
+                    uncheckedBorderColor = DarkBorder
+                )
+            )
         }
     }
 }
-
-private data class StatusDetails(
-    val bgColor: Color,
-    val borderColor: Color,
-    val iconColor: Color,
-    val title: String,
-    val subtitle: String
-)
 
 @Composable
 fun AppListItem(
@@ -613,8 +678,12 @@ fun AppListItem(
                 .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Ikona aplikacji
-            AppIcon(drawable = app.icon, modifier = Modifier.size(42.dp))
+            // Ikona aplikacji z mini-odznaką GAME na ikonie (nigdy się nie zawija!)
+            AppIcon(
+                drawable = app.icon,
+                isGame = app.isGame,
+                modifier = Modifier.size(42.dp)
+            )
 
             Spacer(modifier = Modifier.width(12.dp))
 
@@ -625,38 +694,22 @@ fun AppListItem(
                         style = MaterialTheme.typography.titleMedium,
                         color = TextPrimary,
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
                     )
-                    if (app.isGame) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(NeonCyan.copy(alpha = 0.2f))
-                                .padding(horizontal = 5.dp, vertical = 1.dp)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.badge_game),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = NeonCyan,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 10.sp
-                            )
-                        }
-                    }
                     if (app.isSystemApp) {
                         Spacer(modifier = Modifier.width(6.dp))
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(DarkBorder)
-                                .padding(horizontal = 5.dp, vertical = 1.dp)
+                                .padding(horizontal = 4.dp, vertical = 1.dp)
                         ) {
                             Text(
                                 text = stringResource(R.string.badge_system),
                                 style = MaterialTheme.typography.labelSmall,
                                 color = TextMuted,
-                                fontSize = 10.sp
+                                fontSize = 9.sp
                             )
                         }
                     }
@@ -763,23 +816,59 @@ private fun SegmentItem(
 }
 
 @Composable
-fun AppIcon(drawable: Drawable?, modifier: Modifier = Modifier) {
-    if (drawable != null) {
-        val bitmap = remember(drawable) {
-            drawableToBitmap(drawable)
+fun AppIcon(
+    drawable: Drawable?,
+    isGame: Boolean = false,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier) {
+        if (drawable != null) {
+            val bitmap = remember(drawable) {
+                drawableToBitmap(drawable)
+            }
+            if (bitmap != null) {
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(8.dp))
+                )
+            } else {
+                FallbackAppIcon()
+            }
+        } else {
+            FallbackAppIcon()
         }
-        if (bitmap != null) {
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = null,
-                modifier = modifier.clip(RoundedCornerShape(8.dp))
-            )
-            return
+
+        // Mini odznaka GAME w prawym dolnym rogu ikony
+        if (isGame) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .offset(x = 3.dp, y = 3.dp)
+                    .size(17.dp)
+                    .clip(CircleShape)
+                    .background(Color(0xFF090D16))
+                    .border(1.dp, NeonCyan, CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_gamepad),
+                    contentDescription = stringResource(R.string.badge_game),
+                    tint = NeonCyan,
+                    modifier = Modifier.size(10.dp)
+                )
+            }
         }
     }
-    // Fallback ikona
+}
+
+@Composable
+private fun FallbackAppIcon() {
     Box(
-        modifier = modifier
+        modifier = Modifier
+            .fillMaxSize()
             .clip(RoundedCornerShape(8.dp))
             .background(DarkSurface),
         contentAlignment = Alignment.Center
