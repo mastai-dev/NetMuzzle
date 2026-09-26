@@ -17,6 +17,9 @@
     <string name="firewall_status_standby">STANDBY MODE</string>
     <string name="firewall_status_disabled">PROTECTION DISABLED</string>
     <string name="firewall_status_disabled_desc">Network traffic is not being filtered</string>
+    <string name="firewall_status_both_active">Muzzled: %1$d • Ads Blocked: %2$d</string>
+    <string name="firewall_status_ads_active">%1$d apps with ad blocking</string>
+    <string name="firewall_status_muzzle_active">Muzzle applied to %1$d apps</string>
     <string name="master_switch_label">Master Protection</string>
     <string name="master_switch_on">ENABLED</string>
     <string name="master_switch_off">DISABLED</string>
@@ -34,7 +37,7 @@
     <string name="menu_adblock_filters">Game AdBlock Filters</string>
     <string name="menu_about">About NetMuzzle</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Version 1.2.1\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
+    <string name="about_desc">Version 1.2.2\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
     <string name="dialog_language_title">Select Language / Wybierz język</string>
     <string name="lang_english">English (US)</string>
     <string name="lang_polish">Polski</string>
@@ -65,6 +68,17 @@
     <string name="mode_allow">Allow</string>
     <string name="mode_adblock">Block Ads</string>
     <string name="mode_fullblock">Muzzle</string>
+
+    <!-- Built-in Ad Networks Descriptions -->
+    <string name="ad_net_unity_desc">Primary provider of rewarded video ads in 3D mobile games</string>
+    <string name="ad_net_admob_desc">Google banner and interstitial ad network</string>
+    <string name="ad_net_applovin_desc">Mobile game monetization and rewarded video platform</string>
+    <string name="ad_net_ironsource_desc">Popular video ads and casual game mediation</string>
+    <string name="ad_net_vungle_desc">HD video advertising in mobile games</string>
+    <string name="ad_net_mintegral_desc">Global programmatic in-game ad network</string>
+    <string name="ad_net_inmobi_desc">Global in-app advertising platform</string>
+    <string name="ad_net_chartboost_desc">Cross-promotion and interstitial ads in mobile games</string>
+    <string name="ad_net_pangle_desc">Video ad network for mobile games</string>
 
     <!-- Help & Tutorial Dialog -->
     <string name="help_dialog_title">How NetMuzzle Works</string>

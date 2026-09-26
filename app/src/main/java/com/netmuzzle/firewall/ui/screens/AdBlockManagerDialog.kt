@@ -155,7 +155,7 @@ fun AdBlockManagerDialog(
                                         fontWeight = FontWeight.SemiBold
                                     )
                                     Text(
-                                        text = network.description,
+                                        text = stringResource(network.descriptionRes),
                                         style = MaterialTheme.typography.bodySmall,
                                         color = TextSecondary,
                                         fontSize = 12.sp

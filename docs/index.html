@@ -34,6 +34,7 @@
 
             <nav class="nav-links">
                 <a href="#features" class="nav-link" data-i18n="nav_features">Features</a>
+                <a href="#screenshots" class="nav-link" data-i18n="nav_screenshots">Screenshots</a>
                 <a href="#comparison" class="nav-link" data-i18n="nav_comparison">Comparison</a>
                 <a href="#performance" class="nav-link" data-i18n="nav_performance">Battery & CPU</a>
                 <a href="#privacy" class="nav-link" data-i18n="nav_privacy">Privacy & Trust</a>
@@ -47,7 +48,7 @@
                     <button class="lang-btn" id="btn-pl" onclick="setLanguage('pl')">PL</button>
                 </div>
 
-                <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk" class="btn btn-primary nav-cta">
+                <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk" class="btn btn-primary nav-cta">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                     <span data-i18n="btn_download">Download APK</span>
                 </a>
@@ -62,7 +63,7 @@
                 <div class="hero-content">
                     <div class="hero-badge">
                         <span class="pulse-dot"></span>
-                        <span data-i18n="hero_badge">Android No-Root Firewall • Open Source</span>
+                        <span data-i18n="hero_badge">Android No-Root Firewall & Game AdBlock • v1.2.2 Released</span>
                     </div>
 
                     <h1 class="hero-title" data-i18n="hero_title">
@@ -74,7 +75,7 @@
                     </p>
 
                     <div class="hero-cta-group">
-                        <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk" class="btn btn-glow">
+                        <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk" class="btn btn-glow">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                             <span data-i18n="hero_cta_primary">Download Free APK (~2 MB)</span>
                         </a>
@@ -228,7 +229,7 @@
                         <div class="card-icon cyan-glow">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1z"></path><path d="M11 7h2v2h-2zM11 11h2v6h-2z"></path></svg>
                         </div>
-                        <h3 class="card-title" data-i18n="f0_title">Game AdBlock Shield (v1.2.1)</h3>
+                        <h3 class="card-title" data-i18n="f0_title">Game AdBlock Shield (v1.2.2)</h3>
                         <p class="card-desc" data-i18n="f0_desc">
                             Selectively blocks mobile game ads (Unity Ads, Google AdMob, AppLovin, IronSource) without cutting off game servers or multiplayer, and with 0% extra battery drain.
                         </p>
@@ -293,6 +294,73 @@
                             Created by <strong>Marcin Stankiewicz</strong> under the MIT license. Every single line of Kotlin code is open to public inspection. No tracking, zero third-party telemetry SDKs, and zero telemetry servers.
                         </p>
                         <div class="card-tag" data-i18n="f4_tag">MIT Licensed</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots Showcase Section -->
+        <section id="screenshots" class="section screenshots-section">
+            <div class="section-container">
+                <div class="section-header text-center">
+                    <span class="section-badge" data-i18n="badge_screenshots">In-App Showcase</span>
+                    <h2 class="section-title" data-i18n="screenshots_title">Clean, Tactical Interface</h2>
+                    <p class="section-subtitle" data-i18n="screenshots_subtitle">
+                        Take a look at real NetMuzzle screenshots in action with 3-state capsules, live filter counters, and granular ad controls.
+                    </p>
+                </div>
+
+                <div class="screenshots-grid">
+                    <div class="screenshot-card">
+                        <div class="screenshot-img-wrapper">
+                            <picture>
+                                <source srcset="screenshots/main_screen.webp" type="image/webp">
+                                <img src="screenshots/main_screen.png" alt="NetMuzzle Main Screen" loading="lazy" class="screenshot-img">
+                            </picture>
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4 data-i18n="ss1_title">Clean Main Dashboard</h4>
+                            <p data-i18n="ss1_desc">Hero master switch, dynamic app search, and 4-way category filter bar.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-card">
+                        <div class="screenshot-img-wrapper">
+                            <picture>
+                                <source srcset="screenshots/configured_apps.webp" type="image/webp">
+                                <img src="screenshots/configured_apps.png" alt="Configured 3-State Capsules" loading="lazy" class="screenshot-img">
+                            </picture>
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4 data-i18n="ss2_title">3-State Action Capsules</h4>
+                            <p data-i18n="ss2_desc">Instant tactile switching between Allow, Block Ads (Game Shield), and Muzzle.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-card">
+                        <div class="screenshot-img-wrapper">
+                            <picture>
+                                <source srcset="screenshots/filtered_game.webp" type="image/webp">
+                                <img src="screenshots/filtered_game.png" alt="Active Game Shield Filter" loading="lazy" class="screenshot-img">
+                            </picture>
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4 data-i18n="ss3_title">Active Shield &amp; Game Filter</h4>
+                            <p data-i18n="ss3_desc">Live filtered view showing active protection and silenced game ad networks.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-card">
+                        <div class="screenshot-img-wrapper">
+                            <picture>
+                                <source srcset="screenshots/game_ads_options.webp" type="image/webp">
+                                <img src="screenshots/game_ads_options.png" alt="Game AdBlock Filters Dialog" loading="lazy" class="screenshot-img">
+                            </picture>
+                        </div>
+                        <div class="screenshot-caption">
+                            <h4 data-i18n="ss4_title">Game AdBlock Filters</h4>
+                            <p data-i18n="ss4_desc">Fine-tune blocked ad networks to claim in-game video rewards whenever you want.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -519,7 +587,7 @@
                 <h2 data-i18n="cta_bottom_title">Take control of your device's network traffic today.</h2>
                 <p data-i18n="cta_bottom_desc">Download the ultra-lightweight NetMuzzle APK or inspect the full source code on GitHub.</p>
                 <div class="hero-cta-group justify-center">
-                    <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk" class="btn btn-glow">
+                    <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk" class="btn btn-glow">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                         <span data-i18n="btn_download_now">Download NetMuzzle APK</span>
                     </a>

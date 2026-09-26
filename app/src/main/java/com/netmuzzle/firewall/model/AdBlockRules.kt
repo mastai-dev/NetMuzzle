@@ -1,9 +1,12 @@
 package com.netmuzzle.firewall.model
 
+import androidx.annotation.StringRes
+import com.netmuzzle.firewall.R
+
 data class BuiltInAdNetwork(
     val id: String,
     val name: String,
-    val description: String,
+    @StringRes val descriptionRes: Int,
     val domains: List<String>
 )
 
@@ -17,7 +20,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "unity",
             name = "Unity Ads",
-            description = "Główny dostawca reklam i wideo z nagrodami w grach 3D",
+            descriptionRes = R.string.ad_net_unity_desc,
             domains = listOf(
                 "unityads.unity3d.com",
                 "auction.unityads.unity3d.com",
@@ -28,7 +31,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "admob",
             name = "Google AdMob / DoubleClick",
-            description = "Banery i reklamy pełnoekranowe Google",
+            descriptionRes = R.string.ad_net_admob_desc,
             domains = listOf(
                 "googleads.g.doubleclick.net",
                 "pagead2.googlesyndication.com",
@@ -38,7 +41,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "applovin",
             name = "AppLovin / MAX",
-            description = "Platforma monetyzacji i wideo dla gier mobilnych",
+            descriptionRes = R.string.ad_net_applovin_desc,
             domains = listOf(
                 "applvn.com",
                 "ms.applovin.com",
@@ -49,7 +52,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "ironsource",
             name = "IronSource (LevelPlay)",
-            description = "Popularne reklamy wideo i gry casualowe",
+            descriptionRes = R.string.ad_net_ironsource_desc,
             domains = listOf(
                 "ironsrc.mobi",
                 "supersonicads-a.akamaihd.net",
@@ -59,7 +62,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "vungle",
             name = "Vungle (Liftoff)",
-            description = "Reklamy wideo HD w grach mobilnych",
+            descriptionRes = R.string.ad_net_vungle_desc,
             domains = listOf(
                 "vungle.com",
                 "ads.api.vungle.com",
@@ -69,7 +72,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "mintegral",
             name = "Mintegral",
-            description = "Globalna sieć reklamowa w grach",
+            descriptionRes = R.string.ad_net_mintegral_desc,
             domains = listOf(
                 "mintegral.net",
                 "adx.mintegral.com",
@@ -79,7 +82,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "inmobi",
             name = "InMobi",
-            description = "Globalna platforma reklamowa w aplikacjach",
+            descriptionRes = R.string.ad_net_inmobi_desc,
             domains = listOf(
                 "inmobi.com",
                 "config.inmobi.com",
@@ -89,7 +92,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "chartboost",
             name = "Chartboost",
-            description = "Promocje krzyżowe i reklamy w grach",
+            descriptionRes = R.string.ad_net_chartboost_desc,
             domains = listOf(
                 "chartboost.com",
                 "live.chartboost.com",
@@ -99,7 +102,7 @@ object DefaultAdNetworks {
         BuiltInAdNetwork(
             id = "pangle",
             name = "Pangle",
-            description = "Sieć reklamowa wideo dla gier",
+            descriptionRes = R.string.ad_net_pangle_desc,
             domains = listOf(
                 "pangle-ads.com",
                 "pangolin-sdk-toutiao.com"

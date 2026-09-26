@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.2.1-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.2.2-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
   <a href="https://github.com/mastai-dev/NetMuzzle/releases"><img src="https://img.shields.io/badge/APK%20Size-~1.2%20MB-success?style=for-the-badge" alt="APK Size"></a>
   <a href="https://android.com"><img src="https://img.shields.io/badge/Android-8.0%2B%20(Oreo%20to%2014%2B)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android Support"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License"></a>
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk">
-    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.2.1_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk">
+    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.2.2_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
   </a>
   <a href="https://mastai-dev.github.io/NetMuzzle/">
     <img src="https://img.shields.io/badge/🌐_Official_Website-Live_Demo-7C3AED?style=for-the-badge&labelColor=0f172a" alt="Official Website">
@@ -55,7 +55,7 @@ Most Android firewall apps (such as NetGuard or generic VPN blockers) **route 10
 
 ## 📊 How NetMuzzle Compares
 
-| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.2.1)** |
+| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.2.2)** |
 | :--- | :---: | :---: | :---: |
 | **Requires Root Access?** | ❌ No | ⚠️ Yes (Voids warranty) | 🟢 **No Root Needed** |
 | **Battery & CPU Overhead** | 🔴 5% – 15% (packet inspection) | 🟢 Negligible | 🟢 **Exactly 0% (Kernel Sink)** |
@@ -66,6 +66,21 @@ Most Android firewall apps (such as NetGuard or generic VPN blockers) **route 10
 | **Categories Filtering** | ❌ Basic search only | ❌ Global only | 🟢 **All / Games / Ads / Muzzled** |
 | **Background Data Leaks** | 🟡 Risk of TLS proxy bypass | 🟢 Blocked | 🟢 **Watertight Loopback Sink** |
 | **Source Code & Privacy** | 🟡 Proprietary / Analytics | 🟢 Open Source | 🟢 **100% Open Source (MIT)** |
+
+---
+
+## 📱 Screenshots Showcase
+
+<p align="center">
+  <img src="docs/screenshots/main_screen.png" width="23.5%" alt="NetMuzzle Main Dashboard" />
+  <img src="docs/screenshots/configured_apps.png" width="23.5%" alt="Configured 3-State Capsules" />
+  <img src="docs/screenshots/filtered_game.png" width="23.5%" alt="Active Game Shield" />
+  <img src="docs/screenshots/game_ads_options.png" width="23.5%" alt="Game AdBlock Filters" />
+</p>
+
+<p align="center">
+  <em>From left to right: <strong>(1)</strong> Main Dashboard with 4-way filter chips, <strong>(2)</strong> 3-State action capsules with glowing outlines, <strong>(3)</strong> Isolated view of shielded games, <strong>(4)</strong> Granular ad network toggles for rewarded ads.</em>
+</p>
 
 ---
 
@@ -96,7 +111,7 @@ Quickly organize your installed apps with dedicated live counters:
 * Integrated step-by-step dialog explaining each mode, gaming ad shields, and battery efficiency.
 
 ### 🌍 Seamless Bilingual Support
-* Automatically detects your device language and displays native English or Polish.
+* Automatically detects your device language and displays native English or Polish with an in-app language switcher dialog.
 
 ---
 
@@ -133,7 +148,7 @@ Quickly organize your installed apps with dedicated live counters:
 
 ## 🚀 Quick Start / Installation
 
-1. **Download:** Grab the latest `NetMuzzle-v1.2.1.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
+1. **Download:** Grab the latest `NetMuzzle-v1.2.2.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
 2. **Install:** Open the file on your Android device (Android 8.0 Oreo up to Android 14+). Enable "Install from unknown sources" if prompted.
 3. **Grant VPN Permission:** Launch NetMuzzle and grant the standard one-time Android VPN permission. NetMuzzle runs entirely locally on your phone — no traffic ever leaves your device.
 4. **Choose Your Rules:** Set your games to **Block Ads** and intrusive apps to **Muzzle**. Turn on the Hero Master Switch and enjoy clean, private browsing and gaming!

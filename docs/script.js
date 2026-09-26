@@ -6,13 +6,14 @@
 const translations = {
     en: {
         nav_features: "Features",
+        nav_screenshots: "Screenshots",
         nav_comparison: "Comparison",
         nav_performance: "Battery & CPU",
         nav_privacy: "Privacy & Trust",
         nav_faq: "FAQ",
         btn_download: "Download APK",
 
-        hero_badge: "Android No-Root Firewall & Game AdBlock • v1.2.1 Released",
+        hero_badge: "Android No-Root Firewall & Game AdBlock • v1.2.2 Released",
         hero_title: 'Muzzle the apps you don\'t trust. <span class="gradient-text">Zero battery drain.</span>',
         hero_desc: "Selectively cut off internet access or block intrusive mobile game ads with zero lag and zero CPU overhead. No root, zero DNS leaks, and full control over rewarded ads.",
         hero_cta_primary: "Download Free APK (~2 MB)",
@@ -27,11 +28,23 @@ const translations = {
         mock_blocked_chip: "Protected (2)",
         mock_try_hint: "👆 Interactive live demo: click switches above!",
 
+        badge_screenshots: "In-App Showcase",
+        screenshots_title: "Clean, Tactical Interface",
+        screenshots_subtitle: "Take a look at real NetMuzzle screenshots in action with 3-state capsules, live filter counters, and granular ad controls.",
+        ss1_title: "Clean Main Dashboard",
+        ss1_desc: "Hero master switch, dynamic app search, and 4-way category filter bar.",
+        ss2_title: "3-State Action Capsules",
+        ss2_desc: "Instant tactile switching between Allow, Block Ads (Game Shield), and Muzzle.",
+        ss3_title: "Active Shield & Game Filter",
+        ss3_desc: "Live filtered view showing active protection and silenced game ad networks.",
+        ss4_title: "Game AdBlock Filters",
+        ss4_desc: "Fine-tune blocked ad networks to claim in-game video rewards whenever you want.",
+
         badge_why: "Why NetMuzzle?",
         features_title: "Engineered differently. Built for zero waste.",
         features_subtitle: "Most Android firewalls route 100% of your network traffic into user-space, burning CPU and battery. NetMuzzle takes the opposite, pure architectural route.",
 
-        f0_title: "Game AdBlock Shield (v1.2.1)",
+        f0_title: "Game AdBlock Shield (v1.2.2)",
         f0_desc: "Selectively blocks mobile game ads (Unity Ads, Google AdMob, AppLovin, IronSource) without cutting off game servers or multiplayer, and with 0% extra battery drain.",
         f0_tag: "Selective DNS Shield",
 
@@ -120,13 +133,14 @@ const translations = {
 
     pl: {
         nav_features: "Funkcje",
+        nav_screenshots: "Zrzuty ekranu",
         nav_comparison: "Porównanie",
         nav_performance: "Wydajność i Bateria",
         nav_privacy: "Prywatność i Zaufanie",
         nav_faq: "Pytania (FAQ)",
         btn_download: "Pobierz APK",
 
-        hero_badge: "Android Firewall i Bloker Reklam w Grach • Wydanie v1.2.1",
+        hero_badge: "Android Firewall i Bloker Reklam w Grach • Wydanie v1.2.2",
         hero_title: 'Załóż kaganiec na aplikacje i zablokuj reklamy. <span class="gradient-text">Zero drenażu baterii.</span>',
         hero_desc: "Selektywnie odcinaj internet lub wycinaj irytujące reklamy w grach bez lagów i bez obciążania procesora. Bez roota, zero wycieków DNS i pełna kontrola nad reklamami z nagrodami.",
         hero_cta_primary: "Pobierz darmowy plik APK (~2 MB)",
@@ -141,11 +155,23 @@ const translations = {
         mock_blocked_chip: "Chronione (2)",
         mock_try_hint: "👆 Interaktywny podgląd: poklikaj przełączniki wyżej!",
 
+        badge_screenshots: "Galeria Aplikacji",
+        screenshots_title: "Przejrzysty, Nowoczesny Interfejs",
+        screenshots_subtitle: "Zobacz autentyczne zrzuty ekranu z NetMuzzle: 3-stanowe kapsuły, filtry z licznikami na żywo i kontrolę sieci reklamowych.",
+        ss1_title: "Ekran Główny i Filtry",
+        ss1_desc: "Główny włącznik ochrony, natychmiastowe wyszukiwanie i 4-pozycyjny pasek kategorii.",
+        ss2_title: "3-Stanowe Kapsuły Akcji",
+        ss2_desc: "Błyskawiczne przełączanie między Zezwalaj, Blokada Ads (Game Shield) i Kaganiec.",
+        ss3_title: "Aktywna Ochrona i Gry",
+        ss3_desc: "Przejrzysty widok gier objętych aktywną tarczą wycinającą sieci reklamowe.",
+        ss4_title: "Menedżer Filtrów Reklam",
+        ss4_desc: "Precyzyjne odblokowywanie sieci (np. Unity Ads), by odbierać nagrody w grach.",
+
         badge_why: "Dlaczego NetMuzzle?",
         features_title: "Inna architektura. Zero marnowania energii.",
         features_subtitle: "Tradycyjne firewalle przepuszczają 100% ruchu przez aplikację, nagrzewając telefon. NetMuzzle działa odwrotnie – wpuszcza do tunelu wyłącznie programy z czarnej listy.",
 
-        f0_title: "Blokada reklam w grach (Nowość v1.2.1)",
+        f0_title: "Blokada reklam w grach (v1.2.2)",
         f0_desc: "Wycina natrętne reklamy w grach mobilnych (Unity Ads, Google AdMob, AppLovin, IronSource) bez zrywania połączenia z serwerami gier, bez lagów i bez drenażu baterii.",
         f0_tag: "Selektywny filtr DNS",
 

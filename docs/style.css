@@ -1193,3 +1193,90 @@ input:checked + .toggle-slider:before {
         height: 1px;
     }
 }
+
+/* ==========================================================================
+   Screenshots Gallery Showcase Section
+   ========================================================================== */
+.screenshots-section {
+    background: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+    border-top: 1px solid var(--border-color);
+}
+
+.screenshots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+}
+
+.screenshot-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.screenshot-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-cyan);
+    box-shadow: 0 16px 40px rgba(0, 229, 255, 0.16);
+}
+
+.screenshot-img-wrapper {
+    position: relative;
+    background: #090E17;
+    overflow: hidden;
+    aspect-ratio: 921 / 2048;
+}
+
+.screenshot-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.screenshot-card:hover .screenshot-img {
+    transform: scale(1.025);
+}
+
+.screenshot-caption {
+    padding: 16px 14px;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.7);
+    border-top: 1px solid var(--border-color);
+    flex-grow: 1;
+}
+
+.screenshot-caption h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+}
+
+.screenshot-caption p {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+    .screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .screenshots-grid {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        margin: 36px auto 0;
+    }
+}
+

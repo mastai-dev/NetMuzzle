@@ -706,9 +706,19 @@ fun MasterProtectionHeroCard(
 
     val subtitle = if (isEnabled) {
         when {
-            fullBlockedCount > 0 && adBlockedCount > 0 -> "Kaganiec: $fullBlockedCount • Blokada Ads: $adBlockedCount"
-            adBlockedCount > 0 -> "$adBlockedCount gier z blokadą reklam"
-            fullBlockedCount > 0 -> "Kaganiec nałożony na $fullBlockedCount aplikacji"
+            fullBlockedCount > 0 && adBlockedCount > 0 -> stringResource(
+                R.string.firewall_status_both_active,
+                fullBlockedCount,
+                adBlockedCount
+            )
+            adBlockedCount > 0 -> stringResource(
+                R.string.firewall_status_ads_active,
+                adBlockedCount
+            )
+            fullBlockedCount > 0 -> stringResource(
+                R.string.firewall_status_muzzle_active,
+                fullBlockedCount
+            )
             else -> stringResource(R.string.notification_standby_text)
         }
     } else {
