@@ -107,16 +107,47 @@
                 <!-- Interactive App Preview Mockup -->
                 <div class="hero-preview-wrapper">
                     <div class="phone-device-frame">
-                        <div class="phone-speaker"></div>
                         <div class="phone-screen">
+                            <!-- Status Bar with camera punch hole -->
+                            <div class="mock-status-bar">
+                                <span class="mock-status-time">12:00</span>
+                                <div class="phone-camera-hole"></div>
+                                <div class="mock-status-icons">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C7.79 3 3.97 4.59 1 7.23L12 21 23 7.23C20.03 4.59 16.21 3 12 3z"/></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17 4h-3V2h-4v2H7v18h10V4z"/></svg>
+                                </div>
+                            </div>
+
                             <!-- In-App Header -->
                             <div class="mock-app-bar">
                                 <div class="mock-logo">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="#00E5FF"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1zM12 11.99h7c-0.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#00E5FF"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1zM12 11.99h7c-0.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
                                     <span>NetMuzzle</span>
+                                    <span class="mock-version-pill">v1.2.2</span>
                                 </div>
-                                <div class="mock-master-switch-box">
-                                    <span class="mock-switch-label" id="mock-status-text">ACTIVE</span>
+                                <div class="mock-app-bar-actions">
+                                    <div class="mock-icon-btn" title="AdBlock Rules">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#00E5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1z"/><path d="M9 12l2 2 4-4"/></svg>
+                                    </div>
+                                    <div class="mock-icon-btn">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- In-App Master Protection Hero Card -->
+                            <div class="mock-hero-card" id="mock-hero-card">
+                                <div class="mock-hero-icon-box">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1z"/></svg>
+                                </div>
+                                <div class="mock-hero-info">
+                                    <div class="mock-hero-top-row">
+                                        <span class="mock-hero-label" data-i18n="mock_master_title">MASTER PROTECTION</span>
+                                        <span class="mock-hero-status-badge" id="mock-hero-status-badge">ENABLED</span>
+                                    </div>
+                                    <div class="mock-hero-subtitle" id="mock-hero-subtitle">Muzzled: 1 • Ads Blocked: 1</div>
+                                </div>
+                                <div class="mock-hero-switch-box">
                                     <label class="toggle-switch">
                                         <input type="checkbox" id="mock-master-toggle" checked onchange="toggleMockMaster()">
                                         <span class="toggle-slider"></span>
@@ -124,87 +155,29 @@
                                 </div>
                             </div>
 
-                            <!-- In-App Status Card -->
-                            <div class="mock-status-card" id="mock-status-card">
-                                <div class="mock-status-icon">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1z"/></svg>
-                                </div>
-                                <div class="mock-status-info">
-                                    <div class="mock-status-title" id="mock-card-title">BLOCK ACTIVE</div>
-                                    <div class="mock-status-desc" id="mock-card-desc">Muzzled traffic for 2 apps</div>
-                                </div>
-                            </div>
-
                             <!-- In-App Search Bar -->
                             <div class="mock-search">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                <span class="mock-search-txt" data-i18n="mock_search">Search applications…</span>
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <span class="mock-search-txt" data-i18n="mock_search">Search 84 applications…</span>
                             </div>
 
-                            <!-- In-App Filter Chips -->
-                            <div class="mock-chips">
-                                <span class="mock-chip active" data-i18n="mock_all">All (84)</span>
-                                <span class="mock-chip" id="mock-blocked-chip" data-i18n="mock_blocked_chip">Blocked (2)</span>
+                            <!-- In-App Filter Chips Bar -->
+                            <div class="mock-chips-bar" id="mock-chips-bar">
+                                <button class="mock-chip active" id="chip-all" onclick="setMockFilter('all')">All (84)</button>
+                                <button class="mock-chip" id="chip-configured" onclick="setMockFilter('configured')">Configured (2)</button>
+                                <button class="mock-chip" id="chip-ads" onclick="setMockFilter('ads')">Ads (1)</button>
+                                <button class="mock-chip" id="chip-muzzled" onclick="setMockFilter('muzzled')">Muzzled (1)</button>
+                                <button class="mock-chip" id="chip-games" onclick="setMockFilter('games')">Games</button>
                             </div>
 
-                            <!-- In-App App List -->
-                            <div class="mock-app-list">
-                                <!-- App Item 1: TikTok / Social -->
-                                <div class="mock-app-item blocked" id="app-item-1">
-                                    <div class="app-avatar avatar-social">TT</div>
-                                    <div class="app-details">
-                                        <div class="app-name">TikTok Social</div>
-                                        <div class="app-pkg">com.zhiliaoapp.musically</div>
-                                    </div>
-                                    <label class="toggle-switch switch-danger">
-                                        <input type="checkbox" checked onchange="toggleMockApp(1)">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-
-                                <!-- App Item 2: Free Game with Ads -->
-                                <div class="mock-app-item blocked" id="app-item-2">
-                                    <div class="app-avatar avatar-game">🎮</div>
-                                    <div class="app-details">
-                                        <div class="app-name">Block Puzzle 3D</div>
-                                        <div class="app-pkg">com.casual.puzzle.game</div>
-                                    </div>
-                                    <label class="toggle-switch switch-danger">
-                                        <input type="checkbox" checked onchange="toggleMockApp(2)">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-
-                                <!-- App Item 3: Browser (Allowed) -->
-                                <div class="mock-app-item" id="app-item-3">
-                                    <div class="app-avatar avatar-browser">🌐</div>
-                                    <div class="app-details">
-                                        <div class="app-name">Chrome Browser</div>
-                                        <div class="app-pkg">com.android.chrome</div>
-                                    </div>
-                                    <label class="toggle-switch switch-danger">
-                                        <input type="checkbox" onchange="toggleMockApp(3)">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-
-                                <!-- App Item 4: Messaging (Allowed) -->
-                                <div class="mock-app-item" id="app-item-4">
-                                    <div class="app-avatar avatar-msg">💬</div>
-                                    <div class="app-details">
-                                        <div class="app-name">Telegram Messenger</div>
-                                        <div class="app-pkg">org.telegram.messenger</div>
-                                    </div>
-                                    <label class="toggle-switch switch-danger">
-                                        <input type="checkbox" onchange="toggleMockApp(4)">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
+                            <!-- In-App App List with 3-State Capsules (Rendered dynamically) -->
+                            <div class="mock-app-list" id="mock-app-list">
+                                <!-- Dynamic JS render -->
                             </div>
 
                             <!-- In-App Interactive Hint -->
                             <div class="mock-interactive-hint" data-i18n="mock_try_hint">
-                                👆 Interactive live demo: click switches above!
+                                👆 Try live demo: tap Allow, Ads or Muzzle on any app!
                             </div>
                         </div>
                     </div>

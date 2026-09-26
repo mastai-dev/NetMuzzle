@@ -23,10 +23,9 @@ const translations = {
         stat_size: "Featherweight App",
         stat_offline: "On-Device & Offline",
 
-        mock_search: "Search applications…",
-        mock_all: "All (84)",
-        mock_blocked_chip: "Protected (2)",
-        mock_try_hint: "👆 Interactive live demo: click switches above!",
+        mock_master_title: "MASTER PROTECTION",
+        mock_search: "Search 84 applications…",
+        mock_try_hint: "👆 Try live demo: tap Allow, Ads or Muzzle on any app!",
 
         badge_screenshots: "In-App Showcase",
         screenshots_title: "Clean, Tactical Interface",
@@ -150,10 +149,9 @@ const translations = {
         stat_size: "Waga aplikacji",
         stat_offline: "Lokalnie na urządzeniu",
 
-        mock_search: "Szukaj aplikacji…",
-        mock_all: "Wszystkie (84)",
-        mock_blocked_chip: "Chronione (2)",
-        mock_try_hint: "👆 Interaktywny podgląd: poklikaj przełączniki wyżej!",
+        mock_master_title: "GŁÓWNY WŁĄCZNIK",
+        mock_search: "Szukaj 84 aplikacji…",
+        mock_try_hint: "👆 Wypróbuj demo: kliknij Zezwól, Ads lub Kaganiec przy aplikacji!",
 
         badge_screenshots: "Galeria Aplikacji",
         screenshots_title: "Przejrzysty, Nowoczesny Interfejs",
@@ -260,9 +258,49 @@ const translations = {
 };
 
 // State
+// Mock Apps Interactive State
 let currentLang = 'en';
 let mockMasterState = true;
-let mockBlockedApps = new Set([1, 2]); // Initial blocked IDs: TikTok (1), Puzzle (2)
+let currentMockFilter = 'all';
+
+const mockAppsData = [
+    {
+        id: 1,
+        name: "Shadow Survivors",
+        pkg: "com.darkforge.shadowsurvivors",
+        isGame: true,
+        mode: "ads", // 'allow' | 'ads' | 'muzzle'
+        avatarClass: "avatar-game",
+        iconSvg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>'
+    },
+    {
+        id: 2,
+        name: "Social Tracker & Analytics",
+        pkg: "com.social.tracker",
+        isGame: false,
+        mode: "muzzle",
+        avatarClass: "avatar-social",
+        iconSvg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z"/></svg>'
+    },
+    {
+        id: 3,
+        name: "Chrome Browser",
+        pkg: "com.android.chrome",
+        isGame: false,
+        mode: "allow",
+        avatarClass: "avatar-browser",
+        iconSvg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>'
+    },
+    {
+        id: 4,
+        name: "Mech Wars: Swarm",
+        pkg: "com.apex.mechwars",
+        isGame: true,
+        mode: "allow",
+        avatarClass: "avatar-mech",
+        iconSvg: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l-5.5 9h11z M4 13h16v7H4z"/></svg>'
+    }
+];
 
 // Set Language function
 function setLanguage(lang) {
@@ -290,58 +328,134 @@ function setLanguage(lang) {
         localStorage.setItem('netmuzzle_lang', lang);
     } catch(e) {}
 
-    // Update mock phone texts in current language
+    // Update mock phone texts and app list in current language
+    renderMockAppList();
     updateMockStatusUI();
 }
 
-// Interactive Live Mockup Logic
+// Render Interactive App List
+function renderMockAppList() {
+    const listEl = document.getElementById('mock-app-list');
+    if (!listEl) return;
+
+    const isPl = currentLang === 'pl';
+    const allowText = isPl ? 'Zezwól' : 'Allow';
+    const adsText = 'Ads';
+    const muzzleText = isPl ? 'Kaganiec' : 'Muzzle';
+
+    const filtered = mockAppsData.filter(app => {
+        if (currentMockFilter === 'configured') return app.mode !== 'allow';
+        if (currentMockFilter === 'ads') return app.mode === 'ads';
+        if (currentMockFilter === 'muzzled') return app.mode === 'muzzle';
+        if (currentMockFilter === 'games') return app.isGame;
+        return true;
+    });
+
+    listEl.innerHTML = filtered.map(app => `
+        <div class="mock-app-item ${app.mode}" id="app-item-${app.id}">
+            <div class="app-avatar ${app.avatarClass}">
+                ${app.iconSvg}
+            </div>
+            <div class="app-details">
+                <div class="app-name-row">
+                    <span class="app-name">${app.name}</span>
+                    ${app.isGame ? '<span class="mock-game-tag">GAME</span>' : ''}
+                </div>
+                <div class="app-pkg">${app.pkg}</div>
+            </div>
+            <div class="mock-capsule" role="group">
+                <button class="mock-capsule-btn btn-allow ${app.mode === 'allow' ? 'active' : ''}" 
+                        onclick="setMockAppMode(${app.id}, 'allow')" title="${allowText}">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>${allowText}</span>
+                </button>
+                <button class="mock-capsule-btn btn-ads ${app.mode === 'ads' ? 'active' : ''}" 
+                        onclick="setMockAppMode(${app.id}, 'ads')" title="${adsText}">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1z"/></svg>
+                    <span>${adsText}</span>
+                </button>
+                <button class="mock-capsule-btn btn-muzzle ${app.mode === 'muzzle' ? 'active' : ''}" 
+                        onclick="setMockAppMode(${app.id}, 'muzzle')" title="${muzzleText}">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z"/></svg>
+                    <span>${muzzleText}</span>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Toggle capsule mode for an app
+function setMockAppMode(appId, newMode) {
+    const app = mockAppsData.find(a => a.id === appId);
+    if (!app) return;
+    app.mode = newMode;
+    renderMockAppList();
+    updateMockStatusUI();
+}
+
+// Switch category filter
+function setMockFilter(filterKey) {
+    currentMockFilter = filterKey;
+    document.querySelectorAll('.mock-chip').forEach(c => c.classList.remove('active'));
+    const activeChip = document.getElementById(`chip-${filterKey}`);
+    if (activeChip) activeChip.classList.add('active');
+    renderMockAppList();
+}
+
+// Master switch toggle
 function toggleMockMaster() {
     const toggle = document.getElementById('mock-master-toggle');
-    mockMasterState = toggle.checked;
+    if (toggle) mockMasterState = toggle.checked;
     updateMockStatusUI();
 }
 
-function toggleMockApp(appId) {
-    if (mockBlockedApps.has(appId)) {
-        mockBlockedApps.delete(appId);
-        document.getElementById(`app-item-${appId}`).classList.remove('blocked');
-    } else {
-        mockBlockedApps.add(appId);
-        document.getElementById(`app-item-${appId}`).classList.add('blocked');
-    }
-    updateMockStatusUI();
-}
-
+// Update card subtitle and status
 function updateMockStatusUI() {
-    const card = document.getElementById('mock-status-card');
-    const title = document.getElementById('mock-card-title');
-    const desc = document.getElementById('mock-card-desc');
-    const statusText = document.getElementById('mock-status-text');
-    const chip = document.getElementById('mock-blocked-chip');
+    const heroCard = document.getElementById('mock-hero-card');
+    const statusBadge = document.getElementById('mock-hero-status-badge');
+    const subtitle = document.getElementById('mock-hero-subtitle');
 
-    const count = mockBlockedApps.size;
+    const muzzledCount = mockAppsData.filter(a => a.mode === 'muzzle').length;
+    const adBlockedCount = mockAppsData.filter(a => a.mode === 'ads').length;
+    const configuredCount = muzzledCount + adBlockedCount;
+    const gamesCount = mockAppsData.filter(a => a.isGame).length;
+
     const isPl = currentLang === 'pl';
 
-    chip.textContent = isPl ? `Zablokowane (${count})` : `Blocked (${count})`;
+    // Update filter chips labels
+    const chipAll = document.getElementById('chip-all');
+    const chipConfigured = document.getElementById('chip-configured');
+    const chipAds = document.getElementById('chip-ads');
+    const chipMuzzled = document.getElementById('chip-muzzled');
+    const chipGames = document.getElementById('chip-games');
+
+    if (chipAll) chipAll.textContent = isPl ? 'Wszystkie (84)' : 'All (84)';
+    if (chipConfigured) chipConfigured.textContent = isPl ? `Skonfigurowane (${configuredCount})` : `Configured (${configuredCount})`;
+    if (chipAds) chipAds.textContent = isPl ? `Tylko Ads (${adBlockedCount})` : `Ads (${adBlockedCount})`;
+    if (chipMuzzled) chipMuzzled.textContent = isPl ? `Kaganiec (${muzzledCount})` : `Muzzled (${muzzledCount})`;
+    if (chipGames) chipGames.textContent = isPl ? `Gry (${gamesCount})` : `Games (${gamesCount})`;
+
+    if (!heroCard || !statusBadge || !subtitle) return;
 
     if (!mockMasterState) {
-        card.className = 'mock-status-card disabled';
-        statusText.textContent = isPl ? 'WYŁĄCZONY' : 'DISABLED';
-        statusText.style.color = '#64748B';
-        title.textContent = isPl ? 'WYŁĄCZONY' : 'DISABLED';
-        desc.textContent = isPl ? 'Ruch sieciowy nie jest blokowany' : 'Network traffic is unblocked';
-    } else if (count === 0) {
-        card.className = 'mock-status-card standby';
-        statusText.textContent = isPl ? 'CZUWANIE' : 'STANDBY';
-        statusText.style.color = '#F59E0B';
-        title.textContent = isPl ? 'TRYB CZUWANIA' : 'STANDBY MODE';
-        desc.textContent = isPl ? 'Brak apek na czarnej liście (ruch wolny)' : 'No apps blocked (traffic unblocked)';
+        heroCard.classList.add('disabled');
+        statusBadge.textContent = isPl ? 'WYŁĄCZONA' : 'DISABLED';
+        subtitle.textContent = isPl ? 'Ruch sieciowy nie jest filtrowany' : 'Network traffic is not being filtered';
     } else {
-        card.className = 'mock-status-card';
-        statusText.textContent = isPl ? 'AKTYWNY' : 'ACTIVE';
-        statusText.style.color = '#00E5FF';
-        title.textContent = isPl ? 'BLOKADA AKTYWNA' : 'BLOCK ACTIVE';
-        desc.textContent = isPl ? `Zablokowano ruch dla ${count} aplikacji` : `Muzzled traffic for ${count} apps`;
+        heroCard.classList.remove('disabled');
+        if (configuredCount === 0) {
+            statusBadge.textContent = isPl ? 'CZUWANIE' : 'STANDBY';
+            subtitle.textContent = isPl ? 'Brak reguł (ruch wolny)' : 'Standby (no active rules)';
+        } else if (muzzledCount > 0 && adBlockedCount > 0) {
+            statusBadge.textContent = isPl ? 'WŁĄCZONA' : 'ENABLED';
+            subtitle.textContent = isPl ? `Kaganiec: ${muzzledCount} • Blokada Ads: ${adBlockedCount}` : `Muzzled: ${muzzledCount} • Ads Blocked: ${adBlockedCount}`;
+        } else if (adBlockedCount > 0) {
+            statusBadge.textContent = isPl ? 'WŁĄCZONA' : 'ENABLED';
+            subtitle.textContent = isPl ? `${adBlockedCount} gier z blokadą reklam` : `${adBlockedCount} apps with ad blocking`;
+        } else {
+            statusBadge.textContent = isPl ? 'WŁĄCZONA' : 'ENABLED';
+            subtitle.textContent = isPl ? `Kaganiec nałożony na ${muzzledCount} aplikacji` : `Muzzle applied to ${muzzledCount} apps`;
+        }
     }
 }
 
