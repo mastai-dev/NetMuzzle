@@ -28,12 +28,16 @@
     <string name="filter_blocked">Chronione (%1$d)</string>
     <string name="filter_system_apps">Aplikacje systemowe</string>
     <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
+    <string name="setting_language">Język aplikacji / Language</string>
     <string name="setting_battery_opt">Optymalizacja baterii</string>
     <string name="menu_help">Samouczek i pomoc</string>
     <string name="menu_adblock_filters">Filtry reklam w grach</string>
     <string name="menu_about">O aplikacji</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Wersja 1.2.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
+    <string name="about_desc">Wersja 1.2.1\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
+    <string name="dialog_language_title">Wybierz język / Select Language</string>
+    <string name="lang_english">English (US)</string>
+    <string name="lang_polish">Polski</string>
     <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
     <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał NetMuzzle w tle po uśpieniu ekranu, zaleca się dodanie aplikacji do wyjątków oszczędzania energii.</string>
     <string name="battery_opt_action">Otwórz ustawienia</string>

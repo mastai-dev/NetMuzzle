@@ -1,5 +1,7 @@
 package com.netmuzzle.firewall.ui.screens
 
+import android.app.Activity
+import android.app.LocaleManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -8,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.LocaleList
 import android.provider.Settings
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
@@ -110,6 +113,7 @@ fun FirewallScreen(
     val context = LocalContext.current
 
     var showMenu by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
     var showBatteryDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
     var showAdBlockManagerDialog by remember { mutableStateOf(false) }
@@ -230,6 +234,19 @@ fun FirewallScreen(
                                 }
                             },
                             onClick = { viewModel.onShowSystemAppsToggled(!uiState.showSystemApps) }
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.setting_language),
+                                    color = TextPrimary,
+                                    fontSize = 14.sp
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                showLanguageDialog = true
+                            }
                         )
                         DropdownMenuItem(
                             text = {
@@ -478,6 +495,75 @@ fun FirewallScreen(
                 }
             }
         }
+    }
+
+    // Dialog Wyboru Języka (Language Switcher)
+    if (showLanguageDialog) {
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            title = {
+                Text(
+                    stringResource(R.string.dialog_language_title),
+                    color = TextPrimary,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    // Opcja 1: English
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(DarkSurface)
+                            .clickable {
+                                showLanguageDialog = false
+                                changeAppLanguage(context, "en")
+                            }
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🇺🇸", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            stringResource(R.string.lang_english),
+                            color = TextPrimary,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+
+                    // Opcja 2: Polski
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(10.dp))
+                            .background(DarkSurface)
+                            .clickable {
+                                showLanguageDialog = false
+                                changeAppLanguage(context, "pl")
+                            }
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("🇵🇱", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            stringResource(R.string.lang_polish),
+                            color = TextPrimary,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showLanguageDialog = false }) {
+                    Text(stringResource(R.string.dialog_cancel), color = NeonCyan)
+                }
+            },
+            containerColor = DarkCard
+        )
     }
 
     // Dialog Samouczka i Pomocy
@@ -998,5 +1084,21 @@ private fun requestIgnoreBatteryOptimization(context: Context) {
             val fallbackIntent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
             context.startActivity(fallbackIntent)
         }
+    }
+}
+
+fun changeAppLanguage(context: Context, langCode: String) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val localeManager = context.getSystemService(LocaleManager::class.java)
+        localeManager?.applicationLocales = LocaleList.forLanguageTags(langCode)
+    } else {
+        val locale = java.util.Locale(langCode)
+        java.util.Locale.setDefault(locale)
+        val resources = context.resources
+        val config = resources.configuration
+        config.setLocale(locale)
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
+        (context as? Activity)?.recreate()
     }
 }

@@ -60,18 +60,18 @@ jobs:
       - name: Prepare Release Assets
         run: |
           mkdir -p release-assets
-          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.2.0.apk
-          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.2.0.aab
+          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.2.1.apk
+          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.2.1.aab
           ls -lh release-assets/
 
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.2.0
-          name: "NetMuzzle v1.2.0 (Official Release)"
+          tag_name: v1.2.1
+          name: "NetMuzzle v1.2.1 (Official Release)"
           body: |
-            ## 🛡️ NetMuzzle v1.2.0
+            ## 🛡️ NetMuzzle v1.2.1
 
             Ultra-lightweight, zero-CPU, no-root Android firewall & Game AdBlocker.  
             *Super-lekki firewall i bloker reklam w grach na Androida bez roota i bez drenowania baterii.*
@@ -81,10 +81,11 @@ jobs:
             ### 🇬🇧 English
 
             #### 📦 Download
-            - **[NetMuzzle-v1.2.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.0/NetMuzzle-v1.2.0.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
-            - **NetMuzzle-v1.2.0.aab** — Google Play production App Bundle.
+            - **[NetMuzzle-v1.2.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
+            - **NetMuzzle-v1.2.1.aab** — Google Play production App Bundle.
 
-            #### ✨ What's New in v1.2.0
+            #### ✨ What's New in v1.2.1
+            - 🌍 **Per-App Language Settings (Android 13+):** Enabled system-level language selection in Android Settings (`locales_config.xml`) plus an in-app language switcher (English / Polski).
             - 🎨 **Modern 3-State Segmented Pill UI:** Clear text labels (`Allow`, `Block Ads`, `Muzzle`) with glowing status outlines and tactile feedback.
             - 🔍 **Expanded 4-Way Filtering Bar:** Filter apps instantly by `All`, `🎮 Games`, `🛡️ Block Ads`, or `🚫 Muzzled` with live application counters.
             - 📱 **Enhanced App Card Design:** Clean layout with large 46dp icons, glowing gamepad badges, and full-width mode selectors.
@@ -101,10 +102,11 @@ jobs:
             ### 🇵🇱 Polski
 
             #### 📦 Pobierz
-            - **[NetMuzzle-v1.2.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.0/NetMuzzle-v1.2.0.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
-            - **NetMuzzle-v1.2.0.aab** — Oficjalna paczka produkcyjna dla Google Play.
+            - **[NetMuzzle-v1.2.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
+            - **NetMuzzle-v1.2.1.aab** — Oficjalna paczka produkcyjna dla Google Play.
 
-            #### ✨ Nowości w wersji 1.2.0
+            #### ✨ Nowości w wersji 1.2.1
+            - 🌍 **Wybór języka aplikacji (Android 13+):** Włączono systemowy wybór języka w Ustawieniach Androida (`locales_config.xml`) oraz dodano przełącznik języka bezpośrednio w menu aplikacji (Polski / English).
             - 🎨 **Nowoczesna tekstowa kapsuła 3-stanowa:** Czytelne etykiety (`Zezwalaj`, `Tylko Ads`, `Kaganiec`) z neonowym podświetleniem wybranego trybu.
             - 🔍 **Rozbudowany pasek 4 filtrów:** Błyskawiczne filtrowanie według kategorii: `Wszystkie`, `🎮 Gry`, `🛡️ Blokada Ads` oraz `🚫 Kaganiec` z dynamicznymi licznikami.
             - 📱 **Dopracowane kafelki aplikacji:** Duże ikony (46dp), plakietki gier i pełnowymiarowy selektor trybów bez ryzyka ucięć.
@@ -116,6 +118,6 @@ jobs:
             🌐 **Strona projektu (Landing Page):** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
             🛡️ **Polityka Prywatności:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
           files: |
-            release-assets/NetMuzzle-v1.2.0.apk
-            release-assets/NetMuzzle-v1.2.0.aab
+            release-assets/NetMuzzle-v1.2.1.apk
+            release-assets/NetMuzzle-v1.2.1.aab
 

@@ -28,12 +28,16 @@
     <string name="filter_blocked">Protected (%1$d)</string>
     <string name="filter_system_apps">System apps</string>
     <string name="setting_start_on_boot">Start on device boot</string>
+    <string name="setting_language">Language / Język</string>
     <string name="setting_battery_opt">Battery optimization</string>
     <string name="menu_help">Tutorial &amp; Help</string>
     <string name="menu_adblock_filters">Game AdBlock Filters</string>
     <string name="menu_about">About NetMuzzle</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Version 1.2.0\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
+    <string name="about_desc">Version 1.2.1\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
+    <string name="dialog_language_title">Select Language / Wybierz język</string>
+    <string name="lang_english">English (US)</string>
+    <string name="lang_polish">Polski</string>
     <string name="battery_opt_dialog_title">Battery Optimization</string>
     <string name="battery_opt_dialog_desc">To prevent Android from killing NetMuzzle in the background when the screen is locked, we recommend adding the app to battery optimization exemptions.</string>
     <string name="battery_opt_action">Open Settings</string>

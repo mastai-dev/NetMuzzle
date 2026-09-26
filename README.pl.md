@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Wydanie-v1.2.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Najnowsze Wydanie"></a>
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Wydanie-v1.2.1-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Najnowsze Wydanie"></a>
   <a href="https://github.com/mastai-dev/NetMuzzle/releases"><img src="https://img.shields.io/badge/Rozmiar%20APK-~1.2%20MB-success?style=for-the-badge" alt="Rozmiar APK"></a>
   <a href="https://android.com"><img src="https://img.shields.io/badge/Android-8.0%2B%20(Oreo%20do%2014%2B)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Wsparcie Android"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/Licencja-MIT-blue.svg?style=for-the-badge" alt="Licencja"></a>
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.0/NetMuzzle-v1.2.0.apk">
-    <img src="https://img.shields.io/badge/⬇️_Pobierz_Plik_APK-v1.2.0_(Bezpośrednio)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Pobierz APK">
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk">
+    <img src="https://img.shields.io/badge/⬇️_Pobierz_Plik_APK-v1.2.1_(Bezpośrednio)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Pobierz APK">
   </a>
   <a href="https://mastai-dev.github.io/NetMuzzle/">
     <img src="https://img.shields.io/badge/🌐_Oficjalna_Strona-Interaktywny_Podgląd-7C3AED?style=for-the-badge&labelColor=0f172a" alt="Oficjalna Strona">
@@ -55,7 +55,7 @@ Większość tradycyjnych firewalli na Androida (takich jak NetGuard czy popular
 
 ## 📊 Porównanie: NetMuzzle na tle konkurencji
 
-| Cecha / Parametr | Tradycyjne firewalle VPN (np. NetGuard) | Filtry Root / Hosts (AdAway, iptables) | **NetMuzzle 🛡️ (v1.2.0)** |
+| Cecha / Parametr | Tradycyjne firewalle VPN (np. NetGuard) | Filtry Root / Hosts (AdAway, iptables) | **NetMuzzle 🛡️ (v1.2.1)** |
 | :--- | :---: | :---: | :---: |
 | **Wymaga uprawnień Roota?** | ❌ Nie | ⚠️ Tak (Utrata gwarancji) | 🟢 **Nie (Bez roota)** |
 | **Zużycie baterii i procesora** | 🔴 5% – 15% (analiza pakietów) | 🟢 Znikome | 🟢 **Dokładnie 0% (Czarna Dziura)** |
@@ -133,7 +133,7 @@ Wygodne zarządzanie zainstalowanymi programami dzięki dedykowanym licznikom:
 
 ## 🚀 Szybki Start / Instalacja
 
-1. **Pobierz:** Ściągnij najnowszy plik `NetMuzzle-v1.2.0.apk` (~1.2 MB) z zakładki [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest).
+1. **Pobierz:** Ściągnij najnowszy plik `NetMuzzle-v1.2.1.apk` (~1.2 MB) z zakładki [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest).
 2. **Zainstaluj:** Uruchom pobrany plik na telefonie (Android 8.0 Oreo do Android 14+). Zezwól na instalację z nieznanych źródeł, jeśli system o to zapyta.
 3. **Zezwól na VPN:** Otwórz NetMuzzle i potwierdź jednorazową systemową zgodę na połączenie VPN. Całość działa w 100% lokalnie na Twoim urządzeniu.
 4. **Wybierz reguły:** Ustaw gry na **Tylko Ads**, wścibskie programy na **Kaganiec**, włącz główny przełącznik i ciesz się czystym telefonem bez reklam!
