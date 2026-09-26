@@ -12,7 +12,7 @@ const translations = {
         nav_faq: "FAQ",
         btn_download: "Download APK",
 
-        hero_badge: "Android No-Root Firewall & Game AdBlock • v1.1.0 Released",
+        hero_badge: "Android No-Root Firewall & Game AdBlock • v1.2.0 Released",
         hero_title: 'Muzzle the apps you don\'t trust. <span class="gradient-text">Zero battery drain.</span>',
         hero_desc: "Selectively cut off internet access or block intrusive mobile game ads with zero lag and zero CPU overhead. No root, zero DNS leaks, and full control over rewarded ads.",
         hero_cta_primary: "Download Free APK (~2 MB)",
@@ -31,7 +31,7 @@ const translations = {
         features_title: "Engineered differently. Built for zero waste.",
         features_subtitle: "Most Android firewalls route 100% of your network traffic into user-space, burning CPU and battery. NetMuzzle takes the opposite, pure architectural route.",
 
-        f0_title: "Game AdBlock Shield (v1.1.0)",
+        f0_title: "Game AdBlock Shield (v1.2.0)",
         f0_desc: "Selectively blocks mobile game ads (Unity Ads, Google AdMob, AppLovin, IronSource) without cutting off game servers or multiplayer, and with 0% extra battery drain.",
         f0_tag: "Selective DNS Shield",
 
@@ -126,7 +126,7 @@ const translations = {
         nav_faq: "Pytania (FAQ)",
         btn_download: "Pobierz APK",
 
-        hero_badge: "Android Firewall i Bloker Reklam w Grach • Wydanie v1.1.0",
+        hero_badge: "Android Firewall i Bloker Reklam w Grach • Wydanie v1.2.0",
         hero_title: 'Załóż kaganiec na aplikacje i zablokuj reklamy. <span class="gradient-text">Zero drenażu baterii.</span>',
         hero_desc: "Selektywnie odcinaj internet lub wycinaj irytujące reklamy w grach bez lagów i bez obciążania procesora. Bez roota, zero wycieków DNS i pełna kontrola nad reklamami z nagrodami.",
         hero_cta_primary: "Pobierz darmowy plik APK (~2 MB)",
@@ -145,7 +145,7 @@ const translations = {
         features_title: "Inna architektura. Zero marnowania energii.",
         features_subtitle: "Tradycyjne firewalle przepuszczają 100% ruchu przez aplikację, nagrzewając telefon. NetMuzzle działa odwrotnie – wpuszcza do tunelu wyłącznie programy z czarnej listy.",
 
-        f0_title: "Blokada reklam w grach (Nowość v1.1.0)",
+        f0_title: "Blokada reklam w grach (Nowość v1.2.0)",
         f0_desc: "Wycina natrętne reklamy w grach mobilnych (Unity Ads, Google AdMob, AppLovin, IronSource) bez zrywania połączenia z serwerami gier, bez lagów i bez drenażu baterii.",
         f0_tag: "Selektywny filtr DNS",
 

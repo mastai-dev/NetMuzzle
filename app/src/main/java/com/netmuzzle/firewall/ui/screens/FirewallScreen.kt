@@ -14,6 +14,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -74,6 +76,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.netmuzzle.firewall.R
+import com.netmuzzle.firewall.model.AppFilter
 import com.netmuzzle.firewall.model.AppInfo
 import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.VpnStatus
@@ -325,15 +328,18 @@ fun FirewallScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Filtry (Chips)
+            // Pasek filtrów z poziomym przewijaniem i licznikami (Chips)
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // 1. Wszystkie (All)
                 FilterChip(
-                    selected = !uiState.filterBlockedOnly,
-                    onClick = { viewModel.onFilterBlockedToggled(false) },
-                    label = { Text(stringResource(R.string.filter_all)) },
+                    selected = uiState.selectedFilter == AppFilter.ALL,
+                    onClick = { viewModel.onFilterSelected(AppFilter.ALL) },
+                    label = { Text(stringResource(R.string.filter_all, uiState.totalAppsCount)) },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = NeonCyan.copy(alpha = 0.2f),
                         selectedLabelColor = NeonCyan,
@@ -341,28 +347,87 @@ fun FirewallScreen(
                         labelColor = TextSecondary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (!uiState.filterBlockedOnly) NeonCyan else DarkBorder,
+                        borderColor = if (uiState.selectedFilter == AppFilter.ALL) NeonCyan else DarkBorder,
                         enabled = true,
-                        selected = !uiState.filterBlockedOnly
+                        selected = uiState.selectedFilter == AppFilter.ALL
                     )
                 )
 
+                // 2. Gry (Games)
                 FilterChip(
-                    selected = uiState.filterBlockedOnly,
-                    onClick = { viewModel.onFilterBlockedToggled(true) },
-                    label = {
-                        Text(stringResource(R.string.filter_blocked, uiState.totalProtectedCount))
+                    selected = uiState.selectedFilter == AppFilter.GAMES,
+                    onClick = { viewModel.onFilterSelected(AppFilter.GAMES) },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_gamepad),
+                            contentDescription = null,
+                            tint = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
                     },
+                    label = { Text(stringResource(R.string.filter_games, uiState.gamesCount)) },
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = StatusStandbyAmber.copy(alpha = 0.2f),
-                        selectedLabelColor = StatusStandbyAmber,
+                        selectedContainerColor = NeonCyan.copy(alpha = 0.2f),
+                        selectedLabelColor = NeonCyan,
                         containerColor = DarkSurface,
                         labelColor = TextSecondary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (uiState.filterBlockedOnly) StatusStandbyAmber else DarkBorder,
+                        borderColor = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else DarkBorder,
                         enabled = true,
-                        selected = uiState.filterBlockedOnly
+                        selected = uiState.selectedFilter == AppFilter.GAMES
+                    )
+                )
+
+                // 3. Blokada Ads (AdBlock)
+                FilterChip(
+                    selected = uiState.selectedFilter == AppFilter.AD_BLOCK,
+                    onClick = { viewModel.onFilterSelected(AppFilter.AD_BLOCK) },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_shield_adblock),
+                            contentDescription = null,
+                            tint = if (uiState.selectedFilter == AppFilter.AD_BLOCK) ModeAdBlockAccent else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    },
+                    label = { Text(stringResource(R.string.filter_adblock, uiState.adBlockedCount)) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = ModeAdBlockAccent.copy(alpha = 0.2f),
+                        selectedLabelColor = ModeAdBlockAccent,
+                        containerColor = DarkSurface,
+                        labelColor = TextSecondary
+                    ),
+                    border = FilterChipDefaults.filterChipBorder(
+                        borderColor = if (uiState.selectedFilter == AppFilter.AD_BLOCK) ModeAdBlockAccent else DarkBorder,
+                        enabled = true,
+                        selected = uiState.selectedFilter == AppFilter.AD_BLOCK
+                    )
+                )
+
+                // 4. Kaganiec (Full Block)
+                FilterChip(
+                    selected = uiState.selectedFilter == AppFilter.FULL_BLOCK,
+                    onClick = { viewModel.onFilterSelected(AppFilter.FULL_BLOCK) },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_block),
+                            contentDescription = null,
+                            tint = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    },
+                    label = { Text(stringResource(R.string.filter_fullblock, uiState.fullBlockedCount)) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = ModeFullBlockAccent.copy(alpha = 0.2f),
+                        selectedLabelColor = ModeFullBlockAccent,
+                        containerColor = DarkSurface,
+                        labelColor = TextSecondary
+                    ),
+                    border = FilterChipDefaults.filterChipBorder(
+                        borderColor = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else DarkBorder,
+                        enabled = true,
+                        selected = uiState.selectedFilter == AppFilter.FULL_BLOCK
                     )
                 )
             }
@@ -649,8 +714,8 @@ fun AppListItem(
 ) {
     val borderColorAnim by animateColorAsState(
         targetValue = when (app.blockMode) {
-            BlockMode.FULL_BLOCK -> ModeFullBlockAccent.copy(alpha = 0.5f)
-            BlockMode.AD_BLOCK -> ModeAdBlockAccent.copy(alpha = 0.5f)
+            BlockMode.FULL_BLOCK -> ModeFullBlockAccent.copy(alpha = 0.6f)
+            BlockMode.AD_BLOCK -> ModeAdBlockAccent.copy(alpha = 0.6f)
             BlockMode.ALLOW -> DarkBorder
         },
         label = "borderColorAnim"
@@ -658,8 +723,8 @@ fun AppListItem(
 
     val containerColorAnim by animateColorAsState(
         targetValue = when (app.blockMode) {
-            BlockMode.FULL_BLOCK -> Color(0xFF1E1316)
-            BlockMode.AD_BLOCK -> Color(0xFF0D1E28)
+            BlockMode.FULL_BLOCK -> Color(0xFF1E1318)
+            BlockMode.AD_BLOCK -> Color(0xFF0C1D2A)
             BlockMode.ALLOW -> DarkCard
         },
         label = "containerColorAnim"
@@ -668,68 +733,75 @@ fun AppListItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, borderColorAnim, RoundedCornerShape(14.dp)),
+            .border(1.2.dp, borderColorAnim, RoundedCornerShape(16.dp)),
         colors = CardDefaults.cardColors(containerColor = containerColorAnim),
-        shape = RoundedCornerShape(14.dp)
+        shape = RoundedCornerShape(16.dp)
     ) {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .padding(14.dp)
         ) {
-            // Ikona aplikacji z mini-odznaką GAME na ikonie (nigdy się nie zawija!)
-            AppIcon(
-                drawable = app.icon,
-                isGame = app.isGame,
-                modifier = Modifier.size(42.dp)
-            )
+            // Nagłówek kafelka: Ikona z plakietką gry + Nazwa + PackageName + Badge systemu
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AppIcon(
+                    drawable = app.icon,
+                    isGame = app.isGame,
+                    modifier = Modifier.size(46.dp)
+                )
 
-            Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(12.dp))
 
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = app.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = TextPrimary,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.weight(1f, fill = false)
-                    )
-                    if (app.isSystemApp) {
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(4.dp))
-                                .background(DarkBorder)
-                                .padding(horizontal = 4.dp, vertical = 1.dp)
-                        ) {
-                            Text(
-                                text = stringResource(R.string.badge_system),
-                                style = MaterialTheme.typography.labelSmall,
-                                color = TextMuted,
-                                fontSize = 9.sp
-                            )
+                Column(modifier = Modifier.weight(1f)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = app.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = TextPrimary,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.weight(1f, fill = false)
+                        )
+                        if (app.isSystemApp) {
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(4.dp))
+                                    .background(DarkBorder)
+                                    .padding(horizontal = 4.dp, vertical = 1.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.badge_system),
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = TextMuted,
+                                    fontSize = 9.sp
+                                )
+                            }
                         }
                     }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = app.packageName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TextMuted,
+                        fontSize = 11.sp,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
-                Text(
-                    text = app.packageName,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = TextMuted,
-                    fontSize = 11.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
             }
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            // Nowoczesny 3-stanowy przełącznik (Opcja A: Segmented Pill)
+            // Nowoczesna 3-stanowa kapsuła tekstowa z wyrazistym zaznaczeniem i podświetleniem
             SegmentedModePill(
                 currentMode = app.blockMode,
-                onModeChanged = onModeChanged
+                onModeChanged = onModeChanged,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -743,74 +815,90 @@ fun SegmentedModePill(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(20.dp))
-            .background(Color(0xFF090D16))
-            .border(1.dp, DarkBorder, RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(24.dp))
+            .background(Color(0xFF090E17))
+            .border(1.dp, DarkBorder, RoundedCornerShape(24.dp))
             .padding(3.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        SegmentItem(
-            iconRes = R.drawable.ic_globe,
+        // 1. Zezwalaj (Allow / Bypass)
+        TextSegmentItem(
+            text = stringResource(R.string.mode_allow),
             isSelected = currentMode == BlockMode.ALLOW,
-            selectedBg = ModeAllowBg,
-            selectedTint = Color(0xFFF1F5F9),
-            unselectedTint = TextMuted,
-            contentDescription = stringResource(R.string.mode_allow),
-            onClick = { onModeChanged(BlockMode.ALLOW) }
+            selectedBg = Color(0xFF1E293B),
+            selectedBorder = Color(0xFF334155),
+            selectedText = Color(0xFFF8FAFC),
+            unselectedText = TextMuted,
+            onClick = { onModeChanged(BlockMode.ALLOW) },
+            modifier = Modifier.weight(1f)
         )
-        SegmentItem(
-            iconRes = R.drawable.ic_shield_adblock,
+
+        // 2. Blokada Ads w grach (Block Ads / Game Shield)
+        TextSegmentItem(
+            text = stringResource(R.string.mode_adblock),
             isSelected = currentMode == BlockMode.AD_BLOCK,
-            selectedBg = ModeAdBlockBg,
-            selectedTint = ModeAdBlockAccent,
-            unselectedTint = TextMuted,
-            contentDescription = stringResource(R.string.mode_adblock),
-            onClick = { onModeChanged(BlockMode.AD_BLOCK) }
+            selectedBg = Color(0xFF0C2433),
+            selectedBorder = NeonCyan,
+            selectedText = NeonCyan,
+            unselectedText = TextMuted,
+            onClick = { onModeChanged(BlockMode.AD_BLOCK) },
+            modifier = Modifier.weight(1f)
         )
-        SegmentItem(
-            iconRes = R.drawable.ic_block,
+
+        // 3. Kaganiec (Muzzle / Full Block)
+        TextSegmentItem(
+            text = stringResource(R.string.mode_fullblock),
             isSelected = currentMode == BlockMode.FULL_BLOCK,
-            selectedBg = ModeFullBlockBg,
-            selectedTint = ModeFullBlockAccent,
-            unselectedTint = TextMuted,
-            contentDescription = stringResource(R.string.mode_fullblock),
-            onClick = { onModeChanged(BlockMode.FULL_BLOCK) }
+            selectedBg = Color(0xFF281116),
+            selectedBorder = Color(0xFFEF4444),
+            selectedText = Color(0xFFFCA5A5),
+            unselectedText = TextMuted,
+            onClick = { onModeChanged(BlockMode.FULL_BLOCK) },
+            modifier = Modifier.weight(1f)
         )
     }
 }
 
 @Composable
-private fun SegmentItem(
-    iconRes: Int,
+private fun TextSegmentItem(
+    text: String,
     isSelected: Boolean,
     selectedBg: Color,
-    selectedTint: Color,
-    unselectedTint: Color,
-    contentDescription: String,
-    onClick: () -> Unit
+    selectedBorder: Color,
+    selectedText: Color,
+    unselectedText: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val bgAnim by animateColorAsState(
         targetValue = if (isSelected) selectedBg else Color.Transparent,
         label = "bgAnim"
     )
-    val tintAnim by animateColorAsState(
-        targetValue = if (isSelected) selectedTint else unselectedTint,
-        label = "tintAnim"
+    val borderAnim by animateColorAsState(
+        targetValue = if (isSelected) selectedBorder else Color.Transparent,
+        label = "borderAnim"
+    )
+    val textTintAnim by animateColorAsState(
+        targetValue = if (isSelected) selectedText else unselectedText,
+        label = "textTintAnim"
     )
 
     Box(
-        modifier = Modifier
-            .size(32.dp)
-            .clip(CircleShape)
+        modifier = modifier
+            .height(36.dp)
+            .clip(RoundedCornerShape(20.dp))
             .background(bgAnim)
+            .border(if (isSelected) 1.2.dp else 0.dp, borderAnim, RoundedCornerShape(20.dp))
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        Icon(
-            painter = painterResource(iconRes),
-            contentDescription = contentDescription,
-            tint = tintAnim,
-            modifier = Modifier.size(16.dp)
+        Text(
+            text = text,
+            fontSize = 12.sp,
+            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+            color = textTintAnim,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

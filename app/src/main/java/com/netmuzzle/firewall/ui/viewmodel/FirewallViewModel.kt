@@ -26,7 +26,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     private val preferences = FirewallPreferences(application)
 
     private val _searchQuery = MutableStateFlow("")
-    private val _filterBlockedOnly = MutableStateFlow(false)
+    private val _selectedFilter = MutableStateFlow(com.netmuzzle.firewall.model.AppFilter.ALL)
     private val _installedApps = MutableStateFlow<List<AppInfo>>(emptyList())
     private val _isLoading = MutableStateFlow(true)
 
@@ -59,7 +59,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         preferences.showSystemApps,
         appRulesFlow,
         _searchQuery,
-        _filterBlockedOnly,
+        _selectedFilter,
         _installedApps,
         _isLoading
     ) { args: Array<Any> ->
@@ -69,7 +69,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         val showSystemApps = args[3] as Boolean
         val rules = args[4] as AppRules
         val searchQuery = args[5] as String
-        val filterBlockedOnly = args[6] as Boolean
+        val selectedFilter = args[6] as com.netmuzzle.firewall.model.AppFilter
         val rawApps = args[7] as List<AppInfo>
         val isLoading = args[8] as Boolean
 
@@ -83,15 +83,26 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
             app.copy(blockMode = mode)
         }
 
-        // Filtrowanie według wyszukiwania, typu aplikacji i zablokowania
-        val filteredApps = updatedApps.filter { app ->
-            val systemCondition = showSystemApps || !app.isSystemApp
-            val blockedCondition = !filterBlockedOnly || app.blockMode != BlockMode.ALLOW
+        // Aplikacje kwalifikujące się (zgodnie z ustawieniem pokazywania aplikacji systemowych)
+        val eligibleApps = updatedApps.filter { showSystemApps || !it.isSystemApp }
+        val totalAppsCount = eligibleApps.size
+        val gamesCount = eligibleApps.count { it.isGame }
+        val adBlockedCount = eligibleApps.count { it.blockMode == BlockMode.AD_BLOCK }
+        val fullBlockedCount = eligibleApps.count { it.blockMode == BlockMode.FULL_BLOCK }
+
+        // Filtrowanie według wybranego chipa i wyszukiwarki
+        val filteredApps = eligibleApps.filter { app ->
+            val filterCondition = when (selectedFilter) {
+                com.netmuzzle.firewall.model.AppFilter.ALL -> true
+                com.netmuzzle.firewall.model.AppFilter.GAMES -> app.isGame
+                com.netmuzzle.firewall.model.AppFilter.AD_BLOCK -> app.blockMode == BlockMode.AD_BLOCK
+                com.netmuzzle.firewall.model.AppFilter.FULL_BLOCK -> app.blockMode == BlockMode.FULL_BLOCK
+            }
             val searchCondition = searchQuery.isBlank() ||
                     app.name.contains(searchQuery, ignoreCase = true) ||
                     app.packageName.contains(searchQuery, ignoreCase = true)
 
-            systemCondition && blockedCondition && searchCondition
+            filterCondition && searchCondition
         }
 
         val effectiveStatus = if (!isMasterEnabled) {
@@ -106,11 +117,13 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
             startOnBoot = startOnBoot,
             showSystemApps = showSystemApps,
             searchQuery = searchQuery,
-            filterBlockedOnly = filterBlockedOnly,
+            selectedFilter = selectedFilter,
             apps = filteredApps,
             isLoading = isLoading,
-            fullBlockedCount = rules.fullBlocked.size,
-            adBlockedCount = rules.adBlocked.size,
+            totalAppsCount = totalAppsCount,
+            gamesCount = gamesCount,
+            fullBlockedCount = fullBlockedCount,
+            adBlockedCount = adBlockedCount,
             disabledAdNetworks = rules.disabledAdNets,
             customAdDomains = rules.customDomains,
             disabledCustomDomains = rules.disabledCustom
@@ -133,8 +146,12 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         _searchQuery.value = query
     }
 
+    fun onFilterSelected(filter: com.netmuzzle.firewall.model.AppFilter) {
+        _selectedFilter.value = filter
+    }
+
     fun onFilterBlockedToggled(filterBlocked: Boolean) {
-        _filterBlockedOnly.value = filterBlocked
+        _selectedFilter.value = if (filterBlocked) com.netmuzzle.firewall.model.AppFilter.FULL_BLOCK else com.netmuzzle.firewall.model.AppFilter.ALL
     }
 
     fun onShowSystemAppsToggled(show: Boolean) {

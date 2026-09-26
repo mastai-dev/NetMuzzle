@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Wydanie-v1.1.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Najnowsze Wydanie"></a>
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Wydanie-v1.2.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Najnowsze Wydanie"></a>
   <a href="https://github.com/mastai-dev/NetMuzzle/releases"><img src="https://img.shields.io/badge/Rozmiar%20APK-~1.2%20MB-success?style=for-the-badge" alt="Rozmiar APK"></a>
   <a href="https://android.com"><img src="https://img.shields.io/badge/Android-8.0%2B%20(Oreo%20do%2014%2B)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Wsparcie Android"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/Licencja-MIT-blue.svg?style=for-the-badge" alt="Licencja"></a>
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.1.0/NetMuzzle-v1.1.0.apk">
-    <img src="https://img.shields.io/badge/⬇️_Pobierz_Plik_APK-v1.1.0_(Bezpośrednio)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Pobierz APK">
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.0/NetMuzzle-v1.2.0.apk">
+    <img src="https://img.shields.io/badge/⬇️_Pobierz_Plik_APK-v1.2.0_(Bezpośrednio)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Pobierz APK">
   </a>
   <a href="https://mastai-dev.github.io/NetMuzzle/">
     <img src="https://img.shields.io/badge/🌐_Oficjalna_Strona-Interaktywny_Podgląd-7C3AED?style=for-the-badge&labelColor=0f172a" alt="Oficjalna Strona">
@@ -40,25 +40,30 @@ Większość tradycyjnych firewalli na Androida (takich jak NetGuard czy popular
 
 1. 🚀 **0% Zużycia Procesora (Selektywna Czarna Dziura):**  
    Aplikacje dopuszczone **całkowicie omijają silnik VPN** bezpośrednio na poziomie jądra systemu Linux (`addAllowedApplication`). 99% ruchu sieciowego w ogóle nie dotyka naszej aplikacji.
-2. 🎮 **Tarcza Reklam w Grach (Nowość w v1.1.0):**  
+2. 🎮 **Tarcza Reklam w Grach:**  
    Graj w gry mobilne bez natrętnych 30-sekundowych reklam wideo! Nasza lekka tarcza DNS wycina domeny reklamowe (Unity Ads, Google AdMob, AppLovin, IronSource, Mintegral itp.), podczas gdy serwery gry, tabele wyników i tryb wieloosobowy działają z pełną prędkością łącza.
-3. 🎁 **Kontrola nad Reklamami z Nagrodami (Rewarded Ads):**  
+3. 💊 **Nowoczesna Tekstowa Kapsuła 3-Stanowa (Nowość w v1.2.0):**  
+   Przejrzyste, czytelne etykiety (`Zezwalaj` | `Tylko Ads` | `Kaganiec`) z neonowym podświetleniem aktywnego trybu wewnątrz każdego kafelka aplikacji.
+4. 🔍 **Pasek 4 Filtrów z Licznikami (Nowość w v1.2.0):**  
+   Błyskawiczne filtrowanie aplikacji według kategorii: `Wszystkie`, `🎮 Gry`, `🛡️ Blokada Ads` oraz `🚫 Kaganiec` z dynamicznymi licznikami aplikacji.
+5. 🎁 **Kontrola nad Reklamami z Nagrodami (Rewarded Ads):**  
    Potrzebujesz darmowych monet, diamentów lub dodatkowego życia w grze? Wystarczy jeden klik w ustawieniach, aby tymczasowo odblokować sieć (np. Unity Ads) i odebrać nagrodę za film!
-4. 🔒 **Pancerna Szczelność (Zero Wycieków DNS):**  
+6. 🔒 **Pancerna Szczelność (Zero Wycieków DNS):**  
    Zablokowane programy otrzymują martwe lokalne serwery DNS (`10.0.0.1` oraz `fd00::2`). Zapytania natychmiast kończą się błędem wewnątrz telefonu i nie wyciekają do Twojego operatora komórkowego ani dostawcy internetu.
 
 ---
 
 ## 📊 Porównanie: NetMuzzle na tle konkurencji
 
-| Cecha / Parametr | Tradycyjne firewalle VPN (np. NetGuard) | Filtry Root / Hosts (AdAway, iptables) | **NetMuzzle 🛡️ (v1.1.0)** |
+| Cecha / Parametr | Tradycyjne firewalle VPN (np. NetGuard) | Filtry Root / Hosts (AdAway, iptables) | **NetMuzzle 🛡️ (v1.2.0)** |
 | :--- | :---: | :---: | :---: |
 | **Wymaga uprawnień Roota?** | ❌ Nie | ⚠️ Tak (Utrata gwarancji) | 🟢 **Nie (Bez roota)** |
 | **Zużycie baterii i procesora** | 🔴 5% – 15% (analiza pakietów) | 🟢 Znikome | 🟢 **Dokładnie 0% (Czarna Dziura)** |
 | **Gry mobilne online** | 🔴 Lagi i zrywanie połączenia | 🟡 Wymaga żmudnych reguł | 🟢 **Zero lagów (Game Shield)** |
 | **Wsparcie dla reklam z nagrodami** | ❌ Wszystko albo nic | ❌ Ręczna edycja pliku hosts | 🟢 **1-klikowe przełączniki sieci** |
 | **Waga pliku instalacyjnego** | 🟡 15 MB – 45 MB | 🟡 10 MB – 25 MB | 🟢 **Ultra-lekka (~1.2 MB)** |
-| **3-stanowa kontrola apek** | ❌ Tylko 2 stany (Wł/Wył) | ❌ Tylko globalnie | 🟢 **Bypass / Tylko Ads / Kaganiec** |
+| **3-stanowa kapsuła tekstowa** | ❌ Tylko 2 stany (Wł/Wył) | ❌ Tylko globalnie | 🟢 **Zezwalaj / Tylko Ads / Kaganiec** |
+| **Kategorie filtrowania** | ❌ Tylko wyszukiwarka | ❌ Tylko globalnie | 🟢 **Wszystkie / Gry / Ads / Kaganiec** |
 | **Wycieki zapytań w tle** | 🟡 Ryzyko ominięcia proxy | 🟢 Zablokowane | 🟢 **Pętla Loopback Sink** |
 | **Prywatność i Open Source** | 🟡 Pakiety telemetryczne / Zamknięty kod | 🟢 Open Source | 🟢 **100% Open Source (MIT)** |
 
@@ -66,11 +71,18 @@ Większość tradycyjnych firewalli na Androida (takich jak NetGuard czy popular
 
 ## ✨ Przegląd Kluczowych Funkcji
 
-### 💊 Nowoczesna Kapsuła 3-Stanowa
-Steruj dostępem do sieci dla każdej aplikacji z osobna za pomocą dotykowego suwaka:
+### 💊 Nowoczesna Tekstowa Kapsuła 3-Stanowa
+Steruj dostępem do sieci dla każdej aplikacji z osobna za pomocą dotykowego selektora:
 * **Zezwalaj (Bypass):** Aplikacja łączy się bezpośrednio przez Wi-Fi / LTE z pominięciem interfejsu VPN.
-* **Blokuj Ads (Tarcza do gier):** Serwery gier i rozgrywka działają bez przeszkód, a sieci reklamowe (Unity Ads, AdMob itp.) są ucinane na poziomie telefonu.
-* **Kaganiec (Pełna blokada):** Aplikacja traci łączność ze światem – pakiety wpadają do czarnej dziury o zerowym narzucie CPU.
+* **Tylko Ads (Tarcza do gier):** Serwery gier i rozgrywka działają bez przeszkód, a sieci reklamowe (Unity Ads, AdMob itp.) są ucinane na poziomie telefonu z neonowym, błękitnym podświetleniem.
+* **Kaganiec (Pełna blokada):** Aplikacja traci łączność ze światem – pakiety wpadają do czarnej dziury o zerowym narzucie CPU z wyrazistym, czerwonym podświetleniem.
+
+### 🔍 Przewijany Pasek 4 Filtrów
+Wygodne zarządzanie zainstalowanymi programami dzięki dedykowanym licznikom:
+* **Wszystkie (`Wszystkie (%d)`):** Pełna lista zainstalowanych programów.
+* **🎮 Gry (`Gry (%d)`):** Szybki podgląd wyłącznie wykrytych na telefonie gier.
+* **🛡️ Blokada Ads (`Tylko Ads (%d)`):** Lista wszystkich aplikacji i gier z aktywnym filtrem reklam.
+* **🚫 Kaganiec (`Kaganiec (%d)`):** Lista programów z całkowitą blokadą łączności.
 
 ### ⚙️ Menedżer Filtrów Reklamowych
 * **Wbudowane sieci reklamowe:** Gotowe reguły dla Unity Ads, Google AdMob, AppLovin, IronSource, Vungle (Liftoff), Mintegral, InMobi, Chartboost oraz Pangle.
@@ -121,10 +133,10 @@ Steruj dostępem do sieci dla każdej aplikacji z osobna za pomocą dotykowego s
 
 ## 🚀 Szybki Start / Instalacja
 
-1. **Pobierz:** Ściągnij najnowszy plik `NetMuzzle-v1.1.0.apk` (~1.2 MB) z zakładki [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest).
+1. **Pobierz:** Ściągnij najnowszy plik `NetMuzzle-v1.2.0.apk` (~1.2 MB) z zakładki [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest).
 2. **Zainstaluj:** Uruchom pobrany plik na telefonie (Android 8.0 Oreo do Android 14+). Zezwól na instalację z nieznanych źródeł, jeśli system o to zapyta.
 3. **Zezwól na VPN:** Otwórz NetMuzzle i potwierdź jednorazową systemową zgodę na połączenie VPN. Całość działa w 100% lokalnie na Twoim urządzeniu.
-4. **Wybierz reguły:** Ustaw gry na **Blokuj Ads**, wścibskie programy na **Kaganiec**, włącz główny przełącznik i ciesz się czystym telefonem bez reklam!
+4. **Wybierz reguły:** Ustaw gry na **Tylko Ads**, wścibskie programy na **Kaganiec**, włącz główny przełącznik i ciesz się czystym telefonem bez reklam!
 
 ---
 

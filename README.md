@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.1.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.2.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
   <a href="https://github.com/mastai-dev/NetMuzzle/releases"><img src="https://img.shields.io/badge/APK%20Size-~1.2%20MB-success?style=for-the-badge" alt="APK Size"></a>
   <a href="https://android.com"><img src="https://img.shields.io/badge/Android-8.0%2B%20(Oreo%20to%2014%2B)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android Support"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License"></a>
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.1.0/NetMuzzle-v1.1.0.apk">
-    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.1.0_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.0/NetMuzzle-v1.2.0.apk">
+    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.2.0_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
   </a>
   <a href="https://mastai-dev.github.io/NetMuzzle/">
     <img src="https://img.shields.io/badge/🌐_Official_Website-Live_Demo-7C3AED?style=for-the-badge&labelColor=0f172a" alt="Official Website">
@@ -40,25 +40,30 @@ Most Android firewall apps (such as NetGuard or generic VPN blockers) **route 10
 
 1. 🚀 **0% CPU Blackhole Routing:**  
    Allowed applications **completely bypass the VPN** directly at the Linux kernel level (`addAllowedApplication`). 99% of your traffic never touches our app.
-2. 🎮 **Game AdBlock Shield (New in v1.1.0):**  
+2. 🎮 **Game AdBlock Shield:**  
    Play mobile games without intrusive full-screen video ads. Our ultra-lightweight DNS shield blocks ad networks (Unity Ads, Google AdMob, AppLovin, IronSource, Mintegral, etc.) while keeping game servers, leaderboards, and multiplayer running at native hardware speeds.
-3. 🎁 **Rewarded Ads Control:**  
+3. 💊 **Modern 3-State Segmented Capsule (New in v1.2.0):**  
+   Crystal-clear text selectors (`Allow` | `Block Ads` | `Muzzle`) with glowing status outlines and tactile feedback right within each app card.
+4. 🔍 **Expanded 4-Way Filtering Bar (New in v1.2.0):**  
+   Filter your applications instantly by `All`, `🎮 Games`, `🛡️ Block Ads`, or `🚫 Muzzled` with dynamic application counters.
+5. 🎁 **Rewarded Ads Control:**  
    Want bonus coins or gems in your favorite game? Easily toggle specific ad networks (e.g. Unity Ads) on or off, or add your own custom ad domains with a single tap.
-4. 🔒 **Watertight Zero-DNS-Leak Sink:**  
+6. 🔒 **Watertight Zero-DNS-Leak Sink:**  
    Blocked applications receive dead local DNS servers (`10.0.0.1` and `fd00::2`). Queries fail immediately on-device without leaking domain lookups to your mobile carrier or ISP.
 
 ---
 
 ## 📊 How NetMuzzle Compares
 
-| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.1.0)** |
+| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.2.0)** |
 | :--- | :---: | :---: | :---: |
 | **Requires Root Access?** | ❌ No | ⚠️ Yes (Voids warranty) | 🟢 **No Root Needed** |
 | **Battery & CPU Overhead** | 🔴 5% – 15% (packet inspection) | 🟢 Negligible | 🟢 **Exactly 0% (Kernel Sink)** |
 | **Online Mobile Gaming** | 🔴 Adds latency & breaks games | 🟡 Requires complex whitelist | 🟢 **Zero Latency (Game Shield)** |
 | **Rewarded Ads Support** | ❌ All-or-nothing | ❌ Manual hosts file editing | 🟢 **1-Click Network Toggles** |
 | **App Size** | 🟡 15 MB – 45 MB | 🟡 10 MB – 25 MB | 🟢 **Ultra-lightweight (~1.2 MB)** |
-| **3-State Control per App** | ❌ Only 2 states (On/Off) | ❌ Global only | 🟢 **Bypass / Game Shield / Muzzle** |
+| **3-State Text Pill per App** | ❌ Only 2 states (On/Off) | ❌ Global only | 🟢 **Allow / Block Ads / Muzzle** |
+| **Categories Filtering** | ❌ Basic search only | ❌ Global only | 🟢 **All / Games / Ads / Muzzled** |
 | **Background Data Leaks** | 🟡 Risk of TLS proxy bypass | 🟢 Blocked | 🟢 **Watertight Loopback Sink** |
 | **Source Code & Privacy** | 🟡 Proprietary / Analytics | 🟢 Open Source | 🟢 **100% Open Source (MIT)** |
 
@@ -66,11 +71,18 @@ Most Android firewall apps (such as NetGuard or generic VPN blockers) **route 10
 
 ## ✨ Features Overview
 
-### 💊 3-State Segmented Capsule UI
-Control internet access per app with our modern, tactile capsule:
+### 💊 Tactile 3-State Segmented Capsule
+Control internet access per app with our modern, high-contrast capsule:
 * **Allow (Bypass):** The app communicates directly over Wi-Fi / LTE with zero VPN involvement.
-* **Block Ads (Game Shield):** Game servers and multiplayer stay connected, but advertising networks (Unity Ads, AdMob, AppLovin, etc.) are silenced on-device.
-* **Muzzle (Full Block):** The app is completely cut off from the internet and cast into a zero-CPU blackhole sink.
+* **Block Ads (Game Shield):** Game servers and multiplayer stay connected, but advertising networks (Unity Ads, AdMob, AppLovin, etc.) are silenced on-device with an amber/cyan glowing pill.
+* **Muzzle (Full Block):** The app is completely cut off from the internet and cast into a zero-CPU blackhole sink with a coral-red glowing pill.
+
+### 🔍 4-Way Scrollable Filter Bar
+Quickly organize your installed apps with dedicated live counters:
+* **All (`All (%d)`):** Complete view of all installed user and system apps.
+* **🎮 Games (`Games (%d)`):** Filter specifically to games detected on your device for fast ad shield configuration.
+* **🛡️ Block Ads (`Block Ads (%d)`):** View all apps currently protected with game ad-blocking.
+* **🚫 Muzzled (`Muzzled (%d)`):** View all apps completely isolated from internet access.
 
 ### ⚙️ AdBlock Filters Manager
 * **Built-in Ad Networks:** Pre-configured rules for Unity Ads, Google AdMob, AppLovin, IronSource, Vungle (Liftoff), Mintegral, InMobi, Chartboost, and Pangle.
@@ -121,7 +133,7 @@ Control internet access per app with our modern, tactile capsule:
 
 ## 🚀 Quick Start / Installation
 
-1. **Download:** Grab the latest `NetMuzzle-v1.1.0.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
+1. **Download:** Grab the latest `NetMuzzle-v1.2.0.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
 2. **Install:** Open the file on your Android device (Android 8.0 Oreo up to Android 14+). Enable "Install from unknown sources" if prompted.
 3. **Grant VPN Permission:** Launch NetMuzzle and grant the standard one-time Android VPN permission. NetMuzzle runs entirely locally on your phone — no traffic ever leaves your device.
 4. **Choose Your Rules:** Set your games to **Block Ads** and intrusive apps to **Muzzle**. Turn on the Hero Master Switch and enjoy clean, private browsing and gaming!
