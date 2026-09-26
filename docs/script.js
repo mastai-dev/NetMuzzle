@@ -48,7 +48,7 @@ const translations = {
         f5_tag: "Ultimate Control",
 
         f3_title: "Zero-Spam Ads Policy",
-        f3_desc: "No annoying banners, no popups during configuration, and no video interruptions. Ads occur at most once a day or after a phone reboot. When you toggle or manage rules, you enjoy absolute peace.",
+        f3_desc: "No annoying banners, no popups during configuration, and no video interruptions. Ads occur at most once every 2 hours upon app entry, or immediately after a phone reboot. When you toggle or manage rules, you enjoy absolute peace.",
         f3_tag: "Honest & Respectful",
 
         f4_title: "100% Open Source Trust",
@@ -98,8 +98,8 @@ const translations = {
         faq_title: "Frequently Asked Questions",
         faq_1_q: "Does NetMuzzle slow down my internet connection?",
         faq_1_a: "No, absolutely not. Unblocked applications completely bypass the NetMuzzle VPN interface at the Linux kernel level and communicate directly with your Wi-Fi or cellular network at native hardware speeds.",
-        faq_2_q: "How does the once-a-day ad policy work?",
-        faq_2_a: "We believe apps should not annoy users. An ad may only appear upon your first app opening of the day, or once upon your first opening after restarting your device. Subsequent toggles or visits throughout the day will never display ads.",
+        faq_2_q: "How does the 2-hour ad policy work?",
+        faq_2_a: "We believe apps should not annoy users. An ad may only appear upon entering the app at most once every 2 hours, or immediately upon your first launch after restarting your device. Subsequent visits or toggles within the 2-hour window will never display ads.",
         faq_3_q: "Does NetMuzzle require Root access?",
         faq_3_a: "No root is needed. NetMuzzle uses Android's official VpnService API to create a local virtual blackhole on your device without modifying system partitions.",
         faq_4_q: "What happens if I uninstall the app?",
@@ -162,7 +162,7 @@ const translations = {
         f5_tag: "Pełna kontrola gracza",
 
         f3_title: "Polityka „Zero-Spam” dla reklam",
-        f3_desc: "Żadnych stałych banerów na ekranie, żadnych wyskakujących okien podczas konfiguracji. Reklama może pojawić się maksymalnie raz na dobę lub raz po restarcie telefonu. Podczas normalnego używania masz święty spokój.",
+        f3_desc: "Żadnych stałych banerów na ekranie, żadnych wyskakujących okien podczas konfiguracji. Reklama może pojawić się wyłącznie przy wejściu do aplikacji nie częściej niż raz na 2 godziny (z natychmiastowym resetem po restarcie telefonu). Podczas normalnego używania masz święty spokój.",
         f3_tag: "Szacunek do użytkownika",
 
         f4_title: "100% Zaufania i Open Source",
@@ -212,8 +212,8 @@ const translations = {
         faq_title: "Często Zadawane Pytania",
         faq_1_q: "Czy NetMuzzle spowalnia moje połączenie z internetem?",
         faq_1_a: "Nie, w żadnym stopniu. Niezablokowane aplikacje całkowicie omijają tunel NetMuzzle na poziomie jądra systemu Linux i łączą się z Wi-Fi lub siecią komórkową z maksymalną przepustowością sprzętową.",
-        faq_2_q: "Jak dokładnie działa polityka wyświetlania reklam raz na dobę?",
-        faq_2_a: "Szanujemy Twój czas i spokój. Reklama może pojawić się wyłącznie przy pierwszym uruchomieniu aplikacji danego dnia lub raz po restarcie telefonu. Każde kolejne wejście w ciągu dnia nie wyświetla absolutnie żadnych reklam.",
+        faq_2_q: "Jak dokładnie działa polityka wyświetlania reklam (interwał 2h)?",
+        faq_2_a: "Szanujemy Twój czas i spokój. Reklama może pojawić się wyłącznie przy wejściu do aplikacji nie częściej niż raz na 2 godziny. Restart telefonu przerywa ten okres i pierwsze wejście po restarcie zawsze wyświetli reklamę. Wszelkie wejścia w 2-godzinnym oknie nie wyświetlają absolutnie żadnych reklam.",
         faq_3_q: "Czy NetMuzzle wymaga zrootowanego telefonu?",
         faq_3_a: "Nie. NetMuzzle korzysta z oficjalnego systemowego interfejsu VpnService w Androidzie, tworząc wirtualną pętlę zwrotną bez modyfikowania systemu operacyjnego.",
         faq_4_q: "Co się stanie, jeśli odinstaluję aplikację?",

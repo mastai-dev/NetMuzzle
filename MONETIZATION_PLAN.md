@@ -4,14 +4,14 @@ Dokument opisuje koncepcję, architekturę techniczną oraz wpływ na wydajnoś�
 
 ---
 
-## 1. Koncepcja Biznesowa: Model "Zero-Spam"
+## 1. Koncepcja Biznesowa: Model "Zero-Spam" (Interwał 2h + Restart)
 
 Większość darmowych narzędzi zasypuje użytkownika ciągłymi banerami i pełnoekranowymi reklamami co kilkadziesiąt sekund, co niszczy wrażenia z użytkowania i drenuje baterię.
 
 **Założenie NetMuzzle:**
-* Reklama wyświetla się **maksymalnie raz na dobę** przy pierwszym otwarciu aplikacji, LUB
-* **Raz po restarcie telefonu** (gdy użytkownik wejdzie do aplikacji po raz pierwszy po ponownym uruchomieniu urządzenia).
-* Przy każdorazowym kolejnym wejściu w ciągu dnia (np. szybkie włączenie/wyłączenie firewalla, zmiana konfiguracji reguł) **aplikacja nie wyświetla żadnych reklam**.
+* Reklama pojawia się **wyłącznie przy wejściu do aplikacji** (format App Open Ad) nie częściej niż **raz na 2 godziny** (cooldown 120 minut).
+* **Restart telefonu przerywa/resetuje ten okres** – po ponownym uruchomieniu urządzenia pierwsze wejście w aplikację od razu wyświetla reklamę, bez względu na to, ile czasu upłynęło od ostatniego wyświetlenia przed wyłączeniem telefonu.
+* Przy wejściach w trakcie trwania 2-godzinnego okresu ochronnego (np. szybkie włączenie/wyłączenie firewalla, zmiana konfiguracji reguł czy odblokowanie gry) **aplikacja nie wyświetla żadnych reklam**.
 
 ---
 
@@ -20,10 +20,10 @@ Większość darmowych narzędzi zasypuje użytkownika ciągłymi banerami i pe�
 ### Czy reklamy zwiększą zużycie baterii lub CPU?
 **Odpowiedź: W praktyce NIE (wpływ jest bliski zeru).**
 
-* **Brak działania w tle:** Usługa firewalla (`FirewallService` / `VpnService`) jest całkowicie odseparowana od modułu reklamowego. Reklamy ładują się wyłącznie w interfejsie graficznym (`MainActivity`).
+* **Brak działania w tle:** Usługa firewalla (`FirewallService` / `VpnService`) jest całkowicie odseparowana od modułu reklamowego. Reklamy ładują się wyłącznie w interfejsie graficznym (`MainActivity`) i nigdy w tle.
 * **Zerowy koszt w trybie czuwania:** Gdy aplikacja jest zminimalizowana lub ekran jest wygaszony, moduł reklamowy nie wykonuje żadnych zapytań sieciowych ani operacji procesora.
-* **Jednorazowy transfer:** Pobranie pojedynczej planszy reklamowej raz na 24h to transfer rzędu ~80–150 KB, co zajmuje procesorowi około 0,05 sekundy.
-* **Rozmiar aplikacji:** Dodanie Google Mobile Ads SDK zwiększy rozmiar pliku `.apk` o ok. 1,5 MB (z ~2,5 MB do ok. 4 MB).
+* **Znikomy transfer:** Pobranie pojedynczej planszy reklamowej (maksymalnie raz na 2h, pod warunkiem że użytkownik w ogóle wejdzie do aplikacji) to transfer rzędu ~80–150 KB, co zajmuje procesorowi około 0,05 sekundy. Przy typowym użytkowaniu (1–3 wejścia na dzień) daje to 1–2 wyświetlenia na dobę.
+* **Rozmiar aplikacji:** Dodanie Google Mobile Ads SDK zwiększy rozmiar pliku `.apk` o ok. 1,5 MB (z ~1,2 MB do ok. 2,7 MB).
 
 ---
 
@@ -31,9 +31,9 @@ Większość darmowych narzędzi zasypuje użytkownika ciągłymi banerami i pe�
 
 Najlepszym formatem dla tego modelu jest **App Open Ad** (Reklama przy otwarciu aplikacji) dostarczana przez Google AdMob:
 * Elegancka, pełnoekranowa plansza z logo i nazwą *NetMuzzle* na dolnym pasku.
-* Wyświetla się natychmiast przy wejściu do aplikacji (jeśli spełniony jest warunek czasowy).
+* Wyświetla się natychmiast przy wejściu do aplikacji (jeśli minęły 2 godziny LUB jest to pierwsze wejście po restarcie telefonu).
 * Po kliknięciu przycisku „X” użytkownik płynnie przechodzi do ekranu zarządzania aplikacjami.
-* Cechuje się znacznie wyższą stawką eCPM (zarobkiem za 1000 wyświetleń) niż małe banery dolne.
+* Cechuje się znacznie wyższą stawką eCPM (zarobkiem za 1000 wyświetleń) niż małe, uciążliwe banery dolne.
 
 ---
 
@@ -44,38 +44,55 @@ Najlepszym formatem dla tego modelu jest **App Open Ad** (Reklama przy otwarciu 
                                            │
                 ┌──────────────────────────┴──────────────────────────┐
                 ▼                                                     ▼
-     [ Czy to nowy dzień? ]                               [ Czy to pierwszy start po restarcie? ]
-  (Dzisiejsza data != zapisana data)                     (Zmienna w pamięci procesu == false)
+    [ Czy to 1. wejście po restarcie? ]               [ Czy minęły min. 2h od ostatniej reklamy? ]
+  (!wasAdShownThisBoot LUB bootTimestamp)              (currentTimeMillis - lastAdTimestamp >= 2h)
                 │                                                     │
                 └──────────────────────────┬──────────────────────────┘
                                            │ (Jeśli przynajmniej 1 warunek = PRAWDA)
                                            ▼
-                                 [ POKAŻ REKLAMĘ ]
+                                  [ POKAŻ REKLAMĘ ]
                                            │
                                            ▼
-                        1. Zapisz dzisiejszą datę w DataStore
-                        2. Ustaw flagę sesji = true
+                    1. Zapisz timestamp teraz (System.currentTimeMillis()) w DataStore
+                    2. Ustaw flagę sesji wasAdShownThisBoot = true
 ```
 
 ### Kod sprawdzający warunek (szkic implementacyjny):
 ```kotlin
 object AdDisplayManager {
-    // Flaga w pamięci RAM procesu - po restarcie telefonu zawsze ma wartość false
+    // Okres ochronny: 2 godziny (120 minut) w milisekundach
+    private const val AD_COOLDOWN_MS = 2 * 60 * 60 * 1000L
+
+    // Flaga w pamięci procesu - po restarcie telefonu zawsze ma wartość false
     var wasAdShownThisBoot: Boolean = false
 
     suspend fun shouldShowAd(preferences: FirewallPreferences): Boolean {
-        val today = LocalDate.now().toString()
-        val lastAdDate = preferences.getLastAdDateSync()
+        // Warunek 1: Restart telefonu przerywa okres 2h - pierwsze wejście zawsze z reklamą
+        if (!wasAdShownThisBoot) {
+            return true
+        }
 
-        val isNewDay = lastAdDate != today
-        val isFirstAfterBoot = !wasAdShownThisBoot
+        // Warunek dodatkowy w oparciu o czas uruchomienia systemu Android:
+        // SystemClock.elapsedRealtime() to czas działania telefonu od bootu w ms.
+        // Jeśli od ostatniej reklamy upłynęło więcej czasu niż czas od restartu urządzenia,
+        // oznacza to, że w międzyczasie nastąpił restart telefonu.
+        val lastAdTimestamp = preferences.getLastAdTimestampSync()
+        val now = System.currentTimeMillis()
+        val timeSinceBoot = android.os.SystemClock.elapsedRealtime()
+        val timeSinceLastAd = now - lastAdTimestamp
 
-        return isNewDay || isFirstAfterBoot
+        val phoneWasRebootedSinceLastAd = timeSinceLastAd > timeSinceBoot && lastAdTimestamp > 0
+        if (phoneWasRebootedSinceLastAd) {
+            return true
+        }
+
+        // Warunek 2: Upływ co najmniej 2 godzin od ostatniej wyświetlonej reklamy
+        return timeSinceLastAd >= AD_COOLDOWN_MS
     }
 
     suspend fun markAdAsShown(preferences: FirewallPreferences) {
         wasAdShownThisBoot = true
-        preferences.setLastAdDate(LocalDate.now().toString())
+        preferences.setLastAdTimestamp(System.currentTimeMillis())
     }
 }
 ```
