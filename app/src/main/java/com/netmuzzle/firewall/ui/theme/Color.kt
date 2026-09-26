@@ -20,6 +20,14 @@ val StatusStandbyAmber = Color(0xFFF59E0B)
 val StatusStandbyAmberContainer = Color(0xFF78350F)
 val StatusDisabledRed = Color(0xFF64748B)
 
+// Mode Accent & Pill Colors
+val ModeAllowAccent = Color(0xFF94A3B8)
+val ModeAllowBg = Color(0xFF1E293B)
+val ModeAdBlockAccent = Color(0xFF00E5FF)
+val ModeAdBlockBg = Color(0xFF083344)
+val ModeFullBlockAccent = Color(0xFFEF4444)
+val ModeFullBlockBg = Color(0xFF450A0A)
+
 // Text colors
 val TextPrimary = Color(0xFFF8FAFC)
 val TextSecondary = Color(0xFF94A3B8)

@@ -14,6 +14,7 @@ import com.netmuzzle.firewall.NetMuzzleApp
 import com.netmuzzle.firewall.R
 import com.netmuzzle.firewall.data.FirewallPreferences
 import com.netmuzzle.firewall.model.VpnStatus
+import com.netmuzzle.firewall.service.dns.DnsPacketHandler
 import com.netmuzzle.firewall.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,6 +65,7 @@ class FirewallService : VpnService() {
     }
 
     private var vpnInterface: ParcelFileDescriptor? = null
+    private var dnsHandler: DnsPacketHandler? = null
     private val serviceScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private lateinit var preferences: FirewallPreferences
 
@@ -82,9 +84,8 @@ class FirewallService : VpnService() {
                 return START_NOT_STICKY
             }
             ACTION_START, ACTION_RELOAD -> {
-                // Natychmiast startujemy Foreground Service z domyślnym powiadomieniem
                 startForeground(NOTIFICATION_ID, buildNotification(0, isStandby = true))
-                
+
                 serviceScope.launch {
                     val isMasterEnabled = preferences.isFirewallEnabledSync()
                     if (!isMasterEnabled) {
@@ -92,8 +93,9 @@ class FirewallService : VpnService() {
                         stopSelf()
                         return@launch
                     }
-                    val blockedPackages = preferences.getBlockedPackagesSync()
-                    applyFirewallRules(blockedPackages)
+                    val fullBlocked = preferences.getBlockedPackagesSync()
+                    val adBlocked = preferences.getAdBlockPackagesSync()
+                    applyFirewallRules(fullBlocked, adBlocked)
                 }
             }
         }
@@ -101,15 +103,16 @@ class FirewallService : VpnService() {
         return START_STICKY
     }
 
-    private fun applyFirewallRules(blockedPackages: Set<String>) {
-        if (blockedPackages.isEmpty()) {
-            // STAN CZUWANIA (Standby):
-            // Brak zablokowanych aplikacji -> nie tworzymy tunelu TUN,
-            // aby nie odciąć ruchu całego telefonu.
+    private suspend fun applyFirewallRules(
+        fullBlockedPackages: Set<String>,
+        adBlockedPackages: Set<String>
+    ) {
+        val totalPackages = fullBlockedPackages + adBlockedPackages
+        if (totalPackages.isEmpty()) {
             closeTunnel()
             _vpnStatus.value = VpnStatus.STANDBY
             updateNotification(blockedCount = 0, isStandby = true)
-            Log.d(TAG, "Firewall w trybie czuwania - brak aplikacji na czarnej liście.")
+            Log.d(TAG, "Firewall w trybie czuwania - brak aplikacji na liście.")
             return
         }
 
@@ -117,17 +120,31 @@ class FirewallService : VpnService() {
             val builder = Builder()
                 .setSession(getString(R.string.app_name))
                 .setMtu(1500)
-                // Konfiguracja IPv4:
-                .addAddress("10.0.0.2", 32)
-                .addRoute("0.0.0.0", 0)
-                .addDnsServer("10.0.0.1")
-                // Konfiguracja IPv6 (wymagana dla szczelności i uniknięcia IllegalArgumentException):
-                .addAddress("fd00::1", 128)
-                .addRoute("::", 0)
-                .addDnsServer("fd00::2")
+
+            val isAdBlockActive = adBlockedPackages.isNotEmpty()
+
+            if (!isAdBlockActive) {
+                // TRYB 1: Czysty Blackhole (0% CPU, 0% baterii, brak pętli odczytu)
+                builder.addAddress("10.0.0.2", 32)
+                builder.addRoute("0.0.0.0", 0)
+                builder.addDnsServer("10.0.0.1")
+
+                builder.addAddress("fd00::1", 128)
+                builder.addRoute("::", 0)
+                builder.addDnsServer("fd00::2")
+            } else {
+                // TRYB 2: DNS-Shield (Tylko ruch DNS w tunelu, ruch gier leci bezpośrednio)
+                builder.addAddress("10.0.0.2", 32)
+                builder.addRoute("10.0.0.2", 32)
+                builder.addDnsServer("10.0.0.2")
+
+                builder.addAddress("fd00::1", 128)
+                builder.addRoute("fd00::1", 128)
+                builder.addDnsServer("fd00::1")
+            }
 
             var validAppCount = 0
-            for (pkg in blockedPackages) {
+            for (pkg in totalPackages) {
                 try {
                     builder.addAllowedApplication(pkg)
                     validAppCount++
@@ -145,16 +162,36 @@ class FirewallService : VpnService() {
                 return
             }
 
-            // Bezszwowa podmiana tunelu (Seamless handover)
             val oldInterface = vpnInterface
             val newInterface = builder.establish()
 
             if (newInterface != null) {
+                // Zatrzymujemy poprzedni wątek DNS
+                dnsHandler?.stop()
+                dnsHandler = null
+
                 vpnInterface = newInterface
                 oldInterface?.close()
                 _vpnStatus.value = VpnStatus.ACTIVE
                 updateNotification(blockedCount = validAppCount, isStandby = false)
-                Log.d(TAG, "Tunel TUN ustanowiony pomyślnie dla $validAppCount aplikacji.")
+
+                if (isAdBlockActive) {
+                    val activeBlockedDomains = preferences.getActiveBlockedDomainsSync()
+                    val handler = DnsPacketHandler(
+                        vpnService = this,
+                        context = this,
+                        vpnInterfaceFd = newInterface.fileDescriptor,
+                        blockedDomains = activeBlockedDomains,
+                        fullBlockedPackages = fullBlockedPackages
+                    )
+                    dnsHandler = handler
+                    serviceScope.launch(Dispatchers.IO) {
+                        handler.runLoop()
+                    }
+                    Log.d(TAG, "Uruchomiono lekki filtr DNS (Game Shield) dla $validAppCount aplikacji.")
+                } else {
+                    Log.d(TAG, "Uruchomiono czarną dziurę (Blackhole) dla $validAppCount aplikacji.")
+                }
             } else {
                 Log.e(TAG, "Nie udało się utworzyć interfejsu VPN (establish zwrócił null)")
                 closeTunnel()
@@ -171,6 +208,8 @@ class FirewallService : VpnService() {
 
     private fun closeTunnel() {
         try {
+            dnsHandler?.stop()
+            dnsHandler = null
             vpnInterface?.close()
         } catch (e: Exception) {
             Log.e(TAG, "Błąd zamykania tunelu", e)
@@ -244,7 +283,6 @@ class FirewallService : VpnService() {
     }
 
     override fun onRevoke() {
-        // Wywoływane przez system, jeśli użytkownik lub inna aplikacja VPN rozłączyła sesję
         super.onRevoke()
         shutdownFirewall()
         stopSelf()

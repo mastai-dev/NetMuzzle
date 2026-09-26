@@ -8,24 +8,25 @@
     <string name="notification_channel_desc">Background firewall status notifications</string>
     <string name="notification_active_title">NetMuzzle Active</string>
     <string name="notification_standby_title">NetMuzzle on Standby</string>
-    <string name="notification_active_text">Muzzled traffic for %1$d apps</string>
+    <string name="notification_active_text">Protecting %1$d apps</string>
     <string name="notification_standby_text">No apps on blocklist (traffic unblocked)</string>
     <string name="notification_action_stop">Turn Off</string>
 
     <!-- UI Strings -->
-    <string name="firewall_status_active">BLOCK ACTIVE</string>
+    <string name="firewall_status_active">PROTECTION ACTIVE</string>
     <string name="firewall_status_standby">STANDBY MODE</string>
     <string name="firewall_status_disabled">DISABLED</string>
-    <string name="firewall_status_disabled_desc">Network traffic is not being blocked</string>
+    <string name="firewall_status_disabled_desc">Network traffic is not being filtered</string>
     <string name="search_placeholder">Search apps…</string>
     <string name="filter_all">All</string>
-    <string name="filter_blocked">Blocked (%1$d)</string>
+    <string name="filter_blocked">Protected (%1$d)</string>
     <string name="filter_system_apps">System apps</string>
     <string name="setting_start_on_boot">Start on device boot</string>
     <string name="setting_battery_opt">Battery optimization</string>
+    <string name="menu_adblock_filters">Game AdBlock Filters</string>
     <string name="menu_about">About NetMuzzle</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Version 1.0.0\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall that muzzles internet access for selected apps with zero battery impact.</string>
+    <string name="about_desc">Version 1.1.0\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
     <string name="battery_opt_dialog_title">Battery Optimization</string>
     <string name="battery_opt_dialog_desc">To prevent Android from killing NetMuzzle in the background when the screen is locked, we recommend adding the app to battery optimization exemptions.</string>
     <string name="battery_opt_action">Open Settings</string>
@@ -34,5 +35,21 @@
     <string name="cd_clear">Clear</string>
     <string name="cd_menu">Menu</string>
     <string name="badge_system">SYS</string>
+    <string name="badge_game">GAME</string>
     <string name="no_apps_found">No matching apps found</string>
+
+    <!-- AdBlock Management -->
+    <string name="adblock_manager_title">Game AdBlock Filters</string>
+    <string name="adblock_manager_desc">Control ad networks blocked in games. If a game offers rewards for watching video ads (Rewarded Ads), you can unblock that specific network (e.g. Unity Ads).</string>
+    <string name="builtin_networks_header">Built-in Ad Networks</string>
+    <string name="custom_domains_header">Custom Ad Domains</string>
+    <string name="add_domain_button">+ Add Ad Domain</string>
+    <string name="add_domain_dialog_title">Add Ad Domain</string>
+    <string name="add_domain_dialog_desc">Enter an ad server domain to block (e.g. ads.example.com):</string>
+    <string name="add_domain_hint">Domain (e.g. ads.game-network.com)</string>
+    <string name="add_domain_confirm">Add</string>
+    <string name="no_custom_domains">No custom domains added yet.</string>
+    <string name="mode_allow">Allow</string>
+    <string name="mode_adblock">Block Ads</string>
+    <string name="mode_fullblock">Muzzle</string>
 </resources>

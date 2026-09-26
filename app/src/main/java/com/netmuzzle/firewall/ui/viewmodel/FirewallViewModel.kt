@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.netmuzzle.firewall.data.AppListRepository
 import com.netmuzzle.firewall.data.FirewallPreferences
 import com.netmuzzle.firewall.model.AppInfo
+import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.FirewallUiState
 import com.netmuzzle.firewall.model.VpnStatus
 import com.netmuzzle.firewall.service.FirewallService
@@ -33,39 +34,59 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         loadInstalledApps()
     }
 
+    private data class AppRules(
+        val fullBlocked: Set<String>,
+        val adBlocked: Set<String>,
+        val disabledAdNets: Set<String>,
+        val customDomains: Set<String>,
+        val disabledCustom: Set<String>
+    )
+
+    private val appRulesFlow = combine(
+        preferences.blockedPackages,
+        preferences.adBlockPackages,
+        preferences.disabledAdNetworks,
+        preferences.customAdDomains,
+        preferences.disabledCustomDomains
+    ) { fullBlocked, adBlocked, disabledNets, customDoms, disabledCustom ->
+        AppRules(fullBlocked, adBlocked, disabledNets, customDoms, disabledCustom)
+    }
+
     val uiState: StateFlow<FirewallUiState> = combine(
         FirewallService.vpnStatus,
         preferences.isFirewallEnabled,
         preferences.startOnBoot,
         preferences.showSystemApps,
-        preferences.blockedPackages,
+        appRulesFlow,
         _searchQuery,
         _filterBlockedOnly,
         _installedApps,
         _isLoading
-    ) { params ->
-        val vpnStatus = params[0] as VpnStatus
-        val isMasterEnabled = params[1] as Boolean
-        val startOnBoot = params[2] as Boolean
-        val showSystemApps = params[3] as Boolean
-        val blockedPackages = params[4] as Set<String>
-        val searchQuery = params[5] as String
-        val filterBlockedOnly = params[6] as Boolean
-        val rawApps = params[7] as List<AppInfo>
-        val isLoading = params[8] as Boolean
+    ) { args: Array<Any> ->
+        val vpnStatus = args[0] as VpnStatus
+        val isMasterEnabled = args[1] as Boolean
+        val startOnBoot = args[2] as Boolean
+        val showSystemApps = args[3] as Boolean
+        val rules = args[4] as AppRules
+        val searchQuery = args[5] as String
+        val filterBlockedOnly = args[6] as Boolean
+        val rawApps = args[7] as List<AppInfo>
+        val isLoading = args[8] as Boolean
 
         // Aktualizacja stanu zablokowania dla poszczególnych aplikacji
         val updatedApps = rawApps.map { app ->
-            app.copy(isBlocked = blockedPackages.contains(app.packageName))
+            val mode = when {
+                rules.fullBlocked.contains(app.packageName) -> BlockMode.FULL_BLOCK
+                rules.adBlocked.contains(app.packageName) -> BlockMode.AD_BLOCK
+                else -> BlockMode.ALLOW
+            }
+            app.copy(blockMode = mode)
         }
 
         // Filtrowanie według wyszukiwania, typu aplikacji i zablokowania
         val filteredApps = updatedApps.filter { app ->
-            // Filtr aplikacji systemowych
             val systemCondition = showSystemApps || !app.isSystemApp
-            // Filtr tylko zablokowanych
-            val blockedCondition = !filterBlockedOnly || app.isBlocked
-            // Filtr wyszukiwania
+            val blockedCondition = !filterBlockedOnly || app.blockMode != BlockMode.ALLOW
             val searchCondition = searchQuery.isBlank() ||
                     app.name.contains(searchQuery, ignoreCase = true) ||
                     app.packageName.contains(searchQuery, ignoreCase = true)
@@ -88,7 +109,11 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
             filterBlockedOnly = filterBlockedOnly,
             apps = filteredApps,
             isLoading = isLoading,
-            blockedCount = blockedPackages.size
+            fullBlockedCount = rules.fullBlocked.size,
+            adBlockedCount = rules.adBlocked.size,
+            disabledAdNetworks = rules.disabledAdNets,
+            customAdDomains = rules.customDomains,
+            disabledCustomDomains = rules.disabledCustom
         )
     }.stateIn(
         scope = viewModelScope,
@@ -124,10 +149,46 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun onAppBlockToggled(packageName: String, isBlocked: Boolean, context: Context) {
+    fun onAppBlockModeChanged(packageName: String, mode: BlockMode, context: Context) {
         viewModelScope.launch {
-            preferences.setPackageBlocked(packageName, isBlocked)
-            // Jeśli firewall jest aktualnie uruchomiony, odświeżamy reguły bezszwowo
+            preferences.setPackageBlockMode(packageName, mode)
+            if (uiState.value.isMasterEnabled) {
+                FirewallService.reloadRules(context)
+            }
+        }
+    }
+
+    fun onAdNetworkToggled(networkId: String, enabled: Boolean, context: Context) {
+        viewModelScope.launch {
+            preferences.setAdNetworkEnabled(networkId, enabled)
+            if (uiState.value.isMasterEnabled) {
+                FirewallService.reloadRules(context)
+            }
+        }
+    }
+
+    fun onAddCustomDomain(domain: String, context: Context) {
+        viewModelScope.launch {
+            if (preferences.addCustomAdDomain(domain)) {
+                if (uiState.value.isMasterEnabled) {
+                    FirewallService.reloadRules(context)
+                }
+            }
+        }
+    }
+
+    fun onRemoveCustomDomain(domain: String, context: Context) {
+        viewModelScope.launch {
+            preferences.removeCustomAdDomain(domain)
+            if (uiState.value.isMasterEnabled) {
+                FirewallService.reloadRules(context)
+            }
+        }
+    }
+
+    fun onToggleCustomDomain(domain: String, enabled: Boolean, context: Context) {
+        viewModelScope.launch {
+            preferences.setCustomAdDomainEnabled(domain, enabled)
             if (uiState.value.isMasterEnabled) {
                 FirewallService.reloadRules(context)
             }

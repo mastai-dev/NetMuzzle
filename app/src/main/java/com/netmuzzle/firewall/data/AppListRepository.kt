@@ -52,14 +52,22 @@ class AppListRepository(private val context: Context) {
                 null
             }
 
+            val isGame = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                appInfo.category == ApplicationInfo.CATEGORY_GAME
+            } else {
+                @Suppress("DEPRECATION")
+                (appInfo.flags and ApplicationInfo.FLAG_IS_GAME) != 0
+            }
+
             appList.add(
                 AppInfo(
                     name = label,
                     packageName = pkgName,
                     icon = icon,
-                    isBlocked = false, // Stan zostanie uzupełniony przez ViewModel
+                    blockMode = com.netmuzzle.firewall.model.BlockMode.ALLOW, // Stan zostanie uzupełniony przez ViewModel
                     isSystemApp = isSystem,
-                    hasInternetPermission = hasInternet
+                    hasInternetPermission = hasInternet,
+                    isGame = isGame
                 )
             )
         }

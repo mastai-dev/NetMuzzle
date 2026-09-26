@@ -9,7 +9,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -34,7 +33,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.ui.res.painterResource
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -68,6 +66,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -75,11 +74,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.netmuzzle.firewall.R
 import com.netmuzzle.firewall.model.AppInfo
-import com.netmuzzle.firewall.model.FirewallUiState
+import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.VpnStatus
 import com.netmuzzle.firewall.ui.theme.DarkBorder
 import com.netmuzzle.firewall.ui.theme.DarkCard
 import com.netmuzzle.firewall.ui.theme.DarkSurface
+import com.netmuzzle.firewall.ui.theme.ModeAdBlockAccent
+import com.netmuzzle.firewall.ui.theme.ModeAdBlockBg
+import com.netmuzzle.firewall.ui.theme.ModeAllowAccent
+import com.netmuzzle.firewall.ui.theme.ModeAllowBg
+import com.netmuzzle.firewall.ui.theme.ModeFullBlockAccent
+import com.netmuzzle.firewall.ui.theme.ModeFullBlockBg
 import com.netmuzzle.firewall.ui.theme.NeonCyan
 import com.netmuzzle.firewall.ui.theme.StatusActiveGreen
 import com.netmuzzle.firewall.ui.theme.StatusActiveGreenContainer
@@ -103,6 +108,7 @@ fun FirewallScreen(
     var showMenu by remember { mutableStateOf(false) }
     var showBatteryDialog by remember { mutableStateOf(false) }
     var showAboutDialog by remember { mutableStateOf(false) }
+    var showAdBlockManagerDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -124,6 +130,15 @@ fun FirewallScreen(
                     }
                 },
                 actions = {
+                    // Przycisk ustawień filtrów AdBlock w grach
+                    IconButton(onClick = { showAdBlockManagerDialog = true }) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_tune),
+                            contentDescription = stringResource(R.string.adblock_manager_title),
+                            tint = NeonCyan
+                        )
+                    }
+
                     // Master Switch na belce
                     Switch(
                         checked = uiState.isMasterEnabled,
@@ -149,6 +164,19 @@ fun FirewallScreen(
                         onDismissRequest = { showMenu = false },
                         modifier = Modifier.background(DarkSurface)
                     ) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.menu_adblock_filters),
+                                    color = TextPrimary,
+                                    fontSize = 14.sp
+                                )
+                            },
+                            onClick = {
+                                showMenu = false
+                                showAdBlockManagerDialog = true
+                            }
+                        )
                         DropdownMenuItem(
                             text = {
                                 Row(
@@ -232,7 +260,8 @@ fun FirewallScreen(
             // Status Card
             StatusBanner(
                 status = uiState.status,
-                blockedCount = uiState.blockedCount
+                fullBlockedCount = uiState.fullBlockedCount,
+                adBlockedCount = uiState.adBlockedCount
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -307,7 +336,7 @@ fun FirewallScreen(
                     selected = uiState.filterBlockedOnly,
                     onClick = { viewModel.onFilterBlockedToggled(true) },
                     label = {
-                        Text(stringResource(R.string.filter_blocked, uiState.blockedCount))
+                        Text(stringResource(R.string.filter_blocked, uiState.totalProtectedCount))
                     },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = StatusStandbyAmber.copy(alpha = 0.2f),
@@ -361,8 +390,8 @@ fun FirewallScreen(
                     ) { app ->
                         AppListItem(
                             app = app,
-                            onToggleBlocked = { isBlocked ->
-                                viewModel.onAppBlockToggled(app.packageName, isBlocked, context)
+                            onModeChanged = { newMode ->
+                                viewModel.onAppBlockModeChanged(app.packageName, newMode, context)
                             }
                         )
                     }
@@ -371,29 +400,50 @@ fun FirewallScreen(
         }
     }
 
-    // Dialog optymalizacji baterii
+    // Dialog Zarządzania Filtrami AdBlock
+    if (showAdBlockManagerDialog) {
+        AdBlockManagerDialog(
+            uiState = uiState,
+            onDismiss = { showAdBlockManagerDialog = false },
+            onToggleAdNetwork = { netId, enabled ->
+                viewModel.onAdNetworkToggled(netId, enabled, context)
+            },
+            onAddCustomDomain = { domain ->
+                viewModel.onAddCustomDomain(domain, context)
+            },
+            onRemoveCustomDomain = { domain ->
+                viewModel.onRemoveCustomDomain(domain, context)
+            },
+            onToggleCustomDomain = { domain, enabled ->
+                viewModel.onToggleCustomDomain(domain, enabled, context)
+            }
+        )
+    }
+
+    // Dialog Optymalizacji Baterii
     if (showBatteryDialog) {
         AlertDialog(
             onDismissRequest = { showBatteryDialog = false },
             title = {
                 Text(
                     stringResource(R.string.battery_opt_dialog_title),
-                    color = TextPrimary
+                    color = TextPrimary,
+                    fontWeight = FontWeight.Bold
                 )
             },
             text = {
                 Text(
                     stringResource(R.string.battery_opt_dialog_desc),
-                    color = TextSecondary
+                    color = TextSecondary,
+                    fontSize = 14.sp,
+                    lineHeight = 20.sp
                 )
             },
             confirmButton = {
-                TextButton(
-                    onClick = {
-                        showBatteryDialog = false
-                        requestIgnoreBatteryOptimization(context)
-                    }
-                ) {
+                TextButton(onClick = {
+                    showBatteryDialog = false
+                    requestIgnoreBatteryOptimization(context)
+                }) {
                     Text(stringResource(R.string.battery_opt_action), color = NeonCyan)
                 }
             },
@@ -438,15 +488,25 @@ fun FirewallScreen(
 @Composable
 fun StatusBanner(
     status: VpnStatus,
-    blockedCount: Int
+    fullBlockedCount: Int,
+    adBlockedCount: Int
 ) {
+    val total = fullBlockedCount + adBlockedCount
+
+    val subtitle = when {
+        status != VpnStatus.ACTIVE -> ""
+        fullBlockedCount > 0 && adBlockedCount > 0 -> "Kaganiec: $fullBlockedCount • Blokada Ads: $adBlockedCount"
+        adBlockedCount > 0 -> "$adBlockedCount gier z blokadą reklam"
+        else -> "Kaganiec nałożony na $fullBlockedCount aplikacji"
+    }
+
     val (bgColor, borderColor, iconColor, statusTitle, statusSubtitle) = when (status) {
         VpnStatus.ACTIVE -> StatusDetails(
             bgColor = StatusActiveGreenContainer.copy(alpha = 0.4f),
             borderColor = StatusActiveGreen,
             iconColor = StatusActiveGreen,
             title = stringResource(R.string.firewall_status_active),
-            subtitle = stringResource(R.string.notification_active_text, blockedCount)
+            subtitle = subtitle
         )
         VpnStatus.STANDBY -> StatusDetails(
             bgColor = StatusStandbyAmberContainer.copy(alpha = 0.4f),
@@ -520,21 +580,37 @@ private data class StatusDetails(
 @Composable
 fun AppListItem(
     app: AppInfo,
-    onToggleBlocked: (Boolean) -> Unit
+    onModeChanged: (BlockMode) -> Unit
 ) {
+    val borderColorAnim by animateColorAsState(
+        targetValue = when (app.blockMode) {
+            BlockMode.FULL_BLOCK -> ModeFullBlockAccent.copy(alpha = 0.5f)
+            BlockMode.AD_BLOCK -> ModeAdBlockAccent.copy(alpha = 0.5f)
+            BlockMode.ALLOW -> DarkBorder
+        },
+        label = "borderColorAnim"
+    )
+
+    val containerColorAnim by animateColorAsState(
+        targetValue = when (app.blockMode) {
+            BlockMode.FULL_BLOCK -> Color(0xFF1E1316)
+            BlockMode.AD_BLOCK -> Color(0xFF0D1E28)
+            BlockMode.ALLOW -> DarkCard
+        },
+        label = "containerColorAnim"
+    )
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, if (app.isBlocked) Color(0xFFEF4444).copy(alpha = 0.5f) else DarkBorder, RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(
-            containerColor = if (app.isBlocked) Color(0xFF1F1618) else DarkCard
-        ),
-        shape = RoundedCornerShape(12.dp)
+            .border(1.dp, borderColorAnim, RoundedCornerShape(14.dp)),
+        colors = CardDefaults.cardColors(containerColor = containerColorAnim),
+        shape = RoundedCornerShape(14.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
+                .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Ikona aplikacji
@@ -551,18 +627,36 @@ fun AppListItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                    if (app.isGame) {
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(NeonCyan.copy(alpha = 0.2f))
+                                .padding(horizontal = 5.dp, vertical = 1.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.badge_game),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = NeonCyan,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 10.sp
+                            )
+                        }
+                    }
                     if (app.isSystemApp) {
                         Spacer(modifier = Modifier.width(6.dp))
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(4.dp))
                                 .background(DarkBorder)
-                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                                .padding(horizontal = 5.dp, vertical = 1.dp)
                         ) {
                             Text(
                                 text = stringResource(R.string.badge_system),
                                 style = MaterialTheme.typography.labelSmall,
-                                color = TextMuted
+                                color = TextMuted,
+                                fontSize = 10.sp
                             )
                         }
                     }
@@ -579,18 +673,92 @@ fun AppListItem(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Przełącznik blokady
-            Switch(
-                checked = app.isBlocked,
-                onCheckedChange = onToggleBlocked,
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color(0xFFEF4444),
-                    checkedTrackColor = Color(0xFFEF4444).copy(alpha = 0.3f),
-                    uncheckedThumbColor = TextMuted,
-                    uncheckedTrackColor = DarkSurface
-                )
+            // Nowoczesny 3-stanowy przełącznik (Opcja A: Segmented Pill)
+            SegmentedModePill(
+                currentMode = app.blockMode,
+                onModeChanged = onModeChanged
             )
         }
+    }
+}
+
+@Composable
+fun SegmentedModePill(
+    currentMode: BlockMode,
+    onModeChanged: (BlockMode) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(20.dp))
+            .background(Color(0xFF090D16))
+            .border(1.dp, DarkBorder, RoundedCornerShape(20.dp))
+            .padding(3.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        SegmentItem(
+            iconRes = R.drawable.ic_globe,
+            isSelected = currentMode == BlockMode.ALLOW,
+            selectedBg = ModeAllowBg,
+            selectedTint = Color(0xFFF1F5F9),
+            unselectedTint = TextMuted,
+            contentDescription = stringResource(R.string.mode_allow),
+            onClick = { onModeChanged(BlockMode.ALLOW) }
+        )
+        SegmentItem(
+            iconRes = R.drawable.ic_shield_adblock,
+            isSelected = currentMode == BlockMode.AD_BLOCK,
+            selectedBg = ModeAdBlockBg,
+            selectedTint = ModeAdBlockAccent,
+            unselectedTint = TextMuted,
+            contentDescription = stringResource(R.string.mode_adblock),
+            onClick = { onModeChanged(BlockMode.AD_BLOCK) }
+        )
+        SegmentItem(
+            iconRes = R.drawable.ic_block,
+            isSelected = currentMode == BlockMode.FULL_BLOCK,
+            selectedBg = ModeFullBlockBg,
+            selectedTint = ModeFullBlockAccent,
+            unselectedTint = TextMuted,
+            contentDescription = stringResource(R.string.mode_fullblock),
+            onClick = { onModeChanged(BlockMode.FULL_BLOCK) }
+        )
+    }
+}
+
+@Composable
+private fun SegmentItem(
+    iconRes: Int,
+    isSelected: Boolean,
+    selectedBg: Color,
+    selectedTint: Color,
+    unselectedTint: Color,
+    contentDescription: String,
+    onClick: () -> Unit
+) {
+    val bgAnim by animateColorAsState(
+        targetValue = if (isSelected) selectedBg else Color.Transparent,
+        label = "bgAnim"
+    )
+    val tintAnim by animateColorAsState(
+        targetValue = if (isSelected) selectedTint else unselectedTint,
+        label = "tintAnim"
+    )
+
+    Box(
+        modifier = Modifier
+            .size(32.dp)
+            .clip(CircleShape)
+            .background(bgAnim)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            painter = painterResource(iconRes),
+            contentDescription = contentDescription,
+            tint = tintAnim,
+            modifier = Modifier.size(16.dp)
+        )
     }
 }
 

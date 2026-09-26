@@ -1,18 +1,20 @@
 # NetMuzzle 🛡️ - Minimalistyczny Firewall Android (No-Root)
 
-**NetMuzzle** to ultra-lekka, energooszczędna aplikacja na system Android, która nakłada bezkompromisowy „kaganiec” na wybrane aplikacje, całkowicie odcinając je od Internetu – bez uprawnień roota i z zerowym narzutem na baterię oraz procesor.
+**NetMuzzle** to ultra-lekka, energooszczędna aplikacja na system Android, która oferuje elastyczną ochronę sieciową:
+* 🌐 **Bypass (Zezwalaj):** Aplikacja działa bezpośrednio, omijając VPN.
+* 🛡️ **Tylko Ads (Game Shield):** Selektywna blokada sieci reklamowych (Unity Ads, AdMob, AppLovin itp.) bez odcinania serwerów gry, rozgrywki multiplayer i z **zerowym narzutem na baterię**.
+* 🚫 **Kaganiec (Blackhole):** Bezkompromisowe, całkowite odcięcie wybranej aplikacji od internetu (0% CPU).
 
 ---
 
-## 🚀 Kluczowa Koncepcja: Czarna Dziura (Blackhole Sink)
+## 🚀 Kluczowa Koncepcja: Czarna Dziura oraz DNS-Shield
 
 Tradycyjne firewalle na Androida przekierowują 100% ruchu urządzenia do przestrzeni użytkownika (*userspace*), analizując każdy pakiet w pętli `read/write`. Skutkuje to drenowaniem baterii i nagrzewaniem procesora.
 
 **NetMuzzle działa odwrotnie i bezkompromisowo:**
-* Wykorzystujemy systemową funkcję `VpnService.Builder.addAllowedApplication(packageName)`.
-* Do tunelu trafiają **wyłącznie aplikacje, na które nałożono blokadę**.
-* Cały pozostały ruch (99% normalnego działania telefonu) omija NetMuzzle **na poziomie jądra systemu Linux**, dzięki czemu zużycie procesora przez naszą aplikację wynosi dokładnie **0%**.
-* Wewnątrz tunelu pakiety zablokowanych aplikacji natychmiast giną w próżni.
+1. **Tryb Czarnej Dziury (Blackhole):** Gdy blokujesz całą aplikację, jej pakiety wpadają do zamkniętego tunelu i giną natychmiast na poziomie jądra. Zużycie procesora wynosi dokładnie **0%**.
+2. **Tryb Blokady Reklam w Grach (DNS-Shield):** Ruch właściwy gry (grafika, pakiety sieciowe, multiplayer) **omija tunel VPN** i leci bezpośrednio przez Wi-Fi/LTE. Do tunelu trafiają wyłącznie mikro-pakiety zapytań DNS (UDP 53), gdzie domeny reklamowe dostają natychmiast `0.0.0.0`, a zapytania do serwerów gry są przepuszczane.
+3. **Pełna kontrola nad reklamami z nagrodami (Rewarded Ads):** Wbudowany menedżer filtrów pozwala odblokować konkretnego dostawcę (np. Unity Ads), jeśli gracz chce odebrać nagrodę za obejrzenie filmu, a także dodać własne domeny reklamowe.
 
 ---
 

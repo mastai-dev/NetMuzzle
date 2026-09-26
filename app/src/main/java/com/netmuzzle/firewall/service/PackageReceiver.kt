@@ -25,8 +25,9 @@ class PackageReceiver : BroadcastReceiver() {
 
             scope.launch {
                 val blocked = preferences.getBlockedPackagesSync()
-                if (blocked.contains(packageName)) {
-                    Log.i(TAG, "Usuwanie pakietu $packageName z listy zablokowanych...")
+                val adBlocked = preferences.getAdBlockPackagesSync()
+                if (blocked.contains(packageName) || adBlocked.contains(packageName)) {
+                    Log.i(TAG, "Usuwanie pakietu $packageName z konfiguracji...")
                     preferences.removePackage(packageName)
                     FirewallService.reloadRules(context)
                 }
