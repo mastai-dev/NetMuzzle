@@ -60,37 +60,36 @@ jobs:
       - name: Prepare Release Assets
         run: |
           mkdir -p release-assets
-          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.0.0.apk
-          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.0.0.aab
+          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.1.0.apk
+          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.1.0.aab
           ls -lh release-assets/
 
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.0
-          name: "NetMuzzle v1.0.0 (Official Release)"
+          tag_name: v1.1.0
+          name: "NetMuzzle v1.1.0 (Official Release)"
           body: |
-            ## 🛡️ NetMuzzle v1.0.0
+            ## 🛡️ NetMuzzle v1.1.0
 
-            Ultra-lightweight, zero-CPU, no-root Android firewall application.  
-            *Super-lekki firewall na Androida bez roota i bez drenowania baterii.*
+            Ultra-lightweight, zero-CPU, no-root Android firewall & Game AdBlocker.  
+            *Super-lekki firewall i bloker reklam w grach na Androida bez roota i bez drenowania baterii.*
 
             ---
 
             ### 🇬🇧 English
 
             #### 📦 Download
-            - **[NetMuzzle-v1.0.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.0.0/NetMuzzle-v1.0.0.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
-            - **NetMuzzle-v1.0.0.aab** — Google Play production App Bundle.
+            - **[NetMuzzle-v1.1.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.1.0/NetMuzzle-v1.1.0.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
+            - **NetMuzzle-v1.1.0.aab** — Google Play production App Bundle.
 
-            #### ✨ Key Features
-            - 🔒 **Selective Blackholing:** Cut off internet access for chosen apps (intrusive games, telemetry, ad-trackers).
-            - ⚡ **0% CPU Overhead:** Allowed apps bypass the VPN engine directly at the Linux kernel level (`addAllowedApplication`).
-            - 🔋 **Zero Battery Drain:** No packet inspection loop, no TLS decryption, no heavy background processing.
-            - 🛡️ **Zero DNS Leaks:** Dead loopback sink (IPv4 & IPv6) rejects DNS queries from blocked apps on-device.
-            - 🌍 **Bilingual Support:** Automatically switches between English and Polish based on your device language.
-            - 💎 **100% Free & Open Source:** Licensed under the MIT License by Marcin Stankiewicz.
+            #### ✨ What's New in v1.1.0
+            - 🎮 **Game Ad-Blocking Shield:** Selective domain-based ad blocking (Unity Ads, AdMob, AppLovin, IronSource, etc.) while games stay online with 0 lag and 0 battery drain.
+            - 💊 **3-State Segmented Capsule UI:** Easily toggle apps between `Allow` (Bypass), `Block Ads` (Game Shield), and `Muzzle` (Full Blackhole).
+            - ⚙️ **AdBlock Filters Manager:** Unblock specific ad networks (e.g. Unity Ads) to enable in-game video rewards (Rewarded Ads) whenever you want, plus add your own custom ad domains.
+            - ⚡ **Hero Master Switch:** Bold, interactive master protection control right at your fingertips.
+            - ❓ **In-App Tutorial & Help:** Interactive guide explaining icons, filters, and battery performance.
 
             🌐 **Website / Landing Page:** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
             🛡️ **Privacy Policy:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
@@ -100,20 +99,19 @@ jobs:
             ### 🇵🇱 Polski
 
             #### 📦 Pobierz
-            - **[NetMuzzle-v1.0.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.0.0/NetMuzzle-v1.0.0.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
-            - **NetMuzzle-v1.0.0.aab** — Oficjalna paczka produkcyjna dla Google Play.
+            - **[NetMuzzle-v1.1.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.1.0/NetMuzzle-v1.1.0.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
+            - **NetMuzzle-v1.1.0.aab** — Oficjalna paczka produkcyjna dla Google Play.
 
-            #### ✨ Najważniejsze funkcje
-            - 🔒 **Blokada internetu dla aplikacji:** Odcina łączność sieciową tylko dla wybranych przez Ciebie programów.
-            - ⚡ **0% obciążenia procesora:** Dopuszczony ruch (99%) omija aplikację bezpośrednio na poziomie jądra systemu Linux.
-            - 🔋 **Zero drenażu baterii:** Brak analizowania pakietów, brak deszyfrowania TLS i brak ciężkich procesów w tle.
-            - 🛡️ **Zero wycieków DNS:** Pętla blackhole sink pochłania zapytania DNS zablokowanych apek natychmiast na telefonie.
-            - 🌍 **W pełni po polsku:** Automatyczne wykrywanie języka polskiego w telefonie.
-            - 💎 **100% Darmowy & Open Source:** Na otwartej licencji MIT (autor: Marcin Stankiewicz).
+            #### ✨ Nowości w wersji 1.1.0
+            - 🎮 **Blokada reklam w grach (Game Shield):** Selektywne wycinanie reklam (Unity Ads, AdMob, AppLovin itp.) bez zrywania połączeń z serwerami gier i bez drenowania baterii.
+            - 💊 **Nowoczesna kapsuła 3-stanowa:** Błyskawiczny wybór trybu: `Zezwalaj`, `Tylko Ads` oraz `Kaganiec`.
+            - ⚙️ **Menedżer serwerów reklamowych:** Możliwość odblokowania sieci (np. Unity Ads), aby zbierać darmowe monety/życia za wideo z nagrodą (Rewarded Ads) oraz dodawanie własnych domen.
+            - ⚡ **Wyrazisty Główny Włącznik:** Nowy Hero Card ze stanem ochrony.
+            - ❓ **Wbudowany samouczek:** Wyjaśnienie ikon i trybów wewnątrz aplikacji.
 
             🌐 **Strona projektu (Landing Page):** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
             🛡️ **Polityka Prywatności:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
           files: |
-            release-assets/NetMuzzle-v1.0.0.apk
-            release-assets/NetMuzzle-v1.0.0.aab
+            release-assets/NetMuzzle-v1.1.0.apk
+            release-assets/NetMuzzle-v1.1.0.aab
 

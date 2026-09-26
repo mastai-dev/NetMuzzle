@@ -12,9 +12,9 @@ const translations = {
         nav_faq: "FAQ",
         btn_download: "Download APK",
 
-        hero_badge: "Android No-Root Firewall • Open Source",
+        hero_badge: "Android No-Root Firewall & Game AdBlock • v1.1.0 Released",
         hero_title: 'Muzzle the apps you don\'t trust. <span class="gradient-text">Zero battery drain.</span>',
-        hero_desc: "Selectively cut off internet access for chosen apps with our zero-CPU kernel sink. No root, zero DNS leaks, and an incidental once-a-day ad policy that respects your peace of mind.",
+        hero_desc: "Selectively cut off internet access or block intrusive mobile game ads with zero lag and zero CPU overhead. No root, zero DNS leaks, and full control over rewarded ads.",
         hero_cta_primary: "Download Free APK (~2 MB)",
         hero_cta_github: "Source Code on GitHub",
 
@@ -24,12 +24,16 @@ const translations = {
 
         mock_search: "Search applications…",
         mock_all: "All (84)",
-        mock_blocked_chip: "Blocked (2)",
+        mock_blocked_chip: "Protected (2)",
         mock_try_hint: "👆 Interactive live demo: click switches above!",
 
         badge_why: "Why NetMuzzle?",
         features_title: "Engineered differently. Built for zero waste.",
         features_subtitle: "Most Android firewalls route 100% of your network traffic into user-space, burning CPU and battery. NetMuzzle takes the opposite, pure architectural route.",
+
+        f0_title: "Game AdBlock Shield (v1.1.0)",
+        f0_desc: "Selectively blocks mobile game ads (Unity Ads, Google AdMob, AppLovin, IronSource) without cutting off game servers or multiplayer, and with 0% extra battery drain.",
+        f0_tag: "Selective DNS Shield",
 
         f1_title: "0% CPU Blackhole Routing",
         f1_desc: "Instead of filtering every packet in memory, NetMuzzle tells the Linux kernel to send only blocked apps into a dead TUN loopback. 99% of your traffic never touches our app. Zero processing overhead.",
@@ -38,6 +42,10 @@ const translations = {
         f2_title: "Zero DNS Leaks (IPv4 & IPv6)",
         f2_desc: "Blocked apps are given dead local DNS servers (10.0.0.1 and fd00::2). DNS lookups fail instantaneously on-device, cutting off connection attempts immediately without leaking domain queries to your ISP.",
         f2_tag: "Watertight Privacy",
+
+        f5_title: "3-Mode Capsule & Rewarded Ads",
+        f5_desc: "Fine-tune apps between Bypass, Block Ads, and Full Muzzle. Unblock video rewards (e.g. Unity Ads) whenever you want bonus gems or coins in games, plus add custom ad servers.",
+        f5_tag: "Ultimate Control",
 
         f3_title: "Zero-Spam Ads Policy",
         f3_desc: "No annoying banners, no popups during configuration, and no video interruptions. Ads occur at most once a day or after a phone reboot. When you toggle or manage rules, you enjoy absolute peace.",
@@ -118,9 +126,9 @@ const translations = {
         nav_faq: "Pytania (FAQ)",
         btn_download: "Pobierz APK",
 
-        hero_badge: "Android Firewall Bez Roota • Open Source",
-        hero_title: 'Załóż kaganiec na wścibskie aplikacje. <span class="gradient-text">Zero drenażu baterii.</span>',
-        hero_desc: "Selektywnie odcinaj dostęp do sieci wybranym aplikacjom dzięki systemowej czarnej dziurze. Bez roota, zero wycieków DNS i uczciwa polityka reklamowa (maks. raz na dobę), szanująca Twój spokój.",
+        hero_badge: "Android Firewall i Bloker Reklam w Grach • Wydanie v1.1.0",
+        hero_title: 'Załóż kaganiec na aplikacje i zablokuj reklamy. <span class="gradient-text">Zero drenażu baterii.</span>',
+        hero_desc: "Selektywnie odcinaj internet lub wycinaj irytujące reklamy w grach bez lagów i bez obciążania procesora. Bez roota, zero wycieków DNS i pełna kontrola nad reklamami z nagrodami.",
         hero_cta_primary: "Pobierz darmowy plik APK (~2 MB)",
         hero_cta_github: "Kod źródłowy na GitHubie",
 
@@ -130,12 +138,16 @@ const translations = {
 
         mock_search: "Szukaj aplikacji…",
         mock_all: "Wszystkie (84)",
-        mock_blocked_chip: "Zablokowane (2)",
+        mock_blocked_chip: "Chronione (2)",
         mock_try_hint: "👆 Interaktywny podgląd: poklikaj przełączniki wyżej!",
 
         badge_why: "Dlaczego NetMuzzle?",
         features_title: "Inna architektura. Zero marnowania energii.",
         features_subtitle: "Tradycyjne firewalle przepuszczają 100% ruchu przez aplikację, nagrzewając telefon. NetMuzzle działa odwrotnie – wpuszcza do tunelu wyłącznie programy z czarnej listy.",
+
+        f0_title: "Blokada reklam w grach (Nowość v1.1.0)",
+        f0_desc: "Wycina natrętne reklamy w grach mobilnych (Unity Ads, Google AdMob, AppLovin, IronSource) bez zrywania połączenia z serwerami gier, bez lagów i bez drenażu baterii.",
+        f0_tag: "Selektywny filtr DNS",
 
         f1_title: "0% Zużycia CPU (Czarna Dziura)",
         f1_desc: "Zamiast parsować każdy pakiet w pętli procesora, NetMuzzle instruuje jądro systemu Linux, by tylko zablokowane programy wpadały do martwego tunelu. 99% ruchu omija aplikację z zerowym narzutem.",
@@ -144,6 +156,10 @@ const translations = {
         f2_title: "Zero Wycieków DNS (IPv4 & IPv6)",
         f2_desc: "Zablokowane programy otrzymują martwe lokalne serwery DNS (10.0.0.1 oraz fd00::2). Próby połączeń są natychmiast ucinane na poziomie urządzenia bez wysyłania zapytań do Twojego operatora.",
         f2_tag: "Pancerna szczelność",
+
+        f5_title: "Kapsuła 3 trybów i reklamy z nagrodami",
+        f5_desc: "Wybieraj między trybami: Zezwalaj, Blokuj Ads oraz Kaganiec. Odblokuj reklamy wideo (np. Unity Ads), gdy chcesz odebrać darmowe monety lub życia w grze!",
+        f5_tag: "Pełna kontrola gracza",
 
         f3_title: "Polityka „Zero-Spam” dla reklam",
         f3_desc: "Żadnych stałych banerów na ekranie, żadnych wyskakujących okien podczas konfiguracji. Reklama może pojawić się maksymalnie raz na dobę lub raz po restarcie telefonu. Podczas normalnego używania masz święty spokój.",
