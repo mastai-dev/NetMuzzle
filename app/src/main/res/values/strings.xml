@@ -37,7 +37,7 @@
     <string name="menu_adblock_filters">Game AdBlock Filters</string>
     <string name="menu_about">About NetMuzzle</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Version 1.3.0\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
+    <string name="about_desc">Version 1.3.1\nAuthor: Marcin Stankiewicz\nLicense: MIT (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
     <string name="dialog_language_title">Select Language / Wybierz język</string>
     <string name="lang_english">English (US)</string>
     <string name="lang_polish">Polski</string>
@@ -120,5 +120,8 @@
     <string name="traffic_inspector_btn_unblock">Unblock</string>
     <string name="traffic_inspector_btn_clear">Clear List</string>
     <string name="traffic_inspector_tip">Tip: Play the game until an ad pops up, then switch back here. The newest ad domains appear right at the top!</string>
+    <string name="traffic_inspector_master_off_warning">Protection is OFF. Traffic capture and ad blocking require the master switch to be turned ON.</string>
+    <string name="traffic_inspector_btn_turn_on">Turn ON Protection</string>
+    <string name="traffic_inspector_restart_hint">Tip: If the game was already open in the background, restart it (swipe away from recent apps) so it generates fresh DNS requests instead of using cached ones.</string>
     <string name="cd_traffic_inspector">Traffic &amp; Ad Inspector</string>
 </resources>

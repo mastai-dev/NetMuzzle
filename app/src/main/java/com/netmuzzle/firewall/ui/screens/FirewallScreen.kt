@@ -574,9 +574,9 @@ fun FirewallScreen(
     if (uiState.isUpdateRequired) {
         val currentVersionName = remember(context) {
             try {
-                context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.3.0"
+                context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.3.1"
             } catch (e: Exception) {
-                "1.3.0"
+                "1.3.1"
             }
         }
 
@@ -626,6 +626,8 @@ fun FirewallScreen(
     if (inspectingApp != null) {
         TrafficInspectorDialog(
             app = inspectingApp!!,
+            isMasterProtectionActive = uiState.isMasterEnabled && uiState.vpnStatus == VpnStatus.ACTIVE,
+            onToggleMasterProtection = { viewModel.onMasterToggle(context) },
             onDismiss = { inspectingApp = null },
             onAddCustomDomain = { domain ->
                 viewModel.onAddCustomDomain(domain, context)

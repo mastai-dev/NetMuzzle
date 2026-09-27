@@ -65,15 +65,37 @@ object TrafficInspectorManager {
         _capturedDomains.value = emptyList()
     }
 
+    fun setDomainBlocked(domain: String, blocked: Boolean) {
+        val cleanDomain = domain.trim().lowercase()
+        val currentList = _capturedDomains.value
+        val existingIndex = currentList.indexOfFirst { it.domain.equals(cleanDomain, ignoreCase = true) }
+        if (existingIndex != -1) {
+            val existing = currentList[existingIndex]
+            val updated = existing.copy(isBlocked = blocked)
+            val newList = currentList.toMutableList()
+            newList[existingIndex] = updated
+            _capturedDomains.value = newList
+        }
+    }
+
     fun onDomainQueried(domain: String, senderPackage: String?, isBlocked: Boolean) {
         if (!_isSniffing.value) return
 
         val target = _targetPackageName.value ?: return
-        // Jeśli system potrafił ustalić pakiet i różni się on od badanego celu, ignorujemy
-        if (senderPackage != null && senderPackage != target) return
+
+        // Nie ignorujemy zapytań z usług Google Play (GMS), WebView ani procesów systemowych obsługujących reklamy dla gry
+        if (senderPackage != null && senderPackage != target) {
+            val isKnownProviderOrSystem = senderPackage.startsWith("com.google.android.gms") ||
+                    senderPackage.startsWith("com.google.android.webview") ||
+                    senderPackage.contains("system") ||
+                    senderPackage.contains("android")
+            if (!isKnownProviderOrSystem) return
+        }
 
         val cleanDomain = domain.trim().lowercase()
         if (cleanDomain.isBlank()) return
+
+        android.util.Log.d("TrafficInspector", "Przechwycono domenę dla $target: $cleanDomain (nadawca: $senderPackage, zablokowana: $isBlocked)")
 
         val isSuspicious = checkIsSuspicious(cleanDomain)
 

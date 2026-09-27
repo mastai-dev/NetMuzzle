@@ -1,12 +1,12 @@
 {
-  "min_version_code": 6,
-  "latest_version_code": 6,
-  "latest_version_name": "1.3.0",
+  "min_version_code": 7,
+  "latest_version_code": 7,
+  "latest_version_name": "1.3.1",
   "update_url": "https://github.com/mastai-dev/NetMuzzle/releases/latest",
-  "release_notes": "Added Live Traffic & Ad Inspector, force update checking and stability improvements.",
+  "release_notes": "Critical fix for Game DNS interception & Live Traffic Inspector capture, upstream fallback and UI protection status.",
   "release_notes_i18n": {
-    "pl": "Wprowadzono Inspektor Ruchu i Reklam w grach (wykrywanie nieznanych domen reklam i blokowanie 1 kliknięciem) oraz ulepszenia stabilności.",
-    "en": "Added Live Game Ad & Traffic Inspector (detect and block unknown ad domains with 1 click) and stability improvements."
+    "pl": "Kluczowa poprawka przechwytywania DNS w grach i Inspektora Ruchu, obsługa zapasowego upstream DNS oraz automatyczna aktywacja ochrony.",
+    "en": "Critical fix for Game DNS interception and Live Traffic Inspector capture, upstream fallback and auto-activation of protection."
   },
   "force_update": true
 }

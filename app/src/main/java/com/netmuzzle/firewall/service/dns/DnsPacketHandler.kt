@@ -143,6 +143,7 @@ class DnsPacketHandler(
         val isDomainBlocked = isDomainBlocked(domain)
 
         // Raportowanie do Inspektora Ruchu jeśli aktywny
+        Log.d(TAG, "DNS IPv4: $domain (typ: $qType, nadawca: $senderPackage, zablokowane: $isDomainBlocked)")
         if (TrafficInspectorManager.isSniffing.value) {
             TrafficInspectorManager.onDomainQueried(domain, senderPackage, isDomainBlocked)
         }
@@ -217,6 +218,7 @@ class DnsPacketHandler(
         val senderPackage = getSenderPackage(packet, srcPort, dstPort, isIpv6 = true)
         val isDomainBlocked = isDomainBlocked(domain)
 
+        Log.d(TAG, "DNS IPv6: $domain (typ: $qType, nadawca: $senderPackage, zablokowane: $isDomainBlocked)")
         if (TrafficInspectorManager.isSniffing.value) {
             TrafficInspectorManager.onDomainQueried(domain, senderPackage, isDomainBlocked)
         }
@@ -423,8 +425,24 @@ class DnsPacketHandler(
         forwardSocket: DatagramSocket,
         upstreamAddress: InetAddress
     ): ByteArray? {
+        val primary = trySendRecv(queryPayload, forwardSocket, upstreamAddress)
+        if (primary != null) return primary
+
         return try {
-            val sendPacket = DatagramPacket(queryPayload, queryPayload.size, upstreamAddress, DNS_PORT)
+            val backupAddress = InetAddress.getByName(UPSTREAM_DNS_BACKUP)
+            trySendRecv(queryPayload, forwardSocket, backupAddress)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun trySendRecv(
+        queryPayload: ByteArray,
+        forwardSocket: DatagramSocket,
+        serverAddress: InetAddress
+    ): ByteArray? {
+        return try {
+            val sendPacket = DatagramPacket(queryPayload, queryPayload.size, serverAddress, DNS_PORT)
             forwardSocket.send(sendPacket)
 
             val recvBuffer = ByteArray(2048)
@@ -503,12 +521,58 @@ class DnsPacketHandler(
         bb.putShort(srcPort.toShort())
         bb.putShort(dstPort.toShort())
         bb.putShort(udpLength.toShort())
-        bb.putShort(0.toShort())
+        bb.putShort(0.toShort()) // Checksum placeholder
 
         // DNS Payload
         bb.put(dnsPayload)
 
+        // Obliczenie sumy kontrolnej UDP dla IPv6 (obowiązkowa w RFC 8200)
+        val checksum = computeUdpIpv6Checksum(srcIp, dstIp, packet, 40, udpLength)
+        packet[46] = ((checksum shr 8) and 0xFF).toByte()
+        packet[47] = (checksum and 0xFF).toByte()
+
         return packet
+    }
+
+    private fun computeUdpIpv6Checksum(
+        srcIp: ByteArray,
+        dstIp: ByteArray,
+        udpPacket: ByteArray,
+        udpOffset: Int,
+        udpLength: Int
+    ): Int {
+        var sum = 0L
+
+        // Pseudo-header IPv6: Src IP (16 bajtów)
+        for (i in 0 until 16 step 2) {
+            sum += (((srcIp[i].toInt() and 0xFF) shl 8) or (srcIp[i + 1].toInt() and 0xFF)).toLong()
+        }
+        // Dest IP (16 bajtów)
+        for (i in 0 until 16 step 2) {
+            sum += (((dstIp[i].toInt() and 0xFF) shl 8) or (dstIp[i + 1].toInt() and 0xFF)).toLong()
+        }
+        // Length (32 bity w nagłówku rzekomym)
+        sum += (udpLength shr 16).toLong()
+        sum += (udpLength and 0xFFFF).toLong()
+        // Next Header: 17 (UDP)
+        sum += 17L
+
+        // Nagłówek UDP + Payload
+        var i = udpOffset
+        val end = udpOffset + udpLength
+        while (i < end - 1) {
+            sum += (((udpPacket[i].toInt() and 0xFF) shl 8) or (udpPacket[i + 1].toInt() and 0xFF)).toLong()
+            i += 2
+        }
+        if (i < end) {
+            sum += ((udpPacket[i].toInt() and 0xFF) shl 8).toLong()
+        }
+
+        while (sum shr 16 != 0L) {
+            sum = (sum and 0xFFFF) + (sum shr 16)
+        }
+        val checksum = (sum.inv() and 0xFFFF).toInt()
+        return if (checksum == 0) 0xFFFF else checksum
     }
 
     private fun computeIpChecksum(data: ByteArray, offset: Int, length: Int): Int {

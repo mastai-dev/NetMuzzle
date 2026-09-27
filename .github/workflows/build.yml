@@ -60,18 +60,18 @@ jobs:
       - name: Prepare Release Assets
         run: |
           mkdir -p release-assets
-          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.3.0.apk
-          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.3.0.aab
+          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.3.1.apk
+          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.3.1.aab
           ls -lh release-assets/
 
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.3.0
-          name: "NetMuzzle v1.3.0 (Official Release)"
+          tag_name: v1.3.1
+          name: "NetMuzzle v1.3.1 (Official Release)"
           body: |
-            ## 🛡️ NetMuzzle v1.3.0
+            ## 🛡️ NetMuzzle v1.3.1
 
             Ultra-lightweight, zero-CPU, no-root Android firewall & Game AdBlocker.  
             *Super-lekki firewall i bloker reklam w grach na Androida bez roota i bez drenowania baterii.*
@@ -81,31 +81,31 @@ jobs:
             ### 🇬🇧 English
 
             #### 📦 Download
-            - **[NetMuzzle-v1.3.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.0/NetMuzzle-v1.3.0.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
-            - **NetMuzzle-v1.3.0.aab** — Google Play production App Bundle.
+            - **[NetMuzzle-v1.3.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.1/NetMuzzle-v1.3.1.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
+            - **NetMuzzle-v1.3.1.aab** — Google Play production App Bundle.
 
-            #### ✨ What's New in v1.3.0
-            - 📡 **Live Game Ad & Traffic Inspector:** Real-time DNS inspection for games. Detect ad networks live when ads appear, see suspicious keyword tags, and block them with a single click.
-            - 🔄 **Mandatory & Serverless Update Verification:** Client auto-update verification via GitHub ensuring apps stay updated while keeping active firewall protection running continuously.
-            - 🌍 **Complete Localization (EN & PL):** Native Polish and English support across all dialogs and settings.
-            - 🎮 **Game Ad-Blocking Shield:** Low-latency, zero-battery-drain domain filtering (Unity Ads, AdMob, AppLovin, IronSource, Vungle, etc.).
-            - ⚙️ **AdBlock Filters Manager:** Selective ad network unblocking for in-game video rewards (Rewarded Ads).
+            #### ✨ What's New in v1.3.1
+            - ⚡ **Critical DNS Routing & Sniffer Fix:** Fixed TUN gateway IP routing (`10.0.0.1` vs local IP loopback) so that game DNS queries are delivered directly into userspace TUN and displayed in the Traffic Inspector.
+            - 📡 **Ad Provider & Mediation Support:** Ensured queries from Google Play Services (GMS), WebView, and system mediators on behalf of games are captured without being dropped.
+            - 🛡️ **Protection Status in Inspector:** Added warning and 1-click protection activation directly inside the Traffic Inspector dialog if the master switch was OFF.
+            - 🔄 **Resilient Upstream Fallback:** Automatic failover to backup DNS (`8.8.8.8`) if primary upstream DNS times out.
+            - 🌐 **IPv6 Checksum Compliance:** Implemented full RFC 8200 UDP checksum calculation preventing Linux kernel packet drops.
 
             ---
 
             ### 🇵🇱 Polski
 
             #### 📦 Pobierz
-            - **[NetMuzzle-v1.3.0.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.0/NetMuzzle-v1.3.0.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
-            - **NetMuzzle-v1.3.0.aab** — Oficjalna paczka produkcyjna dla Google Play.
+            - **[NetMuzzle-v1.3.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.1/NetMuzzle-v1.3.1.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
+            - **NetMuzzle-v1.3.1.aab** — Oficjalna paczka produkcyjna dla Google Play.
 
-            #### ✨ Nowości w wersji 1.3.0
-            - 📡 **Inspektor Ruchu i Reklam w grach:** Podgląd zapytań DNS na żywo podczas grania. Błyskawiczne wykrywanie serwerów reklamowych w momencie pojawienia się reklamy i blokowanie 1 kliknięciem.
-            - 🔄 **System weryfikacji i wymuszania aktualizacji:** Zabezpieczenie integralności aplikacji oparte o GitHub z nieprzerwaną ochroną w tle.
-            - 🌍 **Pełna wielojęzyczność (PL i EN):** Natywne wsparcie dla języka polskiego i angielskiego.
-            - 🎮 **Tarcza blokowania reklam w grach:** Zerowy drenaż baterii i brak lagów w grach sieciowych.
-            - ⚙️ **Menedżer serwerów reklamowych:** Odblokowywanie wybranych sieci dla wideo z nagrodą (Rewarded Ads).
+            #### ✨ Nowości w wersji 1.3.1
+            - ⚡ **Kluczowa poprawka przechwytywania DNS i Radaru:** Poprawiono trasowanie bramy DNS w tunelu (`10.0.0.1` zamiast lokalnego IP interfejsu), dzięki czemu zapytania z gier trafiają do Inspektora Ruchu, a reklamy nie wyciekają do domyślnego DNS.
+            - 📡 **Wsparcie dla Google Play Services (GMS) i WebView:** Zapytania z bibliotek reklamowych wywoływane w tle nie są już odrzucane przez filtr pakietu.
+            - 🛡️ **Stan ochrony w dialogu:** Wyraźne ostrzeżenie i przycisk włączenia ochrony bezpośrednio w Inspektorze Ruchu, gdy główny włącznik jest wyłączony.
+            - 🔄 **Zapasowy serwer DNS:** Automatyczne przełączenie na zapasowy upstream (`8.8.8.8`) w razie problemów z łączem.
+            - 🌐 **Zgodność z RFC 8200 dla IPv6:** Poprawne sumy kontrolne UDP dla IPv6 zapobiegające odrzucaniu pakietów przez jądro Linux.
           files: |
-            release-assets/NetMuzzle-v1.3.0.apk
-            release-assets/NetMuzzle-v1.3.0.aab
+            release-assets/NetMuzzle-v1.3.1.apk
+            release-assets/NetMuzzle-v1.3.1.aab
 

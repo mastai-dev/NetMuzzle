@@ -135,12 +135,23 @@ class FirewallService : VpnService() {
             } else {
                 // TRYB 2: DNS-Shield (Tylko ruch DNS w tunelu, ruch gier leci bezpośrednio)
                 builder.addAddress("10.0.0.2", 32)
-                builder.addRoute("10.0.0.2", 32)
-                builder.addDnsServer("10.0.0.2")
+                builder.addDnsServer("10.0.0.1")
+                builder.addRoute("10.0.0.1", 32)
 
-                builder.addAddress("fd00::1", 128)
-                builder.addRoute("fd00::1", 128)
+                // Trasa dla popularnych serwerów DNS (zapobiega omijaniu DNS przez biblioteki reklamowe)
+                builder.addRoute("8.8.8.8", 32)
+                builder.addRoute("8.8.4.4", 32)
+                builder.addRoute("1.1.1.1", 32)
+                builder.addRoute("1.0.0.1", 32)
+                builder.addRoute("9.9.9.9", 32)
+                builder.addRoute("208.67.222.222", 32)
+                builder.addRoute("208.67.220.220", 32)
+
+                builder.addAddress("fd00::2", 128)
                 builder.addDnsServer("fd00::1")
+                builder.addRoute("fd00::1", 128)
+                builder.addRoute("2001:4860:4860::8888", 128)
+                builder.addRoute("2606:4700:4700::1111", 128)
             }
 
             var validAppCount = 0

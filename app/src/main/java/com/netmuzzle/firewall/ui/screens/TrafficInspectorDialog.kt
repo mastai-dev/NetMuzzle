@@ -67,6 +67,8 @@ import java.util.Locale
 @Composable
 fun TrafficInspectorDialog(
     app: AppInfo,
+    isMasterProtectionActive: Boolean = true,
+    onToggleMasterProtection: () -> Unit = {},
     onDismiss: () -> Unit,
     onAddCustomDomain: (String) -> Unit,
     onRemoveCustomDomain: (String) -> Unit
@@ -159,6 +161,49 @@ fun TrafficInspectorDialog(
                     .fillMaxWidth()
                     .heightIn(max = 520.dp)
             ) {
+                // Ostrzeżenie jeśli ochrona główna jest wyłączona
+                if (!isMasterProtectionActive) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 10.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF2A1E0E)),
+                        border = BorderStroke(1.dp, StatusStandbyAmber.copy(alpha = 0.8f))
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.traffic_inspector_master_off_warning),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = StatusStandbyAmber,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Button(
+                                onClick = onToggleMasterProtection,
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = StatusStandbyAmber,
+                                    contentColor = Color(0xFF090D16)
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier.fillMaxWidth(),
+                                contentPadding = androidx.compose.foundation.layout.PaddingValues(vertical = 6.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(R.string.traffic_inspector_btn_turn_on),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp
+                                )
+                            }
+                        }
+                    }
+                }
+
                 // Pasek kontrolny: Start / Stop + Licznik czasu
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -221,6 +266,9 @@ fun TrafficInspectorDialog(
                             } else {
                                 Button(
                                     onClick = {
+                                        if (!isMasterProtectionActive) {
+                                            onToggleMasterProtection()
+                                        }
                                         TrafficInspectorManager.startSniffing(app.packageName, durationMinutes = 30)
                                     },
                                     colors = ButtonDefaults.buttonColors(
@@ -253,6 +301,16 @@ fun TrafficInspectorDialog(
                                 lineHeight = 16.sp
                             )
                         }
+
+                        // Wskazówka o restarcie gry w celu wyczyszczenia cache DNS
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = stringResource(R.string.traffic_inspector_restart_hint),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = NeonCyan.copy(alpha = 0.85f),
+                            fontSize = 10.sp,
+                            lineHeight = 14.sp
+                        )
                     }
                 }
 
@@ -291,8 +349,14 @@ fun TrafficInspectorDialog(
                         ) { item ->
                             CapturedDomainItem(
                                 item = item,
-                                onBlock = { onAddCustomDomain(item.domain) },
-                                onUnblock = { onRemoveCustomDomain(item.domain) }
+                                onBlock = {
+                                    onAddCustomDomain(item.domain)
+                                    TrafficInspectorManager.setDomainBlocked(item.domain, true)
+                                },
+                                onUnblock = {
+                                    onRemoveCustomDomain(item.domain)
+                                    TrafficInspectorManager.setDomainBlocked(item.domain, false)
+                                }
                             )
                         }
                     }
