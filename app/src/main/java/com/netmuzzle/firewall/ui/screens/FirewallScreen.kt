@@ -626,8 +626,8 @@ fun FirewallScreen(
     if (inspectingApp != null) {
         TrafficInspectorDialog(
             app = inspectingApp!!,
-            isMasterProtectionActive = uiState.isMasterEnabled && uiState.vpnStatus == VpnStatus.ACTIVE,
-            onToggleMasterProtection = { viewModel.onMasterToggle(context) },
+            isMasterProtectionActive = uiState.isMasterEnabled && uiState.status == VpnStatus.ACTIVE,
+            onToggleMasterProtection = { viewModel.onMasterSwitchToggled(true, context, onRequireVpnPermission) },
             onDismiss = { inspectingApp = null },
             onAddCustomDomain = { domain ->
                 viewModel.onAddCustomDomain(domain, context)
