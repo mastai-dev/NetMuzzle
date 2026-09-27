@@ -93,4 +93,14 @@
     <string name="help_section_rewards_desc">Want in-game rewards for watching an ad? Tap the filter icon at the top and unblock the network (e.g. Unity Ads). Rewards will work while annoying pop-ups remain blocked!</string>
     <string name="help_section_battery_title">⚡ Zero Battery Drain:</string>
     <string name="help_section_battery_desc">Heavy game downloads bypass the VPN at the Linux kernel level. Our tunnel only checks tiny domain name queries (DNS).</string>
+
+    <!-- Force Update Strings -->
+    <string name="update_required_title">Update Required</string>
+    <string name="update_required_subtitle">A new version of NetMuzzle is available</string>
+    <string name="update_required_desc">Your version (%1$s) is outdated and no longer supported. To manage firewall rules and configure settings, please update to the latest version (%2$s).</string>
+    <string name="update_service_running_note">Firewall protection remains active in the background.</string>
+    <string name="update_btn_download">Download Update</string>
+    <string name="update_btn_run_background">Keep in Background</string>
+    <string name="update_changelog_header">What\'s new:</string>
+    <string name="latest_version_label">latest</string>
 </resources>

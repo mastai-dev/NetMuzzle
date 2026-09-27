@@ -28,7 +28,10 @@ data class FirewallUiState(
     val adBlockedCount: Int = 0,
     val disabledAdNetworks: Set<String> = emptySet(),
     val customAdDomains: Set<String> = emptySet(),
-    val disabledCustomDomains: Set<String> = emptySet()
+    val disabledCustomDomains: Set<String> = emptySet(),
+    val isUpdateRequired: Boolean = false,
+    val updateInfo: AppUpdateInfo? = null,
+    val isCheckingUpdate: Boolean = false
 ) {
     val totalProtectedCount: Int get() = fullBlockedCount + adBlockedCount
     val blockedCount: Int get() = totalProtectedCount

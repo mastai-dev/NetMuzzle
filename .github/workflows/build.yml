@@ -60,18 +60,18 @@ jobs:
       - name: Prepare Release Assets
         run: |
           mkdir -p release-assets
-          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.2.1.apk
-          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.2.1.aab
+          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.2.2.apk
+          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.2.2.aab
           ls -lh release-assets/
 
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.2.1
-          name: "NetMuzzle v1.2.1 (Official Release)"
+          tag_name: v1.2.2
+          name: "NetMuzzle v1.2.2 (Official Release)"
           body: |
-            ## 🛡️ NetMuzzle v1.2.1
+            ## 🛡️ NetMuzzle v1.2.2
 
             Ultra-lightweight, zero-CPU, no-root Android firewall & Game AdBlocker.  
             *Super-lekki firewall i bloker reklam w grach na Androida bez roota i bez drenowania baterii.*
@@ -81,43 +81,30 @@ jobs:
             ### 🇬🇧 English
 
             #### 📦 Download
-            - **[NetMuzzle-v1.2.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
-            - **NetMuzzle-v1.2.1.aab** — Google Play production App Bundle.
+            - **[NetMuzzle-v1.2.2.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk)** (~1.2 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 14+).
+            - **NetMuzzle-v1.2.2.aab** — Google Play production App Bundle.
 
-            #### ✨ What's New in v1.2.1
-            - 🌍 **Per-App Language Settings (Android 13+):** Enabled system-level language selection in Android Settings (`locales_config.xml`) plus an in-app language switcher (English / Polski).
-            - 🎨 **Modern 3-State Segmented Pill UI:** Clear text labels (`Allow`, `Block Ads`, `Muzzle`) with glowing status outlines and tactile feedback.
-            - 🔍 **Expanded 4-Way Filtering Bar:** Filter apps instantly by `All`, `🎮 Games`, `🛡️ Block Ads`, or `🚫 Muzzled` with live application counters.
-            - 📱 **Enhanced App Card Design:** Clean layout with large 46dp icons, glowing gamepad badges, and full-width mode selectors.
+            #### ✨ What's New in v1.2.2
+            - 🔄 **Serverless GitHub-based Update Verification:** Built-in auto-update checking with non-intrusive background protection continuity.
+            - 🌍 **Multilingual Localization (EN & PL):** Full native Polish and English translation support across all screens and dialogs.
             - 🎮 **Game Ad-Blocking Shield:** Selective domain-based ad blocking (Unity Ads, AdMob, AppLovin, IronSource, etc.) while games stay online with 0 lag and 0 battery drain.
-            - ⚙️ **AdBlock Filters Manager:** Unblock specific ad networks (e.g. Unity Ads) to enable in-game video rewards (Rewarded Ads) whenever you want, plus add your own custom ad domains.
-            - ⚡ **Hero Master Switch:** Bold, interactive master protection control right at your fingertips.
-            - ❓ **In-App Tutorial & Help:** Interactive guide explaining icons, filters, and battery performance.
-
-            🌐 **Website / Landing Page:** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
-            🛡️ **Privacy Policy:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
+            - ⚙️ **AdBlock Filters Manager:** Unblock specific ad networks (e.g. Unity Ads) to enable in-game video rewards (Rewarded Ads).
+            - ⚡ **Zero Battery Overhead:** Low-level Linux kernel filtering keeps battery drain at 0%.
 
             ---
 
             ### 🇵🇱 Polski
 
             #### 📦 Pobierz
-            - **[NetMuzzle-v1.2.1.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.1/NetMuzzle-v1.2.1.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
-            - **NetMuzzle-v1.2.1.aab** — Oficjalna paczka produkcyjna dla Google Play.
+            - **[NetMuzzle-v1.2.2.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk)** (~1.2 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 14+).
+            - **NetMuzzle-v1.2.2.aab** — Oficjalna paczka produkcyjna dla Google Play.
 
-            #### ✨ Nowości w wersji 1.2.1
-            - 🌍 **Wybór języka aplikacji (Android 13+):** Włączono systemowy wybór języka w Ustawieniach Androida (`locales_config.xml`) oraz dodano przełącznik języka bezpośrednio w menu aplikacji (Polski / English).
-            - 🎨 **Nowoczesna tekstowa kapsuła 3-stanowa:** Czytelne etykiety (`Zezwalaj`, `Tylko Ads`, `Kaganiec`) z neonowym podświetleniem wybranego trybu.
-            - 🔍 **Rozbudowany pasek 4 filtrów:** Błyskawiczne filtrowanie według kategorii: `Wszystkie`, `🎮 Gry`, `🛡️ Blokada Ads` oraz `🚫 Kaganiec` z dynamicznymi licznikami.
-            - 📱 **Dopracowane kafelki aplikacji:** Duże ikony (46dp), plakietki gier i pełnowymiarowy selektor trybów bez ryzyka ucięć.
-            - 🎮 **Blokada reklam w grach (Game Shield):** Selektywne wycinanie reklam (Unity Ads, AdMob, AppLovin itp.) bez zrywania połączeń z serwerami gier i bez drenowania baterii.
-            - ⚙️ **Menedżer serwerów reklamowych:** Możliwość odblokowania sieci (np. Unity Ads), aby zbierać darmowe monety/życia za wideo z nagrodą (Rewarded Ads) oraz dodawanie własnych domen.
-            - ⚡ **Wyrazisty Główny Włącznik:** Hero Card ze statystykami i stanem ochrony w czasie rzeczywistym.
-            - ❓ **Wbudowany samouczek:** Wyjaśnienie ikon i trybów wewnątrz aplikacji.
-
-            🌐 **Strona projektu (Landing Page):** [https://mastai-dev.github.io/NetMuzzle/](https://mastai-dev.github.io/NetMuzzle/)  
-            🛡️ **Polityka Prywatności:** [https://mastai-dev.github.io/NetMuzzle/privacy.html](https://mastai-dev.github.io/NetMuzzle/privacy.html)
+            #### ✨ Nowości w wersji 1.2.2
+            - 🔄 **Weryfikacja wersji przez GitHub:** Automatyczne sprawdzanie minimalnej wersji aplikacji z nieprzerwanym działaniem zapory w tle.
+            - 🌍 **Pełna wielojęzyczność (PL i EN):** Obsługa języka polskiego i angielskiego dla wszystkich ekranów i powiadomień.
+            - 🎮 **Blokada reklam w grach (Game Shield):** Skuteczne wycinanie uciążliwych reklam bez opóźnień w rozgrywce.
+            - ⚙️ **Menedżer serwerów reklamowych:** Opcja odblokowywania wybranych sieci (np. Unity Ads) pod kątem darmowych nagród w grach.
           files: |
-            release-assets/NetMuzzle-v1.2.1.apk
-            release-assets/NetMuzzle-v1.2.1.aab
+            release-assets/NetMuzzle-v1.2.2.apk
+            release-assets/NetMuzzle-v1.2.2.aab
 

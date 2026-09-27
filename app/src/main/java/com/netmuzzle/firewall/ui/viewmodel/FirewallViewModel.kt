@@ -8,7 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.netmuzzle.firewall.data.AppListRepository
 import com.netmuzzle.firewall.data.FirewallPreferences
+import com.netmuzzle.firewall.data.UpdateCheckerRepository
 import com.netmuzzle.firewall.model.AppInfo
+import com.netmuzzle.firewall.model.AppUpdateInfo
 import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.FirewallUiState
 import com.netmuzzle.firewall.model.VpnStatus
@@ -24,14 +26,20 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
 
     private val repository = AppListRepository(application)
     private val preferences = FirewallPreferences(application)
+    private val updateChecker = UpdateCheckerRepository(application)
 
     private val _searchQuery = MutableStateFlow("")
     private val _selectedFilter = MutableStateFlow(com.netmuzzle.firewall.model.AppFilter.ALL)
     private val _installedApps = MutableStateFlow<List<AppInfo>>(emptyList())
     private val _isLoading = MutableStateFlow(true)
 
+    private val _isUpdateRequired = MutableStateFlow(false)
+    private val _updateInfo = MutableStateFlow<AppUpdateInfo?>(null)
+    private val _isCheckingUpdate = MutableStateFlow(false)
+
     init {
         loadInstalledApps()
+        checkForUpdates()
     }
 
     private data class AppRules(
@@ -61,8 +69,11 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         _searchQuery,
         _selectedFilter,
         _installedApps,
-        _isLoading
-    ) { args: Array<Any> ->
+        _isLoading,
+        _isUpdateRequired,
+        _updateInfo,
+        _isCheckingUpdate
+    ) { args: Array<Any?> ->
         val vpnStatus = args[0] as VpnStatus
         val isMasterEnabled = args[1] as Boolean
         val startOnBoot = args[2] as Boolean
@@ -72,6 +83,9 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         val selectedFilter = args[6] as com.netmuzzle.firewall.model.AppFilter
         val rawApps = args[7] as List<AppInfo>
         val isLoading = args[8] as Boolean
+        val isUpdateRequired = args[9] as Boolean
+        val updateInfo = args[10] as AppUpdateInfo?
+        val isCheckingUpdate = args[11] as Boolean
 
         // Aktualizacja stanu zablokowania dla poszczególnych aplikacji
         val updatedApps = rawApps.map { app ->
@@ -98,6 +112,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
                 com.netmuzzle.firewall.model.AppFilter.AD_BLOCK -> app.blockMode == BlockMode.AD_BLOCK
                 com.netmuzzle.firewall.model.AppFilter.FULL_BLOCK -> app.blockMode == BlockMode.FULL_BLOCK
             }
+
             val searchCondition = searchQuery.isBlank() ||
                     app.name.contains(searchQuery, ignoreCase = true) ||
                     app.packageName.contains(searchQuery, ignoreCase = true)
@@ -126,13 +141,46 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
             adBlockedCount = adBlockedCount,
             disabledAdNetworks = rules.disabledAdNets,
             customAdDomains = rules.customDomains,
-            disabledCustomDomains = rules.disabledCustom
+            disabledCustomDomains = rules.disabledCustom,
+            isUpdateRequired = isUpdateRequired,
+            updateInfo = updateInfo,
+            isCheckingUpdate = isCheckingUpdate
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = FirewallUiState()
     )
+
+    fun checkForUpdates() {
+        viewModelScope.launch {
+            _isCheckingUpdate.value = true
+
+            // Sprawdź czy wcześniej zapisano w cache konieczność aktualizacji
+            val cachedRequired = preferences.isForceUpdateRequiredCached()
+            if (cachedRequired) {
+                _isUpdateRequired.value = true
+                _updateInfo.value = preferences.getCachedUpdateInfo()
+            }
+
+            val result = updateChecker.checkUpdate()
+            result.onSuccess { info ->
+                if (info != null) {
+                    val required = info.isUpdateRequired(updateChecker.currentVersionCode)
+                    _updateInfo.value = info
+                    _isUpdateRequired.value = required
+                    preferences.setForceUpdateRequired(required, info)
+                }
+            }.onFailure {
+                // Jeśli offline lub błąd sieci, zachowaj stan z pamięci podręcznej
+                if (cachedRequired) {
+                    _isUpdateRequired.value = true
+                    _updateInfo.value = preferences.getCachedUpdateInfo()
+                }
+            }
+            _isCheckingUpdate.value = false
+        }
+    }
 
     fun loadInstalledApps(forceRefresh: Boolean = false) {
         viewModelScope.launch {
@@ -155,18 +203,21 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onShowSystemAppsToggled(show: Boolean) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setShowSystemApps(show)
         }
     }
 
     fun onStartOnBootToggled(enabled: Boolean) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setStartOnBoot(enabled)
         }
     }
 
     fun onAppBlockModeChanged(packageName: String, mode: BlockMode, context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setPackageBlockMode(packageName, mode)
             if (uiState.value.isMasterEnabled) {
@@ -176,6 +227,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onAdNetworkToggled(networkId: String, enabled: Boolean, context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setAdNetworkEnabled(networkId, enabled)
             if (uiState.value.isMasterEnabled) {
@@ -185,6 +237,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onAddCustomDomain(domain: String, context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             if (preferences.addCustomAdDomain(domain)) {
                 if (uiState.value.isMasterEnabled) {
@@ -195,6 +248,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onRemoveCustomDomain(domain: String, context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.removeCustomAdDomain(domain)
             if (uiState.value.isMasterEnabled) {
@@ -204,6 +258,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onToggleCustomDomain(domain: String, enabled: Boolean, context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setCustomAdDomainEnabled(domain, enabled)
             if (uiState.value.isMasterEnabled) {
@@ -217,6 +272,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         context: Context,
         onRequireVpnPermission: (Intent) -> Unit
     ) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             if (enabled) {
                 val prepareIntent = VpnService.prepare(context)
@@ -234,6 +290,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun onVpnPermissionGranted(context: Context) {
+        if (_isUpdateRequired.value) return
         viewModelScope.launch {
             preferences.setFirewallEnabled(true)
             FirewallService.startService(context)

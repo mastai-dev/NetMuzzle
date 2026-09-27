@@ -5,8 +5,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.netmuzzle.firewall.model.AppUpdateInfo
 import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.DefaultAdNetworks
 import kotlinx.coroutines.flow.Flow
@@ -27,6 +30,13 @@ class FirewallPreferences(private val context: Context) {
         val KEY_DISABLED_AD_NETWORKS = stringSetPreferencesKey("disabled_ad_networks")
         val KEY_CUSTOM_AD_DOMAINS = stringSetPreferencesKey("custom_ad_domains")
         val KEY_DISABLED_CUSTOM_DOMAINS = stringSetPreferencesKey("disabled_custom_domains")
+
+        val KEY_FORCE_UPDATE_REQUIRED = booleanPreferencesKey("force_update_required")
+        val KEY_MIN_VERSION_CODE = intPreferencesKey("min_version_code")
+        val KEY_LATEST_VERSION_CODE = intPreferencesKey("latest_version_code")
+        val KEY_LATEST_VERSION_NAME = stringPreferencesKey("latest_version_name")
+        val KEY_UPDATE_URL = stringPreferencesKey("update_url")
+        val KEY_RELEASE_NOTES = stringPreferencesKey("release_notes")
     }
 
     val blockedPackages: Flow<Set<String>> = context.dataStore.data.map { preferences ->
@@ -185,5 +195,39 @@ class FirewallPreferences(private val context: Context) {
             }
             preferences[KEY_DISABLED_CUSTOM_DOMAINS] = disabled
         }
+    }
+
+    val isForceUpdateRequired: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[KEY_FORCE_UPDATE_REQUIRED] ?: false
+    }
+
+    suspend fun setForceUpdateRequired(required: Boolean, info: AppUpdateInfo?) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_FORCE_UPDATE_REQUIRED] = required
+            if (info != null) {
+                preferences[KEY_MIN_VERSION_CODE] = info.minVersionCode
+                preferences[KEY_LATEST_VERSION_CODE] = info.latestVersionCode
+                preferences[KEY_LATEST_VERSION_NAME] = info.latestVersionName
+                preferences[KEY_UPDATE_URL] = info.updateUrl
+                preferences[KEY_RELEASE_NOTES] = info.releaseNotes
+            }
+        }
+    }
+
+    suspend fun getCachedUpdateInfo(): AppUpdateInfo? {
+        val prefs = context.dataStore.data.first()
+        val minCode = prefs[KEY_MIN_VERSION_CODE] ?: return null
+        return AppUpdateInfo(
+            minVersionCode = minCode,
+            latestVersionCode = prefs[KEY_LATEST_VERSION_CODE] ?: minCode,
+            latestVersionName = prefs[KEY_LATEST_VERSION_NAME] ?: "",
+            updateUrl = prefs[KEY_UPDATE_URL] ?: "https://github.com/mastai-dev/NetMuzzle/releases/latest",
+            releaseNotes = prefs[KEY_RELEASE_NOTES] ?: "",
+            forceUpdate = prefs[KEY_FORCE_UPDATE_REQUIRED] ?: false
+        )
+    }
+
+    suspend fun isForceUpdateRequiredCached(): Boolean {
+        return context.dataStore.data.first()[KEY_FORCE_UPDATE_REQUIRED] ?: false
     }
 }

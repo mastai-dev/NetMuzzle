@@ -566,6 +566,33 @@ fun FirewallScreen(
         )
     }
 
+    // Modalny dialog wymuszenia aktualizacji
+    if (uiState.isUpdateRequired) {
+        val currentVersionName = remember(context) {
+            try {
+                context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.2.2"
+            } catch (e: Exception) {
+                "1.2.2"
+            }
+        }
+
+        ForceUpdateDialog(
+            updateInfo = uiState.updateInfo,
+            currentVersionName = currentVersionName,
+            onUpdateClicked = {
+                val updateUrl = uiState.updateInfo?.updateUrl?.ifBlank { null }
+                    ?: "https://github.com/mastai-dev/NetMuzzle/releases/latest"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl))
+                try {
+                    context.startActivity(intent)
+                } catch (_: Exception) { }
+            },
+            onDismissToBackground = {
+                (context as? Activity)?.moveTaskToBack(true)
+            }
+        )
+    }
+
     // Dialog Samouczka i Pomocy
     if (showHelpDialog) {
         HelpGuideDialog(onDismiss = { showHelpDialog = false })

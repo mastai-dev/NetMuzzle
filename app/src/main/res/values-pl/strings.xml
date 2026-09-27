@@ -93,4 +93,14 @@
     <string name="help_section_rewards_desc">Chcesz dostać bonusowe monety za wideo? Kliknij ikonę filtrów na górze i odznacz sieć (np. Unity Ads). Nagrody zaczną działać, a inne wyskakujące reklamy pozostaną zablokowane!</string>
     <string name="help_section_battery_title">⚡ Zero drenażu baterii:</string>
     <string name="help_section_battery_desc">Gry pobierają gigabajty danych bezpośrednio przez Wi-Fi/LTE. Nasz tunel sprawdza tylko małe zapytania o adresy (DNS).</string>
+
+    <!-- Force Update Strings -->
+    <string name="update_required_title">Wymagana aktualizacja</string>
+    <string name="update_required_subtitle">Dostępna jest nowa wersja NetMuzzle</string>
+    <string name="update_required_desc">Twoja obecna wersja (%1$s) jest przestarzała. Aby móc zarządzać zaporą i zmieniać ustawienia, zaktualizuj aplikację do najnowszej wersji (%2$s).</string>
+    <string name="update_service_running_note">Ochrona zapory i blokowanie reklam działają nadal nieprzerwanie w tle.</string>
+    <string name="update_btn_download">Pobierz aktualizację</string>
+    <string name="update_btn_run_background">Działaj w tle</string>
+    <string name="update_changelog_header">Co nowego:</string>
+    <string name="latest_version_label">najnowszej</string>
 </resources>
