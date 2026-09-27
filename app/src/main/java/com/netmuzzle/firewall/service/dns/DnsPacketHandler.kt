@@ -133,9 +133,19 @@ class DnsPacketHandler(
         val domain = extractDomain(dnsPayload) ?: return
         val qType = extractQType(dnsPayload)
 
-        // Sprawdzenie czy pakiet pochodzi z aplikacji z pełną blokadą (Blackhole)
-        val isSenderFullBlocked = isSenderInFullBlock(packet, ihl, srcPort, dstPort)
+        // Sprawdzenie nadawcy i blokad
+        val senderPackage = getSenderPackage(packet, srcPort, dstPort, isIpv6 = false)
+        val isSenderFullBlocked = if (senderPackage != null) {
+            fullBlockedPackages.contains(senderPackage)
+        } else {
+            isSenderInFullBlock(packet, ihl, srcPort, dstPort)
+        }
         val isDomainBlocked = isDomainBlocked(domain)
+
+        // Raportowanie do Inspektora Ruchu jeśli aktywny
+        if (TrafficInspectorManager.isSniffing.value) {
+            TrafficInspectorManager.onDomainQueried(domain, senderPackage, isDomainBlocked)
+        }
 
         if (isSenderFullBlocked || isDomainBlocked) {
             // Blokada: natychmiastowa odpowiedź 0.0.0.0 (lub ::)
@@ -204,7 +214,13 @@ class DnsPacketHandler(
         val domain = extractDomain(dnsPayload) ?: return
         val qType = extractQType(dnsPayload)
 
+        val senderPackage = getSenderPackage(packet, srcPort, dstPort, isIpv6 = true)
         val isDomainBlocked = isDomainBlocked(domain)
+
+        if (TrafficInspectorManager.isSniffing.value) {
+            TrafficInspectorManager.onDomainQueried(domain, senderPackage, isDomainBlocked)
+        }
+
         if (isDomainBlocked) {
             val dnsResponse = buildBlockedDnsResponse(dnsPayload, qType)
             val responsePacket = wrapInIpv6Udp(
@@ -232,6 +248,41 @@ class DnsPacketHandler(
                 }
             }
         }
+    }
+
+    private fun getSenderPackage(packet: ByteArray, srcPort: Int, dstPort: Int, isIpv6: Boolean): String? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && connectivityManager != null) {
+            try {
+                val (srcIp, dstIp) = if (isIpv6) {
+                    Pair(
+                        InetAddress.getByAddress(packet.copyOfRange(8, 24)),
+                        InetAddress.getByAddress(packet.copyOfRange(24, 40))
+                    )
+                } else {
+                    Pair(
+                        InetAddress.getByAddress(packet.copyOfRange(12, 16)),
+                        InetAddress.getByAddress(packet.copyOfRange(16, 20))
+                    )
+                }
+                val localAddress = InetSocketAddress(srcIp, srcPort)
+                val remoteAddress = InetSocketAddress(dstIp, dstPort)
+
+                val uid = connectivityManager.getConnectionOwnerUid(
+                    OsConstants.IPPROTO_UDP,
+                    localAddress,
+                    remoteAddress
+                )
+                if (uid > 0) {
+                    val packages = packageManager.getPackagesForUid(uid)
+                    if (!packages.isNullOrEmpty()) {
+                        return packages[0]
+                    }
+                }
+            } catch (e: Exception) {
+                // Ignore
+            }
+        }
+        return null
     }
 
     private fun isSenderInFullBlock(packet: ByteArray, ihl: Int, srcPort: Int, dstPort: Int): Boolean {

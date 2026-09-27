@@ -118,6 +118,7 @@ fun FirewallScreen(
     var showAboutDialog by remember { mutableStateOf(false) }
     var showAdBlockManagerDialog by remember { mutableStateOf(false) }
     var showHelpDialog by remember { mutableStateOf(false) }
+    var inspectingApp by remember { mutableStateOf<AppInfo?>(null) }
 
     Scaffold(
         topBar = {
@@ -489,6 +490,9 @@ fun FirewallScreen(
                             app = app,
                             onModeChanged = { newMode ->
                                 viewModel.onAppBlockModeChanged(app.packageName, newMode, context)
+                            },
+                            onInspectTraffic = { selectedApp ->
+                                inspectingApp = selectedApp
                             }
                         )
                     }
@@ -570,9 +574,9 @@ fun FirewallScreen(
     if (uiState.isUpdateRequired) {
         val currentVersionName = remember(context) {
             try {
-                context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.2.2"
+                context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "1.3.0"
             } catch (e: Exception) {
-                "1.2.2"
+                "1.3.0"
             }
         }
 
@@ -614,6 +618,20 @@ fun FirewallScreen(
             },
             onToggleCustomDomain = { domain, enabled ->
                 viewModel.onToggleCustomDomain(domain, enabled, context)
+            }
+        )
+    }
+
+    // Dialog Inspektora Ruchu i Reklam
+    if (inspectingApp != null) {
+        TrafficInspectorDialog(
+            app = inspectingApp!!,
+            onDismiss = { inspectingApp = null },
+            onAddCustomDomain = { domain ->
+                viewModel.onAddCustomDomain(domain, context)
+            },
+            onRemoveCustomDomain = { domain ->
+                viewModel.onRemoveCustomDomain(domain, context)
             }
         )
     }
@@ -833,7 +851,8 @@ fun MasterProtectionHeroCard(
 @Composable
 fun AppListItem(
     app: AppInfo,
-    onModeChanged: (BlockMode) -> Unit
+    onModeChanged: (BlockMode) -> Unit,
+    onInspectTraffic: (AppInfo) -> Unit = {}
 ) {
     val borderColorAnim by animateColorAsState(
         targetValue = when (app.blockMode) {
@@ -915,6 +934,26 @@ fun AppListItem(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
+                }
+
+                // Dyskretna neonowa ikona Radaru (widoczna tylko w trybie AD_BLOCK)
+                if (app.blockMode == BlockMode.AD_BLOCK) {
+                    Spacer(modifier = Modifier.width(8.dp))
+                    IconButton(
+                        onClick = { onInspectTraffic(app) },
+                        modifier = Modifier
+                            .size(34.dp)
+                            .clip(CircleShape)
+                            .background(NeonCyan.copy(alpha = 0.12f))
+                            .border(1.dp, NeonCyan.copy(alpha = 0.4f), CircleShape)
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_radar),
+                            contentDescription = stringResource(R.string.cd_traffic_inspector),
+                            tint = NeonCyan,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
                 }
             }
 

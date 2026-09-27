@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.2.2-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/latest"><img src="https://img.shields.io/badge/Release-v1.3.0-00E5FF?style=for-the-badge&logo=android&logoColor=white" alt="Latest Release"></a>
   <a href="https://github.com/mastai-dev/NetMuzzle/releases"><img src="https://img.shields.io/badge/APK%20Size-~1.2%20MB-success?style=for-the-badge" alt="APK Size"></a>
   <a href="https://android.com"><img src="https://img.shields.io/badge/Android-8.0%2B%20(Oreo%20to%2014%2B)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android Support"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License"></a>
@@ -22,8 +22,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.2.2/NetMuzzle-v1.2.2.apk">
-    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.2.2_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
+  <a href="https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.0/NetMuzzle-v1.3.0.apk">
+    <img src="https://img.shields.io/badge/⬇️_Download_NetMuzzle_APK-v1.3.0_(Direct)-00E5FF?style=for-the-badge&labelColor=0f172a" alt="Download APK">
   </a>
   <a href="https://mastai-dev.github.io/NetMuzzle/">
     <img src="https://img.shields.io/badge/🌐_Official_Website-Live_Demo-7C3AED?style=for-the-badge&labelColor=0f172a" alt="Official Website">
@@ -48,14 +48,16 @@ Most Android firewall apps (such as NetGuard or generic VPN blockers) **route 10
    Filter your applications instantly by `All`, `🎮 Games`, `🛡️ Block Ads`, or `🚫 Muzzled` with dynamic application counters.
 5. 🎁 **Rewarded Ads Control:**  
    Want bonus coins or gems in your favorite game? Easily toggle specific ad networks (e.g. Unity Ads) on or off, or add your own custom ad domains with a single tap.
-6. 🔒 **Watertight Zero-DNS-Leak Sink:**  
+6. 📡 **Live Game Ad & Traffic Inspector (New in v1.3.0):**  
+   Discover unknown ad networks on the fly! Start a 30-minute diagnosis session, play your game, and watch real-time DNS queries appear at the top with suspicious keyword detection. Block any offending domain with 1 click.
+7. 🔒 **Watertight Zero-DNS-Leak Sink:**  
    Blocked applications receive dead local DNS servers (`10.0.0.1` and `fd00::2`). Queries fail immediately on-device without leaking domain lookups to your mobile carrier or ISP.
 
 ---
 
 ## 📊 How NetMuzzle Compares
 
-| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.2.2)** |
+| Feature / Metric | Traditional VPN Firewalls (e.g. NetGuard) | Root AdBlockers (AdAway / iptables) | **NetMuzzle 🛡️ (v1.3.0)** |
 | :--- | :---: | :---: | :---: |
 | **Requires Root Access?** | ❌ No | ⚠️ Yes (Voids warranty) | 🟢 **No Root Needed** |
 | **Battery & CPU Overhead** | 🔴 5% – 15% (packet inspection) | 🟢 Negligible | 🟢 **Exactly 0% (Kernel Sink)** |
@@ -148,7 +150,7 @@ Quickly organize your installed apps with dedicated live counters:
 
 ## 🚀 Quick Start / Installation
 
-1. **Download:** Grab the latest `NetMuzzle-v1.2.2.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
+1. **Download:** Grab the latest `NetMuzzle-v1.3.0.apk` (~1.2 MB) from the [Releases](https://github.com/mastai-dev/NetMuzzle/releases/latest) page.
 2. **Install:** Open the file on your Android device (Android 8.0 Oreo up to Android 14+). Enable "Install from unknown sources" if prompted.
 3. **Grant VPN Permission:** Launch NetMuzzle and grant the standard one-time Android VPN permission. NetMuzzle runs entirely locally on your phone — no traffic ever leaves your device.
 4. **Choose Your Rules:** Set your games to **Block Ads** and intrusive apps to **Muzzle**. Turn on the Hero Master Switch and enjoy clean, private browsing and gaming!

@@ -1,12 +1,12 @@
 {
-  "min_version_code": 5,
-  "latest_version_code": 5,
-  "latest_version_name": "1.2.2",
+  "min_version_code": 6,
+  "latest_version_code": 6,
+  "latest_version_name": "1.3.0",
   "update_url": "https://github.com/mastai-dev/NetMuzzle/releases/latest",
-  "release_notes": "Security updates and stability improvements.",
+  "release_notes": "Added Live Traffic & Ad Inspector, force update checking and stability improvements.",
   "release_notes_i18n": {
-    "pl": "Aktualizacja zabezpieczeń, stabilności oraz nowe funkcje zapory.",
-    "en": "Security updates, stability improvements, and new firewall features."
+    "pl": "Wprowadzono Inspektor Ruchu i Reklam w grach (wykrywanie nieznanych domen reklam i blokowanie 1 kliknięciem) oraz ulepszenia stabilności.",
+    "en": "Added Live Game Ad & Traffic Inspector (detect and block unknown ad domains with 1 click) and stability improvements."
   },
   "force_update": true
 }

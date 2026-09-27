@@ -37,7 +37,7 @@
     <string name="menu_adblock_filters">Filtry reklam w grach</string>
     <string name="menu_about">O aplikacji</string>
     <string name="about_title">NetMuzzle</string>
-    <string name="about_desc">Wersja 1.2.2\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
+    <string name="about_desc">Wersja 1.3.0\nAutor: Marcin Stankiewicz\nLicencja: MIT (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
     <string name="dialog_language_title">Wybierz język / Select Language</string>
     <string name="lang_english">English (US)</string>
     <string name="lang_polish">Polski</string>
@@ -103,4 +103,22 @@
     <string name="update_btn_run_background">Działaj w tle</string>
     <string name="update_changelog_header">Co nowego:</string>
     <string name="latest_version_label">najnowszej</string>
+
+    <!-- Traffic Inspector Strings -->
+    <string name="traffic_inspector_title">Inspektor ruchu i reklam</string>
+    <string name="traffic_inspector_subtitle">Podgląd zapytań DNS na żywo dla %1$s</string>
+    <string name="traffic_inspector_desc">Przechwytuj zapytania sieciowe tej gry w czasie rzeczywistym. Gdy w grze pojawi się reklama, wróć tutaj i zablokuj jej domenę 1 kliknięciem.</string>
+    <string name="traffic_inspector_start">Rozpocznij nasłuch</string>
+    <string name="traffic_inspector_stop">Zatrzymaj nasłuch</string>
+    <string name="traffic_inspector_active_status">Nasłuch aktywny • Auto-wyłączenie za: %1$s</string>
+    <string name="traffic_inspector_idle_status">Nasłuch wyłączony • Gotowy do testu</string>
+    <string name="traffic_inspector_empty">Brak przechwyconych domen.\nUruchom nasłuch i włącz grę.</string>
+    <string name="traffic_inspector_badge_suspicious">Podejrzane: Reklama/Tracker</string>
+    <string name="traffic_inspector_badge_blocked">Zablokowana</string>
+    <string name="traffic_inspector_badge_allowed">Zezwolona</string>
+    <string name="traffic_inspector_btn_block">Zablokuj</string>
+    <string name="traffic_inspector_btn_unblock">Odblokuj</string>
+    <string name="traffic_inspector_btn_clear">Wyczyść listę</string>
+    <string name="traffic_inspector_tip">Wskazówka: Zagraj chwilę w grę. Gdy wyskoczy reklama, wróć tutaj — serwer reklamy pojawi się na samej górze listy!</string>
+    <string name="cd_traffic_inspector">Inspektor ruchu i reklam</string>
 </resources>
