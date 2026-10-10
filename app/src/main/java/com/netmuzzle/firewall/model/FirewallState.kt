@@ -7,10 +7,11 @@ enum class VpnStatus {
 }
 
 enum class AppFilter {
-    ALL,        // Wszystkie aplikacje
-    GAMES,      // Wykryte gry
-    AD_BLOCK,   // Aplikacje z blokadą reklam
-    FULL_BLOCK  // Aplikacje z całkowitym kagańcem
+    ALL,         // Wszystkie aplikacje
+    CONFIGURED,  // Aplikacje z aktywnymi regułami (Kaganiec lub Tarcza)
+    FULL_BLOCK,  // Aplikacje z całkowitym kagańcem
+    AD_BLOCK,    // Aplikacje z tarczą / blokadą telemetrii
+    GAMES        // Kategoria: Gry
 }
 
 data class FirewallUiState(

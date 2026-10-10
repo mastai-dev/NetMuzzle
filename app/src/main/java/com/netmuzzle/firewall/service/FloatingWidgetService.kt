@@ -271,13 +271,13 @@ class FloatingWidgetService : Service() {
             iconView?.setColorFilter(Color.parseColor("#F59E0B"))
             textView?.apply {
                 setTextColor(Color.parseColor("#FCD34D"))
-                text = if (remainingSeconds > 0) "${remainingSeconds}s" else "PAUZA"
+                text = if (remainingSeconds > 0) "${remainingSeconds}s" else getString(R.string.floating_widget_badge_paused)
             }
         } else {
             iconView?.setColorFilter(Color.parseColor("#00E5FF"))
             textView?.apply {
                 setTextColor(Color.parseColor("#00E5FF"))
-                text = "ADS"
+                text = getString(R.string.floating_widget_badge_active)
             }
         }
     }

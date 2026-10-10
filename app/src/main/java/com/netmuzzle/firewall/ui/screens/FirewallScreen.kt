@@ -415,19 +415,19 @@ fun FirewallScreen(
                     )
                 )
 
-                // 2. Gry (Games)
+                // 2. Skonfigurowane / Aktywne reguły (Active Rules)
                 FilterChip(
-                    selected = uiState.selectedFilter == AppFilter.GAMES,
-                    onClick = { viewModel.onFilterSelected(AppFilter.GAMES) },
+                    selected = uiState.selectedFilter == AppFilter.CONFIGURED,
+                    onClick = { viewModel.onFilterSelected(AppFilter.CONFIGURED) },
                     leadingIcon = {
                         Icon(
-                            painter = painterResource(R.drawable.ic_gamepad),
+                            painter = painterResource(R.drawable.ic_tune),
                             contentDescription = null,
-                            tint = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else TextMuted,
+                            tint = if (uiState.selectedFilter == AppFilter.CONFIGURED) NeonCyan else TextMuted,
                             modifier = Modifier.size(14.dp)
                         )
                     },
-                    label = { Text(stringResource(R.string.filter_games, uiState.gamesCount)) },
+                    label = { Text(stringResource(R.string.filter_configured, uiState.totalProtectedCount)) },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = NeonCyan.copy(alpha = 0.2f),
                         selectedLabelColor = NeonCyan,
@@ -435,13 +435,39 @@ fun FirewallScreen(
                         labelColor = TextSecondary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else DarkBorder,
+                        borderColor = if (uiState.selectedFilter == AppFilter.CONFIGURED) NeonCyan else DarkBorder,
                         enabled = true,
-                        selected = uiState.selectedFilter == AppFilter.GAMES
+                        selected = uiState.selectedFilter == AppFilter.CONFIGURED
                     )
                 )
 
-                // 3. Blokada Ads (AdBlock)
+                // 3. Kaganiec (Full Block)
+                FilterChip(
+                    selected = uiState.selectedFilter == AppFilter.FULL_BLOCK,
+                    onClick = { viewModel.onFilterSelected(AppFilter.FULL_BLOCK) },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_block),
+                            contentDescription = null,
+                            tint = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else TextMuted,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    },
+                    label = { Text(stringResource(R.string.filter_fullblock, uiState.fullBlockedCount)) },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = ModeFullBlockAccent.copy(alpha = 0.2f),
+                        selectedLabelColor = ModeFullBlockAccent,
+                        containerColor = DarkSurface,
+                        labelColor = TextSecondary
+                    ),
+                    border = FilterChipDefaults.filterChipBorder(
+                        borderColor = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else DarkBorder,
+                        enabled = true,
+                        selected = uiState.selectedFilter == AppFilter.FULL_BLOCK
+                    )
+                )
+
+                // 4. Blokada Ads / Tarcza (AdBlock / Shield)
                 FilterChip(
                     selected = uiState.selectedFilter == AppFilter.AD_BLOCK,
                     onClick = { viewModel.onFilterSelected(AppFilter.AD_BLOCK) },
@@ -467,29 +493,29 @@ fun FirewallScreen(
                     )
                 )
 
-                // 4. Kaganiec (Full Block)
+                // 5. Gry (Games)
                 FilterChip(
-                    selected = uiState.selectedFilter == AppFilter.FULL_BLOCK,
-                    onClick = { viewModel.onFilterSelected(AppFilter.FULL_BLOCK) },
+                    selected = uiState.selectedFilter == AppFilter.GAMES,
+                    onClick = { viewModel.onFilterSelected(AppFilter.GAMES) },
                     leadingIcon = {
                         Icon(
-                            painter = painterResource(R.drawable.ic_block),
+                            painter = painterResource(R.drawable.ic_gamepad),
                             contentDescription = null,
-                            tint = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else TextMuted,
+                            tint = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else TextMuted,
                             modifier = Modifier.size(14.dp)
                         )
                     },
-                    label = { Text(stringResource(R.string.filter_fullblock, uiState.fullBlockedCount)) },
+                    label = { Text(stringResource(R.string.filter_games, uiState.gamesCount)) },
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = ModeFullBlockAccent.copy(alpha = 0.2f),
-                        selectedLabelColor = ModeFullBlockAccent,
+                        selectedContainerColor = NeonCyan.copy(alpha = 0.2f),
+                        selectedLabelColor = NeonCyan,
                         containerColor = DarkSurface,
                         labelColor = TextSecondary
                     ),
                     border = FilterChipDefaults.filterChipBorder(
-                        borderColor = if (uiState.selectedFilter == AppFilter.FULL_BLOCK) ModeFullBlockAccent else DarkBorder,
+                        borderColor = if (uiState.selectedFilter == AppFilter.GAMES) NeonCyan else DarkBorder,
                         enabled = true,
-                        selected = uiState.selectedFilter == AppFilter.FULL_BLOCK
+                        selected = uiState.selectedFilter == AppFilter.GAMES
                     )
                 )
             }

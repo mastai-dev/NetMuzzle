@@ -117,9 +117,10 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
         val filteredApps = eligibleApps.filter { app ->
             val filterCondition = when (selectedFilter) {
                 com.netmuzzle.firewall.model.AppFilter.ALL -> true
-                com.netmuzzle.firewall.model.AppFilter.GAMES -> app.isGame
-                com.netmuzzle.firewall.model.AppFilter.AD_BLOCK -> app.blockMode == BlockMode.AD_BLOCK
+                com.netmuzzle.firewall.model.AppFilter.CONFIGURED -> app.blockMode != BlockMode.ALLOW
                 com.netmuzzle.firewall.model.AppFilter.FULL_BLOCK -> app.blockMode == BlockMode.FULL_BLOCK
+                com.netmuzzle.firewall.model.AppFilter.AD_BLOCK -> app.blockMode == BlockMode.AD_BLOCK
+                com.netmuzzle.firewall.model.AppFilter.GAMES -> app.isGame
             }
 
             val searchCondition = searchQuery.isBlank() ||

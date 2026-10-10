@@ -25,9 +25,10 @@
     <string name="master_switch_off">DISABLED</string>
     <string name="search_placeholder">Search apps…</string>
     <string name="filter_all">All (%1$d)</string>
-    <string name="filter_games">Games (%1$d)</string>
-    <string name="filter_adblock">Block Ads (%1$d)</string>
+    <string name="filter_configured">Configured (%1$d)</string>
     <string name="filter_fullblock">Muzzled (%1$d)</string>
+    <string name="filter_adblock">Block Ads (%1$d)</string>
+    <string name="filter_games">Games (%1$d)</string>
     <string name="filter_blocked">Protected (%1$d)</string>
     <string name="filter_system_apps">System apps</string>
     <string name="setting_start_on_boot">Start on device boot</string>
@@ -146,6 +147,8 @@
     <string name="floating_widget_perm_desc">To display the button over games, please grant the \'Display over other apps\' permission in Android system settings.</string>
     <string name="floating_widget_grant_btn">Grant Permission</string>
     <string name="floating_widget_seconds_format">%1$d seconds</string>
+    <string name="floating_widget_badge_active">ADS</string>
+    <string name="floating_widget_badge_paused">PAUSE</string>
 
     <!-- Domain Copying & UX -->
     <string name="traffic_inspector_domain_copied">Copied domain: %1$s</string>

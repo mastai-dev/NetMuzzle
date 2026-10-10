@@ -25,9 +25,10 @@
     <string name="master_switch_off">WYŁĄCZONA</string>
     <string name="search_placeholder">Szukaj aplikacji…</string>
     <string name="filter_all">Wszystkie (%1$d)</string>
-    <string name="filter_games">Gry (%1$d)</string>
-    <string name="filter_adblock">Blokuj Ads (%1$d)</string>
+    <string name="filter_configured">Skonfigurowane (%1$d)</string>
     <string name="filter_fullblock">Kaganiec (%1$d)</string>
+    <string name="filter_adblock">Blokuj Ads (%1$d)</string>
+    <string name="filter_games">Gry (%1$d)</string>
     <string name="filter_blocked">Chronione (%1$d)</string>
     <string name="filter_system_apps">Aplikacje systemowe</string>
     <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
@@ -146,6 +147,8 @@
     <string name="floating_widget_perm_desc">Aby przycisk mógł być widoczny na wierzchu gry, zezwól na „Wyświetlanie nad innymi aplikacjami” w ustawieniach systemu Android.</string>
     <string name="floating_widget_grant_btn">Nadaj uprawnienie</string>
     <string name="floating_widget_seconds_format">%1$d sekund</string>
+    <string name="floating_widget_badge_active">ADS</string>
+    <string name="floating_widget_badge_paused">PAUZA</string>
 
     <!-- Kopiowanie domen & UX -->
     <string name="traffic_inspector_domain_copied">Skopiowano domenę: %1$s</string>

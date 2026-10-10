@@ -6,6 +6,7 @@
 
     <string name="firewall_status_both_active">Kaganiec: %1$d • Tarcza: %2$d</string>
     <string name="firewall_status_ads_active">%1$d aplikacji z tarczą prywatności</string>
+    <string name="filter_configured">Aktywne reguły (%1$d)</string>
     <string name="filter_adblock">Tarcza (%1$d)</string>
     <string name="menu_adblock_filters">Filtry telemetrii i analityki</string>
     <string name="about_desc">Wersja 1.3.5\nAutor: Marcin Stankiewicz\nLicencja: GNU GPLv3 (Open Source)\n\nUltra-lekki firewall i filtr telemetrii bez uprawnień root. Precyzyjnie kontroluje dostęp do internetu, chroni prywatność i blokuje serwery śledzące bez obciążania baterii.</string>
@@ -23,7 +24,6 @@
 
     <!-- Opisy platform -->
     <string name="ad_net_unity_desc">Serwery analityczne i telemetryczne platformy gier 3D</string>
-    <string name="ad_net_admob_desc">Sieć profilowania komercyjnego i zbierania analityki</string>
     <string name="ad_net_applovin_desc">Platforma analityki mobilnej i profilowania urządzeń</string>
     <string name="ad_net_ironsource_desc">Infrastruktura mediacji sieciowej i zbierania telemetrii</string>
     <string name="ad_net_vungle_desc">Zewnętrzne serwery dystrybucji mediów i telemetrii</string>
@@ -48,8 +48,17 @@
     <string name="traffic_inspector_master_off_warning">Ochrona jest wyłączona. Przechwytywanie ruchu i filtrowanie domen wymagają włączenia głównego przełącznika.</string>
     <string name="cd_traffic_inspector">Inspektor Ruchu i Pakietów</string>
 
-    <!-- Pływający widget -->
+    <!-- Pływający widget podręcznej pauzy -->
     <string name="floating_widget_title">Pływający przełącznik podręczny</string>
-    <string name="floating_widget_desc">Pływający przycisk nad aplikacjami pozwala tymczasowo odblokować połączenia 1 kliknięciem, a po upływie odliczania automatycznie wznawia ochronę.</string>
-    <string name="floating_widget_timer_desc">Automatycznie przywraca ochronę po zakończeniu odliczania.</string>
+    <string name="floating_widget_desc">Pływający przycisk nad aplikacjami pozwala tymczasowo wstrzymać reguły zapory 1 kliknięciem, a po upływie odliczania automatycznie wznawia ochronę.</string>
+    <string name="floating_widget_enable">Włącz pływający przycisk pauzy</string>
+    <string name="floating_widget_timer_enable">Automatyczne wznowienie ochrony</string>
+    <string name="floating_widget_timer_desc">Samoczynnie przywraca ochronę po zakończeniu odliczania.</string>
+    <string name="floating_widget_timer_duration">Czas wstrzymania ochrony</string>
+    <string name="floating_widget_perm_title">Wymagane uprawnienie systemowe</string>
+    <string name="floating_widget_perm_desc">Aby przycisk mógł być widoczny na wierzchu aplikacji, zezwól na „Wyświetlanie nad innymi aplikacjami” w ustawieniach systemu Android.</string>
+    <string name="floating_widget_grant_btn">Nadaj uprawnienie</string>
+    <string name="floating_widget_seconds_format">%1$d sekund</string>
+    <string name="floating_widget_badge_active">GUARD</string>
+    <string name="floating_widget_badge_paused">PAUZA</string>
 </resources>

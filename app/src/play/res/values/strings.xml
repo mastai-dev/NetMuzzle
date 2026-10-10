@@ -6,6 +6,7 @@
 
     <string name="firewall_status_both_active">Muzzled: %1$d • Privacy Shield: %2$d</string>
     <string name="firewall_status_ads_active">%1$d apps with privacy shield</string>
+    <string name="filter_configured">Active Rules (%1$d)</string>
     <string name="filter_adblock">Privacy Shield (%1$d)</string>
     <string name="menu_adblock_filters">Telemetry &amp; Tracker Filters</string>
     <string name="about_desc">Version 1.3.5\nAuthor: Marcin Stankiewicz\nLicense: GNU GPLv3 (Open Source)\n\nUltra-lightweight no-root application firewall and telemetry filter. Granularly controls internet access, protects your privacy and blocks background trackers with zero battery drain.</string>
@@ -23,7 +24,6 @@
 
     <!-- Network Descriptions -->
     <string name="ad_net_unity_desc">In-app analytics and third-party media SDK endpoints</string>
-    <string name="ad_net_admob_desc">Commercial profiling and user analytics network</string>
     <string name="ad_net_applovin_desc">Mobile telemetry and device profiling platform</string>
     <string name="ad_net_ironsource_desc">Mobile tracking and mediation infrastructure</string>
     <string name="ad_net_vungle_desc">Third-party media delivery and telemetry servers</string>
@@ -48,8 +48,17 @@
     <string name="traffic_inspector_master_off_warning">Protection is OFF. Traffic capture and domain filtering require the master switch to be turned ON.</string>
     <string name="cd_traffic_inspector">Traffic &amp; Packet Inspector</string>
 
-    <!-- Floating Controller -->
-    <string name="floating_widget_title">Floating Quick-Toggle Controller</string>
-    <string name="floating_widget_desc">A floating button over your apps allows you to temporarily unblock connections with 1 tap, then automatically resumes protection when the countdown timer expires.</string>
+    <!-- Floating Quick-Pause Controller -->
+    <string name="floating_widget_title">Floating Quick-Pause Controller</string>
+    <string name="floating_widget_desc">A floating button over your apps allows you to temporarily pause firewall rules with 1 tap, then automatically resumes protection when the countdown timer expires.</string>
+    <string name="floating_widget_enable">Enable floating pause button</string>
+    <string name="floating_widget_timer_enable">Auto-resume Protection</string>
     <string name="floating_widget_timer_desc">Automatically re-enables protection after the countdown finishes.</string>
+    <string name="floating_widget_timer_duration">Pause duration</string>
+    <string name="floating_widget_perm_title">Overlay Permission Required</string>
+    <string name="floating_widget_perm_desc">To display the button over active apps, please grant the \'Display over other apps\' permission in Android system settings.</string>
+    <string name="floating_widget_grant_btn">Grant Permission</string>
+    <string name="floating_widget_seconds_format">%1$d seconds</string>
+    <string name="floating_widget_badge_active">GUARD</string>
+    <string name="floating_widget_badge_paused">PAUSE</string>
 </resources>
