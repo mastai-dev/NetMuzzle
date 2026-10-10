@@ -95,6 +95,8 @@ import com.netmuzzle.firewall.model.AppInfo
 import com.netmuzzle.firewall.model.BlockMode
 import com.netmuzzle.firewall.model.VpnStatus
 import com.netmuzzle.firewall.service.dns.TrafficInspectorManager
+import androidx.compose.material3.Surface
+import com.netmuzzle.firewall.ui.theme.DarkBackground
 import com.netmuzzle.firewall.ui.theme.DarkBorder
 import com.netmuzzle.firewall.ui.theme.DarkCard
 import com.netmuzzle.firewall.ui.theme.DarkSurface
@@ -833,7 +835,8 @@ fun FirewallScreen(
                         lineHeight = 20.sp
                     )
 
-                    if (uiState.isUpdateAvailable && uiState.updateInfo != null) {
+                    val updateInfo = uiState.updateInfo
+                    if (uiState.isUpdateAvailable && updateInfo != null) {
                         Surface(
                             color = NeonCyan.copy(alpha = 0.08f),
                             shape = RoundedCornerShape(10.dp),
@@ -844,12 +847,12 @@ fun FirewallScreen(
                                 verticalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
                                 Text(
-                                    text = "🚀 Dostępna nowa wersja v${uiState.updateInfo.latestVersionName}",
+                                    text = "🚀 Dostępna nowa wersja v${updateInfo.latestVersionName}",
                                     color = NeonCyan,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 13.sp
                                 )
-                                val notes = uiState.updateInfo.getLocalizedReleaseNotes(
+                                val notes = updateInfo.getLocalizedReleaseNotes(
                                     java.util.Locale.getDefault().language
                                 )
                                 if (notes.isNotBlank()) {
@@ -866,7 +869,8 @@ fun FirewallScreen(
                 }
             },
             confirmButton = {
-                if (uiState.isUpdateAvailable) {
+                val updateInfo = uiState.updateInfo
+                if (uiState.isUpdateAvailable && updateInfo != null) {
                     Button(
                         onClick = {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(safeUrl))
@@ -877,7 +881,7 @@ fun FirewallScreen(
                         colors = ButtonDefaults.buttonColors(containerColor = NeonCyan)
                     ) {
                         Text(
-                            text = "Pobierz v${uiState.updateInfo?.latestVersionName ?: ""}",
+                            text = "Pobierz v${updateInfo.latestVersionName}",
                             color = DarkBackground,
                             fontWeight = FontWeight.Bold
                         )
