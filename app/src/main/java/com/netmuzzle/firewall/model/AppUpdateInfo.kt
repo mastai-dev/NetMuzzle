@@ -13,6 +13,10 @@ data class AppUpdateInfo(
         return forceUpdate && (currentVersionCode < minVersionCode)
     }
 
+    fun isUpdateAvailable(currentVersionCode: Int): Boolean {
+        return latestVersionCode > currentVersionCode
+    }
+
     /**
      * Zwraca opis zmian dostosowany do języka użytkownika (np. "pl", "en").
      * Jeśli dany język nie istnieje w releaseNotesI18n, szuka wersji angielskiej ("en"),

@@ -30,6 +30,7 @@ data class FirewallUiState(
     val customAdDomains: Set<String> = emptySet(),
     val disabledCustomDomains: Set<String> = emptySet(),
     val isUpdateRequired: Boolean = false,
+    val isUpdateAvailable: Boolean = false,
     val updateInfo: AppUpdateInfo? = null,
     val isCheckingUpdate: Boolean = false,
     val isFloatingWidgetEnabled: Boolean = false,

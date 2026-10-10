@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.VpnService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.netmuzzle.firewall.BuildConfig
 import com.netmuzzle.firewall.data.AppListRepository
 import com.netmuzzle.firewall.data.FirewallPreferences
 import com.netmuzzle.firewall.data.UpdateCheckerRepository
@@ -151,6 +152,7 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
             customAdDomains = rules.customDomains,
             disabledCustomDomains = rules.disabledCustom,
             isUpdateRequired = isUpdateRequired,
+            isUpdateAvailable = updateInfo?.isUpdateAvailable(updateChecker.currentVersionCode) ?: false,
             updateInfo = updateInfo,
             isCheckingUpdate = isCheckingUpdate,
             isFloatingWidgetEnabled = isFloatingWidgetEnabled,
@@ -164,6 +166,12 @@ class FirewallViewModel(application: Application) : AndroidViewModel(application
     )
 
     fun checkForUpdates() {
+        if (!BuildConfig.ENABLE_GITHUB_UPDATER) {
+            // Wariant Google Play: aktualizacje sa zarzadzane automatycznie przez sklep Google Play
+            _isCheckingUpdate.value = false
+            return
+        }
+
         viewModelScope.launch {
             _isCheckingUpdate.value = true
 

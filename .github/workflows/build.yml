@@ -56,28 +56,28 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: NetMuzzle-GooglePlay-Bundle-AAB
-          path: app/build/outputs/bundle/release/*.aab
+          path: app/build/outputs/bundle/playRelease/*.aab
           retention-days: 30
 
       - name: Upload Optimized Release APK (.apk)
         uses: actions/upload-artifact@v4
         with:
           name: NetMuzzle-Release-APK
-          path: app/build/outputs/apk/release/*.apk
+          path: app/build/outputs/apk/github/release/*.apk
           retention-days: 30
 
       - name: Upload Debug APK (.apk)
         uses: actions/upload-artifact@v4
         with:
           name: NetMuzzle-Debug-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/**/debug/*.apk
           retention-days: 30
 
       - name: Prepare Release Assets
         run: |
           mkdir -p release-assets
-          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.3.5.apk
-          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.3.5.aab
+          cp app/build/outputs/apk/github/release/*.apk release-assets/NetMuzzle-v1.3.5.apk
+          cp app/build/outputs/bundle/playRelease/*.aab release-assets/NetMuzzle-v1.3.5.aab
           ls -lh release-assets/
 
       - name: Publish GitHub Release

@@ -47,6 +47,23 @@ android {
             applicationIdSuffix = ".debug"
         }
     }
+
+    flavorDimensions += "distribution"
+
+    productFlavors {
+        create("play") {
+            dimension = "distribution"
+            buildConfigField("Boolean", "ENABLE_GITHUB_UPDATER", "false")
+            buildConfigField("String", "DISTRIBUTION_CHANNEL", "\"google_play\"")
+        }
+
+        create("github") {
+            dimension = "distribution"
+            buildConfigField("Boolean", "ENABLE_GITHUB_UPDATER", "true")
+            buildConfigField("String", "DISTRIBUTION_CHANNEL", "\"github\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -56,6 +73,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"

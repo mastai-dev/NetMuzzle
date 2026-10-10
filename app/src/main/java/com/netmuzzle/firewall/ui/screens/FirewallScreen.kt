@@ -808,6 +808,13 @@ fun FirewallScreen(
 
     // Dialog O aplikacji (Autor & Open Source)
     if (showAboutDialog) {
+        val rawUrl = uiState.updateInfo?.updateUrl?.trim()
+        val safeUrl = if (!rawUrl.isNullOrBlank() && rawUrl.startsWith("https://", ignoreCase = true)) {
+            rawUrl
+        } else {
+            "https://github.com/mastai-dev/NetMuzzle/releases/latest"
+        }
+
         AlertDialog(
             onDismissRequest = { showAboutDialog = false },
             title = {
@@ -818,18 +825,76 @@ fun FirewallScreen(
                 )
             },
             text = {
-                Text(
-                    stringResource(R.string.about_desc),
-                    color = TextSecondary,
-                    fontSize = 14.sp,
-                    lineHeight = 20.sp
-                )
-            },
-            confirmButton = {
-                TextButton(onClick = { showAboutDialog = false }) {
-                    Text(stringResource(R.string.dialog_ok), color = NeonCyan)
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(
+                        stringResource(R.string.about_desc),
+                        color = TextSecondary,
+                        fontSize = 14.sp,
+                        lineHeight = 20.sp
+                    )
+
+                    if (uiState.isUpdateAvailable && uiState.updateInfo != null) {
+                        Surface(
+                            color = NeonCyan.copy(alpha = 0.08f),
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, NeonCyan.copy(alpha = 0.35f))
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Text(
+                                    text = "🚀 Dostępna nowa wersja v${uiState.updateInfo.latestVersionName}",
+                                    color = NeonCyan,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 13.sp
+                                )
+                                val notes = uiState.updateInfo.getLocalizedReleaseNotes(
+                                    java.util.Locale.getDefault().language
+                                )
+                                if (notes.isNotBlank()) {
+                                    Text(
+                                        text = notes,
+                                        color = TextSecondary,
+                                        fontSize = 12.sp,
+                                        lineHeight = 16.sp
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             },
+            confirmButton = {
+                if (uiState.isUpdateAvailable) {
+                    Button(
+                        onClick = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(safeUrl))
+                            try {
+                                context.startActivity(intent)
+                            } catch (_: Exception) { }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = NeonCyan)
+                    ) {
+                        Text(
+                            text = "Pobierz v${uiState.updateInfo?.latestVersionName ?: ""}",
+                            color = DarkBackground,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                } else {
+                    TextButton(onClick = { showAboutDialog = false }) {
+                        Text(stringResource(R.string.dialog_ok), color = NeonCyan)
+                    }
+                }
+            },
+            dismissButton = if (uiState.isUpdateAvailable) {
+                {
+                    TextButton(onClick = { showAboutDialog = false }) {
+                        Text(stringResource(R.string.dialog_cancel), color = TextSecondary)
+                    }
+                }
+            } else null,
             containerColor = DarkSurface
         )
     }
