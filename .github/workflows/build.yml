@@ -1,0 +1,126 @@
+name: Build NetMuzzle APK & Google Play Bundle
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch: # Pozwala na ręczne uruchomienie w interfejsie GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build APKs and Google Play Bundle (AAB)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew
+        run: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+
+      - name: Decode Release Keystore from Secret
+        if: env.RELEASE_KEYSTORE_BASE64 != ''
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+        run: |
+          echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > app/netmuzzle-release.keystore
+          ls -lh app/netmuzzle-release.keystore
+
+      - name: Build Debug/Release APKs and Google Play Bundle (.aab)
+        env:
+          RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+        run: ./gradlew assembleDebug assembleRelease bundleRelease --stacktrace
+
+      - name: Cleanup Keystore
+        if: always()
+        run: rm -f app/netmuzzle-release.keystore
+
+      - name: Upload Google Play Bundle (.aab)
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetMuzzle-GooglePlay-Bundle-AAB
+          path: app/build/outputs/bundle/release/*.aab
+          retention-days: 30
+
+      - name: Upload Optimized Release APK (.apk)
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetMuzzle-Release-APK
+          path: app/build/outputs/apk/release/*.apk
+          retention-days: 30
+
+      - name: Upload Debug APK (.apk)
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetMuzzle-Debug-APK
+          path: app/build/outputs/apk/debug/*.apk
+          retention-days: 30
+
+      - name: Prepare Release Assets
+        run: |
+          mkdir -p release-assets
+          cp app/build/outputs/apk/release/*.apk release-assets/NetMuzzle-v1.3.5.apk
+          cp app/build/outputs/bundle/release/*.aab release-assets/NetMuzzle-v1.3.5.aab
+          ls -lh release-assets/
+
+      - name: Publish GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.3.5
+          name: "NetMuzzle v1.3.5 (Official Release)"
+          body: |
+            ## 🛡️ NetMuzzle v1.3.5
+
+            Ultra-lightweight, zero-CPU, no-root Android firewall & Game AdBlocker.  
+            *Super-lekki firewall i bloker reklam w grach na Androida bez roota i bez drenowania baterii.*
+
+            ---
+
+            ### 🇬🇧 English
+
+            #### 📦 Download
+            - **[NetMuzzle-v1.3.5.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.5/NetMuzzle-v1.3.5.apk)** (~1.3 MB) — Direct standalone APK ready to install on your Android device (Android 8.0 Oreo up to Android 15+).
+            - **NetMuzzle-v1.3.5.aab** — Google Play production App Bundle.
+
+            #### ✨ What's New in v1.3.5 (UX & Accessibility Upgrade)
+            - 📋 **1-Tap Domain Copying:** In the Live Traffic & Ad Inspector, tapping or long-pressing any captured domain instantly copies it to the device clipboard with tactile haptic feedback and a confirmation Toast.
+            - 🎯 **Enlarged Touch Targets (min. 48dp):** Radar Inspector icons in game cards and custom domain trash buttons now guarantee a minimum 48x48 dp touch target conforming to Material Design & Android Accessibility standards.
+            - 🔍 **Tactile Empty Search State:** Replaced blank text with an interactive empty state featuring an illuminated search badge, contextual explanation, and a 1-tap "Reset filters & search" button.
+            - 🛡️ **Full Security & Features of v1.3.4/v1.3.3:** Hybrid routing leak prevention, instant IPv6 TCP RST rejection, procfs UID resolution on Android 8–9, floating in-game controller with auto-rearm timer.
+
+            ---
+
+            ### 🇵🇱 Polski
+
+            #### 📦 Pobierz
+            - **[NetMuzzle-v1.3.5.apk](https://github.com/mastai-dev/NetMuzzle/releases/download/v1.3.5/NetMuzzle-v1.3.5.apk)** (~1.3 MB) — Gotowy plik instalacyjny APK na smartfon z Androidem (Android 8.0 Oreo do Android 15+).
+            - **NetMuzzle-v1.3.5.aab** — Oficjalna paczka produkcyjna dla Google Play.
+
+            #### ✨ Nowości w wersji 1.3.5 (Ulepszenia UX i Ergonomii)
+            - 📋 **Kopiowanie domen w Inspektorze Ruchu:** Tapnięcie lub dłuższe przytrzymanie przechwyconej domeny natychmiast kopiuje ją do systemowego schowka z powiadomieniem Toast i haptyczną wibracją.
+            - 🎯 **Powiększone cele dotykowe (min. 48dp):** Ikony radaru w kafelkach gier oraz przyciski usuwania domen posiadają teraz pełne pole dotykowe 48x48 dp zgodnie z wytycznymi dostępności Google.
+            - 🔍 **Taktyczny pusty stan (Empty State):** Estetyczna grafika z neonową lupą, dynamicznym opisem i 1-klikowym przyciskiem „Wyczyść filtry i szukanie” przywracającym pełną listę aplikacji.
+            - 🛡️ **Wszystkie zabezpieczenia z v1.3.4 i v1.3.3:** Uszczelnione trasy publicznych DNS, natychmiastowy TCP RST w IPv6 i pływający widget w grach z timerem.
+          files: |
+            release-assets/NetMuzzle-v1.3.5.apk
+            release-assets/NetMuzzle-v1.3.5.aab
+
+

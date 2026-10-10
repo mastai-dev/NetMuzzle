@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NetMuzzle</string>
+    <string name="quick_settings_tile_label">NetMuzzle</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">NetMuzzle Status</string>
+    <string name="notification_channel_desc">Background firewall status notifications</string>
+    <string name="notification_active_title">NetMuzzle Active</string>
+    <string name="notification_standby_title">NetMuzzle on Standby</string>
+    <string name="notification_active_text">Protecting %1$d apps</string>
+    <string name="notification_standby_text">No apps on blocklist (traffic unblocked)</string>
+    <string name="notification_action_stop">Turn Off</string>
+
+    <!-- UI Strings -->
+    <string name="firewall_status_active">PROTECTION ACTIVE</string>
+    <string name="firewall_status_standby">STANDBY MODE</string>
+    <string name="firewall_status_disabled">PROTECTION DISABLED</string>
+    <string name="firewall_status_disabled_desc">Network traffic is not being filtered</string>
+    <string name="firewall_status_both_active">Muzzled: %1$d • Ads Blocked: %2$d</string>
+    <string name="firewall_status_ads_active">%1$d apps with ad blocking</string>
+    <string name="firewall_status_muzzle_active">Muzzle applied to %1$d apps</string>
+    <string name="master_switch_label">Master Protection</string>
+    <string name="master_switch_on">ENABLED</string>
+    <string name="master_switch_off">DISABLED</string>
+    <string name="search_placeholder">Search apps…</string>
+    <string name="filter_all">All (%1$d)</string>
+    <string name="filter_games">Games (%1$d)</string>
+    <string name="filter_adblock">Block Ads (%1$d)</string>
+    <string name="filter_fullblock">Muzzled (%1$d)</string>
+    <string name="filter_blocked">Protected (%1$d)</string>
+    <string name="filter_system_apps">System apps</string>
+    <string name="setting_start_on_boot">Start on device boot</string>
+    <string name="setting_language">Language / Język</string>
+    <string name="setting_battery_opt">Battery optimization</string>
+    <string name="menu_help">Tutorial &amp; Help</string>
+    <string name="menu_adblock_filters">Game AdBlock Filters</string>
+    <string name="menu_about">About NetMuzzle</string>
+    <string name="about_title">NetMuzzle</string>
+    <string name="about_desc">Version 1.3.5\nAuthor: Marcin Stankiewicz\nLicense: GNU GPLv3 (Open Source)\n\nUltra-lightweight no-root firewall and game ad blocker. Allows selective ad blocking without breaking game servers and zero battery drain.</string>
+    <string name="dialog_language_title">Select Language / Wybierz język</string>
+    <string name="lang_english">English (US)</string>
+    <string name="lang_polish">Polski</string>
+    <string name="battery_opt_dialog_title">Battery Optimization</string>
+    <string name="battery_opt_dialog_desc">To prevent Android from killing NetMuzzle in the background when the screen is locked, we recommend adding the app to battery optimization exemptions.</string>
+    <string name="battery_opt_action">Open Settings</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_ok">Got It</string>
+    <string name="cd_clear">Clear</string>
+    <string name="cd_menu">Menu</string>
+    <string name="cd_help">Help</string>
+    <string name="cd_filters">Filters</string>
+    <string name="badge_system">SYS</string>
+    <string name="badge_game">GAME</string>
+    <string name="no_apps_found">No matching apps found</string>
+
+    <!-- AdBlock Management -->
+    <string name="adblock_manager_title">Game AdBlock Filters</string>
+    <string name="adblock_manager_desc">Control ad networks blocked in games. If a game offers rewards for watching video ads (Rewarded Ads), you can unblock that specific network (e.g. Unity Ads).</string>
+    <string name="builtin_networks_header">Built-in Ad Networks</string>
+    <string name="custom_domains_header">Custom Ad Domains</string>
+    <string name="add_domain_button">+ Add Ad Domain</string>
+    <string name="add_domain_dialog_title">Add Ad Domain</string>
+    <string name="add_domain_dialog_desc">Enter an ad server domain to block (e.g. ads.example.com):</string>
+    <string name="add_domain_hint">Domain (e.g. ads.game-network.com)</string>
+    <string name="add_domain_confirm">Add</string>
+    <string name="no_custom_domains">No custom domains added yet.</string>
+    <string name="mode_allow">Allow</string>
+    <string name="mode_adblock">Block Ads</string>
+    <string name="mode_fullblock">Muzzle</string>
+
+    <!-- Built-in Ad Networks Descriptions -->
+    <string name="ad_net_unity_desc">Primary provider of rewarded video ads in 3D mobile games</string>
+    <string name="ad_net_admob_desc">Google banner and interstitial ad network</string>
+    <string name="ad_net_applovin_desc">Mobile game monetization and rewarded video platform</string>
+    <string name="ad_net_ironsource_desc">Popular video ads and casual game mediation</string>
+    <string name="ad_net_vungle_desc">HD video advertising in mobile games</string>
+    <string name="ad_net_mintegral_desc">Global programmatic in-game ad network</string>
+    <string name="ad_net_inmobi_desc">Global in-app advertising platform</string>
+    <string name="ad_net_chartboost_desc">Cross-promotion and interstitial ads in mobile games</string>
+    <string name="ad_net_pangle_desc">Video ad network for mobile games</string>
+
+    <!-- Help & Tutorial Dialog -->
+    <string name="help_dialog_title">How NetMuzzle Works</string>
+    <string name="help_section_modes_title">Three modes in the app capsule:</string>
+    <string name="help_mode_allow_title">🌐 Allow (Bypass)</string>
+    <string name="help_mode_allow_desc">The app connects directly to the internet without any firewall intervention.</string>
+    <string name="help_mode_adblock_title">🛡️ Block Ads (Game Shield)</string>
+    <string name="help_mode_adblock_desc">Designed for games! Game data (multiplayer, login) flows directly with zero lag, while ad networks (Unity, AdMob, etc.) are filtered out.</string>
+    <string name="help_mode_fullblock_title">🚫 Muzzle (Blackhole)</string>
+    <string name="help_mode_fullblock_desc">Complete disconnection from the internet. Zero battery drain, uncompromising blocking.</string>
+    <string name="help_section_rewards_title">🎁 Video Rewards (Rewarded Ads):</string>
+    <string name="help_section_rewards_desc">Want in-game rewards for watching an ad? Tap the filter icon at the top and unblock the network (e.g. Unity Ads). Rewards will work while annoying pop-ups remain blocked!</string>
+    <string name="help_section_battery_title">⚡ Zero Battery Drain:</string>
+    <string name="help_section_battery_desc">Heavy game downloads bypass the VPN at the Linux kernel level. Our tunnel only checks tiny domain name queries (DNS).</string>
+
+    <!-- Force Update Strings -->
+    <string name="update_required_title">Update Required</string>
+    <string name="update_required_subtitle">A new version of NetMuzzle is available</string>
+    <string name="update_required_desc">Your version (%1$s) is outdated and no longer supported. To manage firewall rules and configure settings, please update to the latest version (%2$s).</string>
+    <string name="update_service_running_note">Firewall protection remains active in the background.</string>
+    <string name="update_btn_download">Download Update</string>
+    <string name="update_btn_run_background">Keep in Background</string>
+    <string name="update_changelog_header">What\'s new:</string>
+    <string name="latest_version_label">latest</string>
+
+    <!-- Traffic Inspector Strings -->
+    <string name="traffic_inspector_title">Traffic &amp; Ad Inspector</string>
+    <string name="traffic_inspector_subtitle">Live DNS network capture for %1$s</string>
+    <string name="traffic_inspector_desc">Inspect real-time network requests from this game. When an ad appears in the game, return here to find and block its domain with 1 click.</string>
+    <string name="traffic_inspector_start">Start Capture</string>
+    <string name="traffic_inspector_stop">Stop Capture</string>
+    <string name="traffic_inspector_active_status">Capture active • Auto-stop in: %1$s</string>
+    <string name="traffic_inspector_idle_status">Capture stopped • Ready to inspect</string>
+    <string name="traffic_inspector_empty">No domains captured yet.\nStart capture and open the game.</string>
+    <string name="traffic_inspector_badge_suspicious">Suspicious: Ad/Tracker</string>
+    <string name="traffic_inspector_badge_blocked">Blocked</string>
+    <string name="traffic_inspector_badge_allowed">Allowed</string>
+    <string name="traffic_inspector_btn_block">Block</string>
+    <string name="traffic_inspector_btn_unblock">Unblock</string>
+    <string name="traffic_inspector_btn_clear">Clear History</string>
+    <string name="traffic_inspector_tip">Tip: Play the game until an ad pops up, then switch back here. The newest ad domains appear right at the top!</string>
+    <string name="traffic_inspector_master_off_warning">Protection is OFF. Traffic capture and ad blocking require the master switch to be turned ON.</string>
+    <string name="traffic_inspector_btn_turn_on">Turn ON Protection</string>
+    <string name="traffic_inspector_restart_hint">Tip: If the game was already open in the background, restart it (swipe away from recent apps) so it generates fresh DNS requests instead of using cached ones.</string>
+    <string name="cd_traffic_inspector">Traffic &amp; Ad Inspector</string>
+
+    <!-- Relative Time Strings -->
+    <string name="time_just_now">just now</string>
+    <string name="time_seconds_ago">%1$ds ago</string>
+    <string name="time_minutes_ago">%1$dm ago</string>
+    <string name="time_hours_ago">%1$dh ago</string>
+
+    <!-- Active Sniffing Banner Strings -->
+    <string name="active_sniffing_banner">Live Sniffer active: %1$s • %2$s left</string>
+    <string name="active_sniffing_open">Open</string>
+
+    <!-- Floating In-Game Controller Strings -->
+    <string name="floating_widget_title">Floating In-Game Controller</string>
+    <string name="floating_widget_desc">A floating button over your games allows you to unblock rewarded video ads (bonus coins/gems) with 1 tap, then automatically resumes ad-blocking when the timer expires.</string>
+    <string name="floating_widget_enable">Enable floating controller</string>
+    <string name="floating_widget_timer_enable">Auto-rearm Timer</string>
+    <string name="floating_widget_timer_desc">Automatically re-enables ad-blocking after the countdown finishes.</string>
+    <string name="floating_widget_timer_duration">Unlock duration</string>
+    <string name="floating_widget_perm_title">Overlay Permission Required</string>
+    <string name="floating_widget_perm_desc">To display the button over games, please grant the \'Display over other apps\' permission in Android system settings.</string>
+    <string name="floating_widget_grant_btn">Grant Permission</string>
+    <string name="floating_widget_seconds_format">%1$d seconds</string>
+
+    <!-- Domain Copying & UX -->
+    <string name="traffic_inspector_domain_copied">Copied domain: %1$s</string>
+    <string name="traffic_inspector_copy_hint">Long-press domain to copy</string>
+
+    <!-- Empty Search / Filter State -->
+    <string name="empty_state_title">No matching applications</string>
+    <string name="empty_state_desc">No apps match \"%1$s\" with the current filter.</string>
+    <string name="empty_state_desc_category">No applications found in this category.</string>
+    <string name="empty_state_btn_reset">Reset filters &amp; search</string>
+</resources>

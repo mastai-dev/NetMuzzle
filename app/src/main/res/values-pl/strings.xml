@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NetMuzzle</string>
+    <string name="quick_settings_tile_label">NetMuzzle</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_channel_name">Stan NetMuzzle</string>
+    <string name="notification_channel_desc">Powiadomienia o statusie ochrony w tle</string>
+    <string name="notification_active_title">NetMuzzle aktywny</string>
+    <string name="notification_standby_title">NetMuzzle w trybie czuwania</string>
+    <string name="notification_active_text">Ochrona aktywna dla %1$d aplikacji</string>
+    <string name="notification_standby_text">Brak aplikacji na liście (ruch odblokowany)</string>
+    <string name="notification_action_stop">Wyłącz</string>
+
+    <!-- UI Strings -->
+    <string name="firewall_status_active">OCHRONA JEST AKTYWNA</string>
+    <string name="firewall_status_standby">TRYB CZUWANIA</string>
+    <string name="firewall_status_disabled">OCHRONA JEST WYŁĄCZONA</string>
+    <string name="firewall_status_disabled_desc">Ruch sieciowy nie jest filtrowany</string>
+    <string name="firewall_status_both_active">Kaganiec: %1$d • Blokada Ads: %2$d</string>
+    <string name="firewall_status_ads_active">%1$d gier z blokadą reklam</string>
+    <string name="firewall_status_muzzle_active">Kaganiec nałożony na %1$d aplikacji</string>
+    <string name="master_switch_label">Główny włącznik</string>
+    <string name="master_switch_on">WŁĄCZONA</string>
+    <string name="master_switch_off">WYŁĄCZONA</string>
+    <string name="search_placeholder">Szukaj aplikacji…</string>
+    <string name="filter_all">Wszystkie (%1$d)</string>
+    <string name="filter_games">Gry (%1$d)</string>
+    <string name="filter_adblock">Blokuj Ads (%1$d)</string>
+    <string name="filter_fullblock">Kaganiec (%1$d)</string>
+    <string name="filter_blocked">Chronione (%1$d)</string>
+    <string name="filter_system_apps">Aplikacje systemowe</string>
+    <string name="setting_start_on_boot">Uruchom przy starcie urządzenia</string>
+    <string name="setting_language">Język aplikacji / Language</string>
+    <string name="setting_battery_opt">Optymalizacja baterii</string>
+    <string name="menu_help">Samouczek i pomoc</string>
+    <string name="menu_adblock_filters">Filtry reklam w grach</string>
+    <string name="menu_about">O aplikacji</string>
+    <string name="about_title">NetMuzzle</string>
+    <string name="about_desc">Wersja 1.3.5\nAutor: Marcin Stankiewicz\nLicencja: GNU GPLv3 (Open Source)\n\nUltra-lekki firewall i bloker reklam w grach na system Android. Zerowy narzut na baterię, brak opóźnień w grach i pełna kontrola nad prywatnością.</string>
+    <string name="dialog_language_title">Wybierz język / Select Language</string>
+    <string name="lang_english">English (US)</string>
+    <string name="lang_polish">Polski</string>
+    <string name="battery_opt_dialog_title">Optymalizacja baterii</string>
+    <string name="battery_opt_dialog_desc">Aby system Android nie wyłączał NetMuzzle w tle po uśpieniu ekranu, zaleca się dodanie aplikacji do wyjątków oszczędzania energii.</string>
+    <string name="battery_opt_action">Otwórz ustawienia</string>
+    <string name="dialog_cancel">Anuluj</string>
+    <string name="dialog_ok">Rozumiem</string>
+    <string name="cd_clear">Wyczyść</string>
+    <string name="cd_menu">Menu</string>
+    <string name="cd_help">Pomoc</string>
+    <string name="cd_filters">Filtry</string>
+    <string name="badge_system">SYS</string>
+    <string name="badge_game">GRA</string>
+    <string name="no_apps_found">Nie znaleziono pasujących aplikacji</string>
+
+    <!-- AdBlock Management -->
+    <string name="adblock_manager_title">Filtry reklam w grach</string>
+    <string name="adblock_manager_desc">Zarządzaj sieciami reklamowymi blokowanymi w grach. Jeśli gra oferuje nagrody za wideo (np. darmowe monety), możesz odznaczyć wybraną sieć (np. Unity Ads), by nagrody działały!</string>
+    <string name="builtin_networks_header">Wbudowane sieci reklamowe</string>
+    <string name="custom_domains_header">Własne domeny reklamowe</string>
+    <string name="add_domain_button">+ Dodaj własną domenę</string>
+    <string name="add_domain_dialog_title">Dodaj domenę serwera reklam</string>
+    <string name="add_domain_dialog_desc">Wpisz adres domeny do zablokowania (np. ads.jakasgra.com):</string>
+    <string name="add_domain_hint">Domena (np. ads.game-network.com)</string>
+    <string name="add_domain_confirm">Dodaj</string>
+    <string name="no_custom_domains">Brak własnych domen reklamowych.</string>
+    <string name="mode_allow">Zezwalaj</string>
+    <string name="mode_adblock">Blokuj Ads</string>
+    <string name="mode_fullblock">Kaganiec</string>
+
+    <!-- Wbudowane sieci reklamowe - opisy -->
+    <string name="ad_net_unity_desc">Główny dostawca reklam i wideo z nagrodami w grach 3D</string>
+    <string name="ad_net_admob_desc">Banery i reklamy pełnoekranowe Google</string>
+    <string name="ad_net_applovin_desc">Platforma monetyzacji i wideo dla gier mobilnych</string>
+    <string name="ad_net_ironsource_desc">Popularne reklamy wideo i gry casualowe</string>
+    <string name="ad_net_vungle_desc">Reklamy wideo HD w grach mobilnych</string>
+    <string name="ad_net_mintegral_desc">Globalna sieć reklamowa w grach</string>
+    <string name="ad_net_inmobi_desc">Globalna platforma reklamowa w aplikacjach</string>
+    <string name="ad_net_chartboost_desc">Promocje krzyżowe i reklamy w grach</string>
+    <string name="ad_net_pangle_desc">Sieć reklamowa wideo dla gier</string>
+
+    <!-- Help & Tutorial Dialog -->
+    <string name="help_dialog_title">Jak działa NetMuzzle?</string>
+    <string name="help_section_modes_title">Trzy tryby w kapsule aplikacji:</string>
+    <string name="help_mode_allow_title">🌐 Zezwalaj (Bypass)</string>
+    <string name="help_mode_allow_desc">Aplikacja łączy się bezpośrednio z internetem bez udziału ochrony.</string>
+    <string name="help_mode_adblock_title">🛡️ Blokuj Ads (Game Shield)</string>
+    <string name="help_mode_adblock_desc">Tryb stworzony dla gier! Ruch gry (multiplayer, logowanie) leci bezpośrednio z zerowym opóźnieniem, a domeny reklamowe (Unity, AdMob itp.) są wycinane.</string>
+    <string name="help_mode_fullblock_title">🚫 Kaganiec (Blackhole)</string>
+    <string name="help_mode_fullblock_desc">Całkowite odcięcie aplikacji od internetu. 0% baterii, bezkompromisowa blokada.</string>
+    <string name="help_section_rewards_title">🎁 Reklamy z nagrodą (Rewarded Ads):</string>
+    <string name="help_section_rewards_desc">Chcesz dostać bonusowe monety za wideo? Kliknij ikonę filtrów na górze i odznacz sieć (np. Unity Ads). Nagrody zaczną działać, a inne wyskakujące reklamy pozostaną zablokowane!</string>
+    <string name="help_section_battery_title">⚡ Zero drenażu baterii:</string>
+    <string name="help_section_battery_desc">Gry pobierają gigabajty danych bezpośrednio przez Wi-Fi/LTE. Nasz tunel sprawdza tylko małe zapytania o adresy (DNS).</string>
+
+    <!-- Force Update Strings -->
+    <string name="update_required_title">Wymagana aktualizacja</string>
+    <string name="update_required_subtitle">Dostępna jest nowa wersja NetMuzzle</string>
+    <string name="update_required_desc">Twoja obecna wersja (%1$s) jest przestarzała. Aby móc zarządzać zaporą i zmieniać ustawienia, zaktualizuj aplikację do najnowszej wersji (%2$s).</string>
+    <string name="update_service_running_note">Ochrona zapory i blokowanie reklam działają nadal nieprzerwanie w tle.</string>
+    <string name="update_btn_download">Pobierz aktualizację</string>
+    <string name="update_btn_run_background">Działaj w tle</string>
+    <string name="update_changelog_header">Co nowego:</string>
+    <string name="latest_version_label">najnowszej</string>
+
+    <!-- Traffic Inspector Strings -->
+    <string name="traffic_inspector_title">Inspektor ruchu i reklam</string>
+    <string name="traffic_inspector_subtitle">Podgląd zapytań DNS na żywo dla %1$s</string>
+    <string name="traffic_inspector_desc">Przechwytuj zapytania sieciowe tej gry w czasie rzeczywistym. Gdy w grze pojawi się reklama, wróć tutaj i zablokuj jej domenę 1 kliknięciem.</string>
+    <string name="traffic_inspector_start">Rozpocznij nasłuch</string>
+    <string name="traffic_inspector_stop">Zatrzymaj nasłuch</string>
+    <string name="traffic_inspector_active_status">Nasłuch aktywny • Auto-wyłączenie za: %1$s</string>
+    <string name="traffic_inspector_idle_status">Nasłuch wyłączony • Gotowy do testu</string>
+    <string name="traffic_inspector_empty">Brak przechwyconych domen.\nUruchom nasłuch i włącz grę.</string>
+    <string name="traffic_inspector_badge_suspicious">Podejrzane: Reklama/Tracker</string>
+    <string name="traffic_inspector_badge_blocked">Zablokowana</string>
+    <string name="traffic_inspector_badge_allowed">Zezwolona</string>
+    <string name="traffic_inspector_btn_block">Zablokuj</string>
+    <string name="traffic_inspector_btn_unblock">Odblokuj</string>
+    <string name="traffic_inspector_btn_clear">Wyczyść historię</string>
+    <string name="traffic_inspector_tip">Wskazówka: Zagraj chwilę w grę. Gdy wyskoczy reklama, wróć tutaj — serwer reklamy pojawi się na samej górze listy!</string>
+    <string name="traffic_inspector_master_off_warning">Główna ochrona jest wyłączona. Przechwytywanie ruchu i blokowanie reklam wymagają włączenia głównego włącznika.</string>
+    <string name="traffic_inspector_btn_turn_on">Włącz ochronę</string>
+    <string name="traffic_inspector_restart_hint">Wskazówka: Jeśli gra była już otwarta w tle, zrestartuj ją (zamknij z ostatnich aplikacji), aby wymusić nowe zapytania DNS zamiast pamięci podręcznej.</string>
+    <string name="cd_traffic_inspector">Inspektor ruchu i reklam</string>
+
+    <!-- Relative Time Strings -->
+    <string name="time_just_now">przed chwilą</string>
+    <string name="time_seconds_ago">%1$ds temu</string>
+    <string name="time_minutes_ago">%1$dm temu</string>
+    <string name="time_hours_ago">%1$dh temu</string>
+
+    <!-- Active Sniffing Banner Strings -->
+    <string name="active_sniffing_banner">Nasłuch aktywny: %1$s • Pozostało %2$s</string>
+    <string name="active_sniffing_open">Otwórz</string>
+
+    <!-- Pływający kontroler reklam w grach -->
+    <string name="floating_widget_title">Pływający kontroler w grach</string>
+    <string name="floating_widget_desc">Pływający przycisk na wierzchu gier pozwala 1 kliknięciem odblokować reklamę z nagrodą (bonusowe monety/życia), po czym automatycznie wznawia blokowanie po upływie timera.</string>
+    <string name="floating_widget_enable">Włącz pływający przycisk</string>
+    <string name="floating_widget_timer_enable">Automatyczny powrót (Timer)</string>
+    <string name="floating_widget_timer_desc">Samoczynnie włącza blokadę reklam po upływie odliczania.</string>
+    <string name="floating_widget_timer_duration">Czas odblokowania reklamy</string>
+    <string name="floating_widget_perm_title">Wymagane uprawnienie systemowe</string>
+    <string name="floating_widget_perm_desc">Aby przycisk mógł być widoczny na wierzchu gry, zezwól na „Wyświetlanie nad innymi aplikacjami” w ustawieniach systemu Android.</string>
+    <string name="floating_widget_grant_btn">Nadaj uprawnienie</string>
+    <string name="floating_widget_seconds_format">%1$d sekund</string>
+
+    <!-- Kopiowanie domen & UX -->
+    <string name="traffic_inspector_domain_copied">Skopiowano domenę: %1$s</string>
+    <string name="traffic_inspector_copy_hint">Przytrzymaj domenę, aby skopiować</string>
+
+    <!-- Pusty stan wyszukiwania / filtrów -->
+    <string name="empty_state_title">Brak pasujących aplikacji</string>
+    <string name="empty_state_desc">Brak aplikacji dla „%1$s” w wybranym filtrze.</string>
+    <string name="empty_state_desc_category">Brak aplikacji w tej kategorii.</string>
+    <string name="empty_state_btn_reset">Wyczyść filtry i szukanie</string>
+</resources>
